@@ -1,0 +1,25 @@
+<!-- Form Title -->
+<div class="form-margin ">
+  <h2 class="ui header">Manage Your Financial Account</h2>
+  <div class="ui">
+    Effortlessly track, edit, and organize your financial transactions in one place.
+  </div>
+</div>
+<div class="ui horizontal divider">&</div>
+<form class="ui form mt-4 warning" [formGroup]="accountForm" (ngSubmit)="onSubmitForm()" >
+  <div class="six wide field">
+    <app-input [label]="'Account Name'" [control]="nameControl" />
+  </div>
+  <div class="six wide field">
+    <app-input [label]="'Account Description'" [control]="accountForm.controls.description" />
+  </div>
+  <button type="submit"
+          class="ui submit button"
+          [disabled]="accountForm.invalid"
+  > <i class="pause icon"></i> Save </button>
+</form>
+
+<div>{{accountForm.value | json}}</div>
+<div>Form is valid: {{accountForm.valid | json}}</div>
+<div>Errors around amount fields : {{accountForm.controls.name.errors | json}}</div>
+<div>Errors around note fields : {{accountForm.controls.description.errors | json}}</div>

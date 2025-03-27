@@ -8,7 +8,7 @@ export  class BaseService<T>{
    }
 
    getAll():Observable<T[]>{
-    return this.http.get<T[]>(`${this.baseUrl}/getAll`,{})
+    return this.http.get<T[]>(`${this.baseUrl}/units`,{})
    }
 
    getById():Observable<T>{

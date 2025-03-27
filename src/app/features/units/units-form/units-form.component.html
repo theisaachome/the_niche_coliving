@@ -1,1 +1,25 @@
-<p>units-form works!</p>
+<!-- Form Title -->
+<div class="form-margin ">
+  <h2 class="ui header">Manage Your Units </h2>
+  <div class="ui">
+    Effortlessly track, edit, and organize your financial transactions in one place.
+  </div>
+</div>
+<div class="ui horizontal divider">&</div>
+<form class="ui form" (ngSubmit)="onSubmit()" [formGroup]="unitForm">
+  <div class="six wide field">
+    <app-input [label]="'Unit Name'" [control]="nameControl"/>
+  </div>
+    <div class="six wide field">
+      <app-input [label]="'Address 1'" [control]="address1Control"/>
+    </div>
+    <div class="six wide field">
+      <app-input [label]="'Address 2'" [control]="address2Control"/>
+    </div>
+  <button type="submit" class="ui button" [disabled]="!unitForm.valid"> Submit </button>
+</form>
+
+<div>{{unitForm.value | json}}</div>
+<div>Form is valid: {{unitForm.valid | json}}</div>
+<!--<div>Errors around amount fields : {{accountForm.controls.name.errors | json}}</div>-->
+<!--<div>Errors around note fields : {{accountForm.controls.description.errors | json}}</div>-->

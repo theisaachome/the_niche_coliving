@@ -1,12 +1,11 @@
 import {Component, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {JsonPipe, NgIf} from '@angular/common';
+import { NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-input',
   imports: [
     NgIf,
-    JsonPipe,
     ReactiveFormsModule
   ],
   templateUrl: './input.component.html',
@@ -23,7 +22,7 @@ export class InputComponent {
   constructor() {
   }
   get isValid(){
-    return  this.control.errors && this.control.touched && this.control.dirty;
+    return  this.control.errors && this.control.touched && this.control.dirty && this.control.invalid;
   }
   get minlengthError() {
     return this.control.errors?.['minlength'];

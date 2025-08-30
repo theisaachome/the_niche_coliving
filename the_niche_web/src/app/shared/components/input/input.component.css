@@ -5,3 +5,7 @@
   font-weight: 700;
   text-transform: none;
 }
+
+input.ng-invalid.ng-touched {
+    border: 1px solid #e58181;
+}

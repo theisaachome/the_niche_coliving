@@ -1,12 +1,15 @@
 import {Component, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {JsonPipe, NgClass} from "@angular/common";
 
 
 @Component({
   selector: 'app-input',
-  imports: [
-    ReactiveFormsModule
-],
+    imports: [
+        ReactiveFormsModule,
+        NgClass,
+        JsonPipe
+    ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   standalone:true
@@ -17,6 +20,8 @@ export class InputComponent {
    control!: FormControl;
    @Input()
    label!:string;
+
+   @Input() required = false;
 
   constructor() {
   }

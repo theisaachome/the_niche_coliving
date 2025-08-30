@@ -1,0 +1,29 @@
+{
+  "unit": {
+    "id": 1,
+    "name": "The Niche Residence",
+    "address": "123 Jalan Ampang, Kuala Lumpur, Malaysia",
+    "notes": "Premium coliving space in the heart of the city",
+    "description": "A modern coliving unit offering shared and private rooms, close to public transport and shopping areas."
+  },
+  "rooms": [
+    {
+      "id": 101,
+      "room_number": "A101",
+      "capacity": 2,
+      "notes": "Twin sharing room with balcony"
+    },
+    {
+      "id": 102,
+      "room_number": "A102",
+      "capacity": 1,
+      "notes": "Single room with attached bathroom"
+    },
+    {
+      "id": 103,
+      "room_number": "A103",
+      "capacity": 3,
+      "notes": "Triple sharing room near the common kitchen"
+    }
+  ]
+}

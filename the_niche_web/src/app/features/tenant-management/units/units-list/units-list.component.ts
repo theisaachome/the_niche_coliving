@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UnitsFormComponent} from '../units-form/units-form.component';
-import {UnitService} from '../../../core/services/unit.service';
+import {UnitService} from '../../../../core/services/unit.service';
 import {Observable} from 'rxjs';
-import {Unit} from '../../../core/models/models';
+import {Unit} from '../../../../core/models/models';
 import {AsyncPipe} from '@angular/common';
 
 @Component({

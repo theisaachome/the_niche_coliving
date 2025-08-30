@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {InputComponent} from '../../../shared/components/input/input.component';
+import {InputComponent} from '../../../../shared/components/input/input.component';
 import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
 

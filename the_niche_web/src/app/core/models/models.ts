@@ -9,11 +9,3 @@ export interface Transaction{
   note:string,
   description:string,
 }
-
-
-export interface  Unit{
-  id:number,
-  name:string,
-  address1:string,
-  address2:string
-}

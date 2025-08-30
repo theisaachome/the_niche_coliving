@@ -1,0 +1,10 @@
+
+/* Footer always at bottom */
+.app-footer {
+    background: #f1f5f9;
+    text-align: right;
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: #475569;
+    margin-top: auto; /* pushes footer to bottom */
+}

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {InputComponent} from '../../../../shared/components/input/input.component';
 import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {JsonPipe} from '@angular/common';
+import {UnitsService} from "../units.service";
 
 @Component({
   selector: 'app-units-form',
@@ -17,32 +18,34 @@ import {JsonPipe} from '@angular/common';
 })
 export class UnitsFormComponent  implements  OnInit{
   unitForm:FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private unitService:UnitsService) {
     this.unitForm = fb.group({
-      'name':new FormControl('', [
+      'unit_name':new FormControl('', [
         Validators.required,
         Validators.minLength(5),
         // Validators.maxLength(50)
       ]),
-      'address1':new FormControl('', [
+      'address':new FormControl('', [
         Validators.required,
         Validators.minLength(5)
       ]),
-      'address2':new FormControl('' ),
+      'notes':new FormControl('' ),
     });
   }
+
   ngOnInit(): void {
   }
 
-  get nameControl():FormControl{
-   return  (this.unitForm.get('name') )as FormControl;
+  get unitNameControl():FormControl{
+   return  (this.unitForm.get('unit_name') )as FormControl;
   }
 
-  get address1Control(){ return (this.unitForm.get('address1'))as FormControl;}
-  get address2Control(){ return (this.unitForm.get('address2'))as FormControl;}
+  get addressControl(){ return (this.unitForm.get('address'))as FormControl;}
+  get noteControl(){ return (this.unitForm.get('notes'))as FormControl;}
 
   onSubmit(){
-    console.log(this.unitForm.controls['name'].value);
+      const newUnit= {...this.unitForm.value}
+      this.unitService.addNewUnit(newUnit)
   }
 
 }

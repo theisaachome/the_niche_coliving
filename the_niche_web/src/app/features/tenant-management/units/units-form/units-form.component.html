@@ -7,19 +7,20 @@
 </div>
 <div class="ui horizontal divider">&</div>
 <form class="ui form" (ngSubmit)="onSubmit()" [formGroup]="unitForm">
-  <div class="six wide field">
-    <app-input [label]="'Unit Name'" [control]="nameControl"/>
+  <div class="twelve wide field">
+    <app-input [label]="'Unit Name'" [control]="unitNameControl"/>
   </div>
-    <div class="six wide field">
-      <app-input [label]="'Address 1'" [control]="address1Control"/>
+    <div class="twelve wide field">
+      <app-input [label]="'Address'" [control]="addressControl"/>
     </div>
-    <div class="six wide field">
-      <app-input [label]="'Address 2'" [control]="address2Control"/>
+    <div class="twelve wide field">
+      <app-input [label]="'Note '" [control]="noteControl"/>
     </div>
   <button type="submit" class="ui button" [disabled]="!unitForm.valid"> Submit </button>
 </form>
 
 <div>{{unitForm.value | json}}</div>
-<div>Form is valid: {{unitForm.valid | json}}</div>
+<div>Form is valid: {{unitForm.valid | json }}</div>
 <!--<div>Errors around amount fields : {{accountForm.controls.name.errors | json}}</div>-->
 <!--<div>Errors around note fields : {{accountForm.controls.description.errors | json}}</div>-->
+

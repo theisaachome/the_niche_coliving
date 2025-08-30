@@ -1,20 +1,20 @@
-<p>units-list works!</p>
+<p>Unit List </p>
 <table class="ui table">
   <thead>
     <tr>
       <th>Unit Name</th>
-      <th>Address 1</th>
-      <th>Address 2</th>
+      <th>Address </th>
+      <th>Remark</th>
     </tr>
   </thead>
   <tbody>
-    @for(unit of  unit$|async;track  unit.id){
-      <tr>
-        <td>{{unit.name}}</td>
-        <td>{{unit.address1}}</td>
-        <td>{{unit.address2}}</td>
-      </tr>
-    }
+      @for(unit of (unit$ | async) ; track unit.id) {
+          <tr>
+              <td>{{unit.name}}</td>
+              <td>{{unit.address}}</td>
+              <td>{{unit.notes}}</td>
+          </tr>
+  }
   </tbody>
 </table>
 <app-units-form/>

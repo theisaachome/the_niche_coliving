@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UnitsFormComponent} from '../units-form/units-form.component';
-import {UnitService} from '../../../../core/services/unit.service';
 import {Observable} from 'rxjs';
-import {Unit} from '../../../../core/models/models';
 import {AsyncPipe} from '@angular/common';
+import {UnitsService} from "../units.service";
+import {Unit} from "../unit.model";
 
 @Component({
   selector: 'app-units-list',
@@ -14,9 +14,9 @@ import {AsyncPipe} from '@angular/common';
 })
 export class UnitsListComponent implements OnInit{
   unit$!:Observable<Unit[]>;
-  constructor(private unitService:UnitService) {
+  constructor(private unitService:UnitsService) {
   }
   ngOnInit(): void {
-   this.unit$= this.unitService.getAll();
+   this.unit$= this.unitService.getAllUnits();
   }
 }

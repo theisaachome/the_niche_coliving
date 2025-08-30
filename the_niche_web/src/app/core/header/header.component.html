@@ -1,0 +1,11 @@
+<header class="app-header">
+    <nav class="nav-bar">
+        <div class="logo">Tenant Management</div>
+        <ul class="nav-links">
+            <li><a routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accounts</a></li>
+            <li><a routerLink="transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Transactions</a></li>
+            <li><a routerLink="units" routerLinkActive="active"  [routerLinkActiveOptions]="{exact:true}">Units</a></li>
+        </ul>
+        <div class="menu-toggle" (click)="toggleMenu()">☰</div>
+    </nav>
+</header>

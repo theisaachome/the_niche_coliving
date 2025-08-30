@@ -10,68 +10,72 @@
 </div>
 
 <form class="ui form mt-4" [formGroup]="transactionForm" >
-<!--  <div class="six wide field">-->
-<!--    <label for="transactionDate">Transaction Date</label>-->
-<!--    <input type="date"-->
-<!--           id="transactionDate"-->
-<!--           name="transactionDate"-->
-<!--    >-->
+  <!--  <div class="six wide field">-->
+  <!--    <label for="transactionDate">Transaction Date</label>-->
+  <!--    <input type="date"-->
+  <!--           id="transactionDate"-->
+  <!--           name="transactionDate"-->
+  <!--    >-->
 <!--  </div>-->
-  <div class="fields">
-    <div class="six wide field">
-      <label for="amount">Transaction Amount</label>
-      <input type="number"
-             min="0"
-             id="amount"
-             formControlName="amount"
-             placeholder="Enter amount"
+<div class="fields">
+  <div class="six wide field">
+    <label for="amount">Transaction Amount</label>
+    <input type="number"
+      min="0"
+      id="amount"
+      formControlName="amount"
+      placeholder="Enter amount"
       >
-    </div>
-    <div class="six wide field">
-      <label>Transaction Date</label>
-      <div class="ui calendar" #calendar>
-        <div class="ui input left icon">
-          <input type="text"
-                 name="date"
-                 placeholder="Pick up a date"
+  </div>
+  <div class="six wide field">
+    <label>Transaction Date</label>
+    <div class="ui calendar" #calendar>
+      <div class="ui input left icon">
+        <input type="text"
+          name="date"
+          placeholder="Pick up a date"
           >
-          <i class="calendar icon"></i>
-        </div>
+        <i class="calendar icon"></i>
       </div>
     </div>
   </div>
-  <div class="fields">
-    <div class="six wide field">
-      <label>Account</label>
-      <select class="ui search dropdown">
-        <option value="">Select Accounts</option>
-        <option *ngFor="let account of accounts;" [value]="account.id">{{account.name}}</option>
-      </select>
-    </div>
-    <div class="six wide field">
-      <label>Category</label>
-      <select class="ui search dropdown">
-        <option>Select Expense Category</option>
-        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-      </select>
-    </div>
+</div>
+<div class="fields">
+  <div class="six wide field">
+    <label>Account</label>
+    <select class="ui search dropdown">
+      <option value="">Select Accounts</option>
+      @for (account of accounts; track account) {
+        <option [value]="account.id">{{account.name}}</option>
+      }
+    </select>
   </div>
-  <div class="fields">
-     <div class="twelve wide field">
-       <label>Shorts Notes</label>
-       <textarea  rows="2"
-           formControlName="note"
-       >
-       </textarea>
-     </div>
+  <div class="six wide field">
+    <label>Category</label>
+    <select class="ui search dropdown">
+      <option>Select Expense Category</option>
+      @for (category of categories; track category) {
+        <option [value]="category.id">{{category.name}}</option>
+      }
+    </select>
   </div>
-  <div class="fields">
-    <div class="twelve wide field">
-      <label>Description</label>
-      <textarea  rows="4">
-       </textarea>
-    </div>
+</div>
+<div class="fields">
+  <div class="twelve wide field">
+    <label>Shorts Notes</label>
+    <textarea  rows="2"
+      formControlName="note"
+      >
+    </textarea>
   </div>
+</div>
+<div class="fields">
+  <div class="twelve wide field">
+    <label>Description</label>
+    <textarea  rows="4">
+    </textarea>
+  </div>
+</div>
 </form>
 
 <div>{{transactionForm.value | json}}</div>

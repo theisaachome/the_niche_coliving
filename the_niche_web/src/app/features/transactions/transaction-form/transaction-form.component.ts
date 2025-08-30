@@ -1,15 +1,14 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {JsonPipe, NgForOf} from '@angular/common';
+import { JsonPipe } from '@angular/common';
 declare var $: any;
 
 @Component({
   selector: 'app-transaction-form',
   imports: [
-    NgForOf,
     JsonPipe,
     ReactiveFormsModule
-  ],
+],
   templateUrl: './transaction-form.component.html',
   styleUrl: './transaction-form.component.css',
   standalone:true

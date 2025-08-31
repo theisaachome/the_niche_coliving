@@ -1,20 +1,43 @@
-<p>Unit List </p>
-<table class="ui table">
-  <thead>
-    <tr>
-      <th>Unit Name</th>
-      <th>Address </th>
-      <th>Remark</th>
-    </tr>
-  </thead>
-  <tbody>
-      @for(unit of (unit$ | async) ; track unit.id) {
-          <tr>
-              <td>{{unit.name}}</td>
-              <td>{{unit.address}}</td>
-              <td>{{unit.notes}}</td>
-          </tr>
-  }
-  </tbody>
-</table>
-<app-units-form/>
+<div class="ui">
+    <h3 class="ui dividing header">Property Units Summary</h3>
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+            <th># No</th>
+          <th>Unit Name</th>
+          <th>Location Address</th>
+          <th> Room Count</th>
+          <th> Total Capacity</th>
+          <th>Notes/Remark</th>
+        </tr>
+      </thead>
+      <tbody>
+          @for(unit of (unitsSummary$ | async) ; track unit.id) {
+              <tr>
+                  <td>{{unit.id }}</td>
+                  <td>{{unit.unitName}}</td>
+                  <td>{{unit.address}}</td>
+                  <td>{{unit.numberOfRooms}}</td>
+                  <td>{{unit.totalCapacity}}</td>
+                  <td>{{unit.notes}}</td>
+              </tr>
+      }
+      </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2">5 Houses</td>
+            <td colspan="2">Total Room: 40</td>
+            <td colspan="2">2 House fully occupied.</td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<!--<app-units-form/>-->
+
+<!--
+| Unit Name   | Address          | Number of Rooms | Notes                 |
+| ----------- | ---------------- | --------------- | --------------------- |
+| Green Villa | 123 Main Street  | 5               | Renovation next month |
+| Blue Condo  | 45 Ocean Ave     | 10              | Fully occupied        |
+| City Hostel | 88 Downtown Road | 20              | Available for booking |
+-->

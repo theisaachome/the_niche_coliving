@@ -1,5 +1,4 @@
 package com.theniche.colivin.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 

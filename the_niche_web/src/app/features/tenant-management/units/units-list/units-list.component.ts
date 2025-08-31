@@ -3,7 +3,7 @@ import {UnitsFormComponent} from '../units-form/units-form.component';
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {UnitsService} from "../units.service";
-import {Unit} from "../unit.model";
+import {Unit, UnitsSummary} from "../unit.model";
 
 @Component({
   selector: 'app-units-list',
@@ -14,9 +14,11 @@ import {Unit} from "../unit.model";
 })
 export class UnitsListComponent implements OnInit{
   unit$!:Observable<Unit[]>;
+  unitsSummary$!:Observable<UnitsSummary[]>;
   constructor(private unitService:UnitsService) {
   }
   ngOnInit(): void {
    this.unit$= this.unitService.getAllUnits();
+   this.unitsSummary$ = this.unitService.getUnitSummary();
   }
 }

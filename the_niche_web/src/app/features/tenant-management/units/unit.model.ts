@@ -3,7 +3,8 @@
 
 export interface Unit{
     id?: number;
-    name:string;
+    unit_name:string;
+    description:string;
     address:string;
     notes:string;
 }
@@ -15,3 +16,11 @@ export interface UnitRoom{
     notes:string;
 }
 
+export interface UnitsSummary{
+    id?: number;
+    unitName:string;
+    address:string;
+    numberOfRooms:number;
+    totalCapacity:number;
+    notes:string;
+}

@@ -7,20 +7,61 @@
 </div>
 <div class="ui horizontal divider">&</div>
 <form class="ui form warning" (ngSubmit)="onSubmit()" [formGroup]="unitForm">
-  <div class="twelve wide field">
-    <app-input  [label]="'Unit Name'" [control]="unitNameControl"  [required]="true"/>
-  </div>
-    <div class="twelve wide field">
+      <div class="field">
+        <app-input  [label]="'Unit Name'" [control]="unitNameControl"  [required]="true"/>
+      </div>
+    <div class="field">
+        <app-input label="Description" [control]="descriptionControl" [required]="true" />
+    </div>
+    <div class="field">
       <app-input [label]="'Address'" [control]="addressControl" [required]="true"/>
     </div>
-    <div class="twelve wide field">
-      <app-input [label]="'Note '" [control]="noteControl"/>
+    <!-- Notes -->
+    <div class="field">
+        <label>Notes</label>
+        <textarea rows="2" placeholder="Any additional notes..." formControlName="notes"></textarea>
+    </div>
+
+    <div formArrayName="rooms">
+        <div class="ui horizontal dividing header">House Room</div>
+        <p class="ui small grey text">
+            Please add the rooms for this house. Each room requires a unique
+            <strong>Room Number</strong>. Use the button below to add more rooms.
+            <button class="ui circular icon button" type="button" (click)="onAddRoom()">
+                <i class="plus icon"></i>
+            </button>
+
+        </p>
+        @for(roomControl of roomsArray.controls; track trackById(idx,roomControl); let idx=$index) {
+           <div class="ui segment" [formGroupName]="idx">
+               <div class="two fields" >
+                   <div class="field">
+                       <label>Room Number</label>
+                       <input type="text" formControlName="room_number">
+                   </div>
+                   <div class="field">
+                       <label for="capacity">Capacity</label>
+                       <input type="number" formControlName="capacity">
+                   </div>
+               </div>
+
+               <div class="field">
+                   <label for="notes">Remark</label>
+                   <textarea  rows="2" formControlName="notes" ></textarea>
+               </div>
+               <!-- button aligned right -->
+               <div style="display: flex; justify-content: flex-end;">
+                   <button class="ui tiny button" type="button" [disabled]="roomsArray.controls.length <1">
+                       Cancel
+                   </button>
+               </div>
+           </div>
+        }
     </div>
   <button type="submit" class="ui button" [disabled]="!unitForm.valid"> Submit </button>
 </form>
-
 <div>{{unitForm.value | json}}</div>
 <div>Form is valid: {{unitForm.valid | json }}</div>
-<div>Errors around amount fields : {{unitNameControl.errors | json}}</div>
+<!--<div>Errors around amount fields : {{unitNameControl.errors | json}}</div>-->
 <!--<div>Errors around note fields : {{accountForm.controls.description.errors | json}}</div>-->
 

@@ -4,6 +4,8 @@ import com.theniche.colivin.entity.House;
 import com.theniche.colivin.entity.HouseRoom;
 import com.theniche.colivin.payload.HouseDto;
 import com.theniche.colivin.payload.HouseRoomDto;
+import com.theniche.colivin.payload.HouseResponseDto;
+import com.theniche.colivin.payload.HouseRoomResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,6 +34,33 @@ public class DataMapper  {
                 .notes(dto.notes())
                 .build();
         return houseRoomEntity;
+    }
+    public HouseRoomResponseDto mapToHouseRoomDto(HouseRoom entity){
+        return  new HouseRoomResponseDto(
+                entity.getId(),
+                entity.getRoomNumber(),
+                entity.getCapacity(),
+                entity.getNotes(),
+                entity.getCreatedBy(),
+                entity.getUpdatedBy(),
+                entity.getCreatedDate(),
+                entity.getUpdatedDate()
+        );
+    }
+
+    public HouseResponseDto mapToHouseDto(House entity){
+        var houseResponseDto = new HouseResponseDto(entity.getId(),
+                entity.getName(),
+                entity.getDescription(),
+                entity.getAddress(),
+                entity.getNotes(),
+                entity.getCreatedBy(),
+                entity.getUpdatedBy(),
+                entity.getCreatedDate(),
+                entity.getUpdatedDate(),
+                entity.getRooms().stream().map(r->this.mapToHouseRoomDto(r))
+                        .collect(Collectors.toSet()));
+        return houseResponseDto;
     }
 
     public <S,R>List<R> mapList(List<S> source, Function<? super S,? extends  R > mapper){

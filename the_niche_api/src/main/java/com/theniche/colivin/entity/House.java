@@ -10,15 +10,18 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="houses")
+@Table(name="houses",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UK_HOUSE_NAME", columnNames = "name")
+        }
+)
 public class House extends BaseEntity {
-
     @Column(unique = true,nullable = false)
     private String name;
     @Column(nullable = false,length = 225)
     private String address;
     private String description;
     private String notes;
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<HouseRoom> rooms;
 }

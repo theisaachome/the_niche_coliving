@@ -1,7 +1,6 @@
 package com.theniche.colivin.controller;
-import com.theniche.colivin.payload.ApiResponse;
-import com.theniche.colivin.payload.ResponseId;
-import com.theniche.colivin.payload.HouseDto;
+import com.theniche.colivin.entity.House;
+import com.theniche.colivin.payload.*;
 import com.theniche.colivin.service.HouseService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("resource/v1/units")
+@RequestMapping("resource/v1/houses")
 public class HouseController {
 
 
@@ -30,15 +29,26 @@ public class HouseController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
-        @PutMapping("/{unit_id}")
-        public ResponseEntity<ApiResponse> updateUnit(@Valid @PathVariable("unit_id") UUID uuid ,@RequestBody HouseDto dto){
-         return new ResponseEntity<>(null, HttpStatus.OK);
+        @GetMapping("/{houseId}")
+        public ResponseEntity<HouseResponseDto>  getHouseById(@PathVariable UUID houseId){
+            var result = this.houseService.findHouseById(houseId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        @PutMapping("/{houseId}")
+        public ResponseEntity<ApiResponse> updateUnit(@Valid @PathVariable("houseId") UUID houseId ,@RequestBody UpdateHouseDto dto){
+            var result =  this.houseService.updateHouse(houseId, dto);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
+        @PostMapping("/{houseId}/rooms")
+        public ResponseEntity<ApiResponse> addRoomToHouse(@PathVariable("houseId")UUID houseId,@Valid @RequestBody HouseRoomDto dto){
+           return null;
+        }
 
         // soft-delete
-        @DeleteMapping("/{unit_id}")
-        public ResponseEntity<ApiResponse> deleteUnit(@PathVariable("unit_id") UUID uuid){
-          return new ResponseEntity<>(null, HttpStatus.OK);
+        @DeleteMapping("/{houseId}")
+        public ResponseEntity<ApiResponse> deleteUnit(@PathVariable("houseId") UUID uuid){
+           var result= this.houseService.deleteHouse(uuid);
+          return new ResponseEntity<>(result, HttpStatus.OK);
         }
 }

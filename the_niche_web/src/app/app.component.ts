@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {TransactionFormComponent} from './features/transactions/transaction-form/transaction-form.component';
 import {FooterComponent} from "./core/footer/footer.component";
 import {HeaderComponent} from "./core/header/header.component";
+import {FinanceDashboardComponent} from "./features/financials/finance-dashboard/finance-dashboard.component";
 
 @Component({
   selector: 'app-root',
-    imports: [RouterOutlet, TransactionFormComponent, FooterComponent, HeaderComponent],
+    imports: [RouterOutlet, FooterComponent, HeaderComponent, FinanceDashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   standalone:true

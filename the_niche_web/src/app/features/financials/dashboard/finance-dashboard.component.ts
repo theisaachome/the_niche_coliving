@@ -10,7 +10,6 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
         RouterLinkActive
     ],
   templateUrl: './finance-dashboard.component.html',
-  styleUrl: './finance-dashboard.component.css'
 })
 export class FinanceDashboardComponent {
 

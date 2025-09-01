@@ -1,1 +1,189 @@
 <p>budgets works!</p>
+
+<app-placeholder [header]="true" [lines]="5" />
+
+
+<div class="ui centered card">
+    <div class="content">
+        <div class="header">
+            <i class="bolt icon"></i> Utilities
+        </div>
+        <div class="meta">
+            <i class="calendar alternate outline icon"></i> Sep 1 – Sep 30, 2025 (Monthly)
+        </div>
+        <div class="description">
+            <div class="ui small indicating progress" data-percent="93">
+                <div class="bar" style="transition-duration: 300ms; width: 93%;">
+                    <div class="progress">93%</div>
+                </div>
+            </div>
+            <div class="ui list">
+                <div class="item">
+                    <strong>Limit:</strong> RM 1,200
+                </div>
+                <div class="item">
+                    <strong>Spent:</strong> RM 1,120
+                </div>
+                <div class="item">
+                    <strong>Remaining:</strong>
+                    <span class="ui red label">RM 80</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="extra content">
+        <div class="ui two buttons">
+            <div class="ui green button">Add Transaction</div>
+            <div class="ui grey button">View Details</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui container centered card">
+    <h3 class="ui header">Budget Summary</h3>
+    <div class="ui relaxed divided list">
+
+        <div class="item">
+            <i class="folder outline icon"></i>
+            <div class="content">
+                <div class="header">Name</div>
+                <div class="description">Utilities</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="dollar sign icon"></i>
+            <div class="content">
+                <div class="header">Limit</div>
+                <div class="description">RM 1,200</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="shopping cart icon"></i>
+            <div class="content">
+                <div class="header">Spent</div>
+                <div class="description">RM 1,120</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="wallet icon"></i>
+            <div class="content">
+                <div class="header">Remaining</div>
+                <div class="description">RM 80</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="calendar alternate outline icon"></i>
+            <div class="content">
+                <div class="header">Period</div>
+                <div class="description">Monthly</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="calendar check outline icon"></i>
+            <div class="content">
+                <div class="header">Start Date</div>
+                <div class="description">2025-09-01</div>
+            </div>
+        </div>
+
+        <div class="item">
+            <i class="calendar times outline icon"></i>
+            <div class="content">
+                <div class="header">End Date</div>
+                <div class="description">2025-09-30</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="ui segment">
+    <div class="ui header">
+        <i class="wrench icon"></i>
+        Utilities
+    </div>
+    <div class="ui horizontal divider"></div>
+    <div class="ui two column relaxed grid">
+        <div class="column">
+            <div class="ui huge statistic">
+                <div class="value">
+                    $1,120
+                </div>
+                <div class="label">
+                    Spent
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui huge statistic">
+                <div class="value">
+                    $80
+                </div>
+                <div class="label">
+                    Remaining
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached indicating progress segment" data-value="1120" data-total="1200">
+        <div class="bar"></div>
+        <div class="label">
+            Monthly Budget of $1,200
+        </div>
+    </div>
+</div>
+
+<div class="ui raised card">
+    <div class="content">
+        <div class="header">
+            <i class="wrench icon"></i>
+            Utilities
+        </div>
+    </div>
+    <div class="content">
+        <div class="ui two statistics">
+            <div class="statistic">
+                <div class="value">
+                    $1,120
+                </div>
+                <div class="label">
+                    Spent
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="value">
+                    $1,200
+                </div>
+                <div class="label">
+                    Limit
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="extra content">
+        <div class="ui indicating small progress" data-value="1120" data-total="1200">
+            <div class="bar"></div>
+            <div class="label">
+                Budget Progress
+            </div>
+        </div>
+        <div class="ui horizontal divider">
+            <i class="clock outline icon"></i>
+            Monthly
+        </div>
+        <div class="description">
+            Remaining: $80
+            <br>
+            <small class="text muted">
+                (ends Sep 30, 2025)
+            </small>
+        </div>
+    </div>
+</div>

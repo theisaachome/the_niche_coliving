@@ -4,9 +4,9 @@
         Specifications
     </h4>
     <div class="ui secondary pointing menu">
-        <a routerLink="transactions" routerLinkActive="active" class="item">Transactions</a>
-        <a routerLink="budgets" routerLinkActive="active" class="item">Budgets</a>
-        <a routerLink="/finances" routerLinkActive="active" class="item">Summary</a>
+        <a routerLink="transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Transactions</a>
+        <a routerLink="budgets" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Budgets</a>
+        <a routerLink="/finances" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Summary</a>
     </div>
     <div class="ui segment">
         <router-outlet></router-outlet>

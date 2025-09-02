@@ -17,7 +17,7 @@ public class HouseRoom extends BaseEntity{
     private Integer capacity;
     private String notes;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id")
     private House house;
 }

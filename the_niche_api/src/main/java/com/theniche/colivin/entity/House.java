@@ -1,8 +1,10 @@
 package com.theniche.colivin.entity;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Set;
 
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +24,35 @@ public class House extends BaseEntity {
     private String address;
     private String description;
     private String notes;
-    @OneToMany(mappedBy = "house",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "house", orphanRemoval = true)
     private Set<HouseRoom> rooms;
+
+    public void addHouseRoom(HouseRoom room) {
+        this.rooms.add(room);
+        room.setHouse(this);
+    }
+    public void removeHouseRoom(HouseRoom room) {
+        room.setHouse(null);
+        this.rooms.remove(room);
+    }
+
+    public void removeHouseRooms(){
+        Iterator<HouseRoom> iterator = this.rooms.iterator();
+        while (iterator.hasNext()) {
+            var room = iterator.next();
+            room.setHouse(null);
+            iterator.remove();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof House house)) return false;
+        return Objects.equals(name, house.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return 2025;
+    }
 }

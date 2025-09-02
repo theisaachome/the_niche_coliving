@@ -1,9 +1,5 @@
 package com.theniche.colivin.payload;
-
 import jakarta.validation.constraints.*;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record HouseRoomDto(
         // Room number must not be empty and should be 4–10 characters (e.g., A101)

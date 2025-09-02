@@ -24,9 +24,16 @@ public class HouseController {
                /resource/v1/units
         */
         @PostMapping
-        public ResponseEntity<ApiResponse> registerNewUnit(@Valid @RequestBody HouseDto dto){
-            var result = this.houseService.registerHouse(dto);
+        public ResponseEntity<ApiResponse> addNewHouseWithRooms(@Valid @RequestBody HouseDto dto){
+            var result = this.houseService.insertHouseWithRooms(dto);
             return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+
+
+        @PostMapping("/{houseId}/rooms")
+        public ResponseEntity<ApiResponse> addRoomToHouse(@PathVariable("houseId")UUID houseId,@Valid @RequestBody HouseRoomDto dto){
+           var result= houseService.addHouseRoom(houseId,dto);
+            return new ResponseEntity<>(result,HttpStatus.OK);
         }
 
         @GetMapping("/{houseId}")
@@ -40,10 +47,6 @@ public class HouseController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
-        @PostMapping("/{houseId}/rooms")
-        public ResponseEntity<ApiResponse> addRoomToHouse(@PathVariable("houseId")UUID houseId,@Valid @RequestBody HouseRoomDto dto){
-           return null;
-        }
 
         // soft-delete
         @DeleteMapping("/{houseId}")

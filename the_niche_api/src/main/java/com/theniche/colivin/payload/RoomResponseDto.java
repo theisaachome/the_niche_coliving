@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record HouseRoomResponseDto(
+public record RoomResponseDto(
         UUID id,
         // Room number must not be empty and should be 4–10 characters (e.g., A101)
         @NotEmpty(message = "Room number must not be empty.")

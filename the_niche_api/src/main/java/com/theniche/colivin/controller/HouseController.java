@@ -1,5 +1,4 @@
 package com.theniche.colivin.controller;
-import com.theniche.colivin.entity.House;
 import com.theniche.colivin.payload.*;
 import com.theniche.colivin.service.HouseService;
 import jakarta.validation.Valid;
@@ -31,10 +30,13 @@ public class HouseController {
 
 
         @PostMapping("/{houseId}/rooms")
-        public ResponseEntity<ApiResponse> addRoomToHouse(@PathVariable("houseId")UUID houseId,@Valid @RequestBody HouseRoomDto dto){
+        public ResponseEntity<ApiResponse> addRoomToHouse(@PathVariable("houseId")UUID houseId,@Valid @RequestBody RoomRequestDto dto){
            var result= houseService.addHouseRoom(houseId,dto);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
+        // update houseRoom,
+        // delete HouseRoom,
+
 
         @GetMapping("/{houseId}")
         public ResponseEntity<HouseResponseDto>  getHouseById(@PathVariable UUID houseId){

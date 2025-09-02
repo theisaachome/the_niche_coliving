@@ -22,6 +22,6 @@ public record HouseDto(
         // At least one room is required
         @NotEmpty(message = "At least one room is required.")
         @Size(min = 1, message = "At least one room must be provided.")
-        List<HouseRoomDto> rooms
+        List<RoomRequestDto> rooms
 ) {
 }

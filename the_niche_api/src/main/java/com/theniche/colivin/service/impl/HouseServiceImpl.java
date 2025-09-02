@@ -1,17 +1,14 @@
 package com.theniche.colivin.service.impl;
-import com.theniche.colivin.entity.House;
-import com.theniche.colivin.entity.HouseRoom;
 import com.theniche.colivin.exception.ResourceNotFoundException;
 import com.theniche.colivin.mapper.DataMapper;
 import com.theniche.colivin.payload.*;
 import com.theniche.colivin.repository.HouseRepository;
-import com.theniche.colivin.repository.HouseRoomRepository;
+import com.theniche.colivin.repository.RoomRepository;
 import com.theniche.colivin.service.HouseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,12 +16,12 @@ public class HouseServiceImpl implements HouseService {
 
     private final DataMapper dataMapper;
     private final HouseRepository houseRepository;
-    private final HouseRoomRepository houseRoomRepository;
+    private final RoomRepository roomRepository;
 
-    public HouseServiceImpl(DataMapper dataMapper, HouseRepository houseRepository, HouseRoomRepository houseRoomRepository) {
+    public HouseServiceImpl(DataMapper dataMapper, HouseRepository houseRepository, RoomRepository roomRepository) {
         this.dataMapper = dataMapper;
         this.houseRepository = houseRepository;
-        this.houseRoomRepository = houseRoomRepository;
+        this.roomRepository = roomRepository;
     }
 
     @Override
@@ -42,7 +39,7 @@ public class HouseServiceImpl implements HouseService {
         houseRooms.forEach(room -> room.setHouse(entity));
         var savedEntity=houseRepository.save(entity);
         entity.setRooms(new HashSet<>(houseRooms));
-        houseRoomRepository.saveAll(houseRooms);
+        roomRepository.saveAll(houseRooms);
         return new ApiResponse("success",
                 new ApiResponse.Data(
                         savedEntity.getId(),
@@ -79,7 +76,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Transactional
     @Override
-    public ApiResponse addHouseRoom(UUID houseId, HouseRoomDto dto) {
+    public ApiResponse addHouseRoom(UUID houseId, RoomRequestDto dto) {
         var house = houseRepository.findById(houseId)
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         house.addHouseRoom(dataMapper.mapToHouseRoomEntity(dto));

@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "house_rooms")
-public class HouseRoom extends BaseEntity{
+public class Room extends BaseEntity{
 
     @Column(nullable = false)
     private String roomNumber;

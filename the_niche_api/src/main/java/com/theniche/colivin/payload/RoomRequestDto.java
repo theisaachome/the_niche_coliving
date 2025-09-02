@@ -1,7 +1,7 @@
 package com.theniche.colivin.payload;
 import jakarta.validation.constraints.*;
 
-public record HouseRoomDto(
+public record RoomRequestDto(
         // Room number must not be empty and should be 4–10 characters (e.g., A101)
         @NotEmpty(message = "Room number must not be empty.")
         @Size(min = 4, max = 10, message = "Room number must be between 4 and 10 characters.")

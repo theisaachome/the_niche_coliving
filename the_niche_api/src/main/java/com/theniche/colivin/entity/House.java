@@ -25,19 +25,19 @@ public class House extends BaseEntity {
     private String description;
     private String notes;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "house", orphanRemoval = true)
-    private Set<HouseRoom> rooms;
+    private Set<Room> rooms;
 
-    public void addHouseRoom(HouseRoom room) {
+    public void addHouseRoom(Room room) {
         this.rooms.add(room);
         room.setHouse(this);
     }
-    public void removeHouseRoom(HouseRoom room) {
+    public void removeHouseRoom(Room room) {
         room.setHouse(null);
         this.rooms.remove(room);
     }
 
     public void removeHouseRooms(){
-        Iterator<HouseRoom> iterator = this.rooms.iterator();
+        Iterator<Room> iterator = this.rooms.iterator();
         while (iterator.hasNext()) {
             var room = iterator.next();
             room.setHouse(null);

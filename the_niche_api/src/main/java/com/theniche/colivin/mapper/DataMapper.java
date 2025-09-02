@@ -1,11 +1,11 @@
 package com.theniche.colivin.mapper;
 
 import com.theniche.colivin.entity.House;
-import com.theniche.colivin.entity.HouseRoom;
+import com.theniche.colivin.entity.Room;
 import com.theniche.colivin.payload.HouseDto;
-import com.theniche.colivin.payload.HouseRoomDto;
+import com.theniche.colivin.payload.RoomRequestDto;
 import com.theniche.colivin.payload.HouseResponseDto;
-import com.theniche.colivin.payload.HouseRoomResponseDto;
+import com.theniche.colivin.payload.RoomResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,16 +27,16 @@ public class DataMapper  {
         return houseEntity;
     }
 
-    public HouseRoom mapToHouseRoomEntity(HouseRoomDto dto){
-        var houseRoomEntity = HouseRoom.builder()
+    public Room mapToHouseRoomEntity(RoomRequestDto dto){
+        var houseRoomEntity = Room.builder()
                 .roomNumber(dto.room_number())
                 .capacity(dto.capacity())
                 .notes(dto.notes())
                 .build();
         return houseRoomEntity;
     }
-    public HouseRoomResponseDto mapToHouseRoomDto(HouseRoom entity){
-        return  new HouseRoomResponseDto(
+    public RoomResponseDto mapToHouseRoomDto(Room entity){
+        return  new RoomResponseDto(
                 entity.getId(),
                 entity.getRoomNumber(),
                 entity.getCapacity(),

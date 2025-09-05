@@ -2,6 +2,10 @@ package com.theniche.colivin.service.impl;
 import com.theniche.colivin.exception.ResourceNotFoundException;
 import com.theniche.colivin.mapper.DataMapper;
 import com.theniche.colivin.payload.*;
+import com.theniche.colivin.payload.house.HouseDto;
+import com.theniche.colivin.payload.house.HouseResponseDto;
+import com.theniche.colivin.payload.house.UpdateHouseDto;
+import com.theniche.colivin.payload.room.RoomRequestDto;
 import com.theniche.colivin.repository.HouseRepository;
 import com.theniche.colivin.repository.RoomRepository;
 import com.theniche.colivin.service.HouseService;
@@ -25,15 +29,16 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public HouseResponseDto findHouseById(UUID houseId) {
+    public ApiResponse<HouseResponseDto> findHouseById(UUID houseId) {
         var result = houseRepository.findById(houseId)
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
-        return dataMapper.mapToHouseDto(result);
+         return new  ApiResponse<>("success",
+                 dataMapper.mapToHouseDto(result));
     }
 
     @Transactional
     @Override
-    public ApiResponse insertHouseWithRooms(HouseDto dto) {
+    public ApiResponse<ResponseData> insertHouseWithRooms(HouseDto dto) {
         var entity = dataMapper.mapToHouseEntity(dto);
         var houseRooms =dataMapper.mapList(dto.rooms(),dataMapper::mapToHouseRoomEntity);
         houseRooms.forEach(room -> room.setHouse(entity));
@@ -41,7 +46,7 @@ public class HouseServiceImpl implements HouseService {
         entity.setRooms(new HashSet<>(houseRooms));
         roomRepository.saveAll(houseRooms);
         return new ApiResponse("success",
-                new ApiResponse.Data(
+                new ResponseData(
                         savedEntity.getId(),
                         savedEntity.getName(),
                         savedEntity.getCreatedDate(),
@@ -49,7 +54,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public ApiResponse updateHouse(UUID houseId, UpdateHouseDto dto) {
+    public ApiResponse<ResponseData> updateHouse(UUID houseId, UpdateHouseDto dto) {
         var houseEntity = houseRepository.findById(houseId)
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         houseEntity.setName(dto.name());
@@ -57,8 +62,8 @@ public class HouseServiceImpl implements HouseService {
         houseEntity.setAddress(dto.address());
         houseEntity.setNotes(dto.notes());
         var updatedHouse = houseRepository.save(houseEntity);
-        return new ApiResponse("success",
-                new ApiResponse.Data(
+        return new ApiResponse<>("success",
+                new ResponseData(
                         updatedHouse.getId(),
                         updatedHouse.getName(),
                         updatedHouse.getUpdatedDate(),
@@ -71,16 +76,29 @@ public class HouseServiceImpl implements HouseService {
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         houseRepository.delete(foundHouse);
         return new ApiResponse("success",
-                new  ApiResponse.Data(foundHouse.getId(),foundHouse.getName(),foundHouse.getUpdatedDate(),foundHouse.getUpdatedBy()));
+                new  ResponseData(foundHouse.getId(),foundHouse.getName(),foundHouse.getUpdatedDate(),foundHouse.getUpdatedBy()));
+    }
+
+    @Override
+    public ApiResponse<ResponseData> softDeleteHouse(UUID houseId) {
+        var foundHouse = houseRepository.findById(houseId)
+                .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
+        foundHouse.setDeleted(true);
+        houseRepository.save(foundHouse);
+        return new ApiResponse<>("success",
+                new  ResponseData(foundHouse.getId(),
+                        foundHouse.getName(),
+                        foundHouse.getUpdatedDate(),
+                        foundHouse.getUpdatedBy()));
     }
 
     @Transactional
     @Override
-    public ApiResponse addHouseRoom(UUID houseId, RoomRequestDto dto) {
+    public ApiResponse<ResponseData> addHouseRoom(UUID houseId, RoomRequestDto dto) {
         var house = houseRepository.findById(houseId)
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         house.addHouseRoom(dataMapper.mapToHouseRoomEntity(dto));
       var savedHouse=  houseRepository.save(house);
-      return new ApiResponse("success",new ApiResponse.Data(savedHouse.getId(),savedHouse.getName(),savedHouse.getUpdatedDate(),savedHouse.getUpdatedBy()));
+      return new ApiResponse<>("success",new ResponseData(savedHouse.getId(),savedHouse.getName(),savedHouse.getUpdatedDate(),savedHouse.getUpdatedBy()));
     }
 }

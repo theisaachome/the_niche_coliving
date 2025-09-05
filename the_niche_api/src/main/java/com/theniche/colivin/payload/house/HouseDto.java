@@ -1,5 +1,6 @@
-package com.theniche.colivin.payload;
+package com.theniche.colivin.payload.house;
 
+import com.theniche.colivin.payload.room.RoomRequestDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 

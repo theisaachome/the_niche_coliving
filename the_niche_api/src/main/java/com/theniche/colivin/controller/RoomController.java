@@ -1,20 +1,11 @@
 package com.theniche.colivin.controller;
 
+
+
 public class RoomController {
 }
 
-
 /*
-HouseController
-
-POST /houses → Create a house
-
-GET /houses/{houseId} → Get house details
-
-POST /houses/{houseId}/rooms → Add room to a house
-
-GET /houses/{houseId}/rooms → List rooms in a house
-
         RoomController
 
 GET /rooms/{roomId} → Get room details (independent of house)

@@ -1,4 +1,4 @@
-package com.theniche.colivin.payload;
+package com.theniche.colivin.payload.house;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

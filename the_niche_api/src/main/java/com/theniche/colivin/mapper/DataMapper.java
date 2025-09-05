@@ -2,10 +2,10 @@ package com.theniche.colivin.mapper;
 
 import com.theniche.colivin.entity.House;
 import com.theniche.colivin.entity.Room;
-import com.theniche.colivin.payload.HouseDto;
-import com.theniche.colivin.payload.RoomRequestDto;
-import com.theniche.colivin.payload.HouseResponseDto;
-import com.theniche.colivin.payload.RoomResponseDto;
+import com.theniche.colivin.payload.house.HouseDto;
+import com.theniche.colivin.payload.room.RoomRequestDto;
+import com.theniche.colivin.payload.house.HouseResponseDto;
+import com.theniche.colivin.payload.room.RoomResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

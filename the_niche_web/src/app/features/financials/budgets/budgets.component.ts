@@ -3,11 +3,13 @@ import {PlaceholderComponent} from "../../../shared/components/placeholder/place
 import {Observable} from "rxjs";
 import {Budget} from "../finance.model";
 import {BudgetsService} from "../services/budgets.services";
+import {DividerComponent} from "../../../shared/components/divider.component";
 
 @Component({
   selector: 'finance-budgets',
     imports: [
-        PlaceholderComponent
+        PlaceholderComponent,
+        DividerComponent
     ],
   templateUrl: './budgets.component.html',
   styleUrl: './budgets.component.css'

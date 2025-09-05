@@ -1,7 +1,13 @@
-package com.theniche.colivin.payload;
-import jakarta.validation.constraints.*;
+package com.theniche.colivin.payload.room;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import java.util.UUID;
 
-public record RoomRequestDto(
+public record RoomUpdateDto(
+        @NotNull(message = "House ID Required.")
+        UUID houseId,
         // Room number must not be empty and should be 4–10 characters (e.g., A101)
         @NotEmpty(message = "Room number must not be empty.")
         @Size(min = 4, max = 10, message = "Room number must be between 4 and 10 characters.")

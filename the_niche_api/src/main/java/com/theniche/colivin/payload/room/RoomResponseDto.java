@@ -1,4 +1,4 @@
-package com.theniche.colivin.payload;
+package com.theniche.colivin.payload.room;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;

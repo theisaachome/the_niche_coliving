@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-public interface RoomRepository extends JpaRepository<Room, Long> {
+public interface RoomRepository extends JpaRepository<Room, UUID> {
 
     @Transactional
     @Query("SELECT r FROM Room  r WHERE r.house.id = :houseId")

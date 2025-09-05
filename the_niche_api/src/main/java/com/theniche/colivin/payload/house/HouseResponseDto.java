@@ -1,4 +1,6 @@
-package com.theniche.colivin.payload;
+package com.theniche.colivin.payload.house;
+
+import com.theniche.colivin.payload.room.RoomResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;

@@ -1,6 +1,9 @@
 package com.theniche.colivin.controller;
+import com.theniche.colivin.entity.TenantDocument;
 import com.theniche.colivin.payload.ApiResponse;
+import com.theniche.colivin.payload.document.DocumentRequest;
 import com.theniche.colivin.payload.tenant.TenantRequestDto;
+import com.theniche.colivin.service.TenantDocumentService;
 import com.theniche.colivin.service.TenantService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -14,9 +17,11 @@ import java.util.UUID;
 public class TenantController {
 
     private final TenantService tenantService;
+    private final TenantDocumentService tenantDocumentService;
 
-    public TenantController(TenantService tenantService) {
+    public TenantController(TenantService tenantService, TenantDocumentService tenantDocumentService) {
         this.tenantService = tenantService;
+        this.tenantDocumentService = tenantDocumentService;
     }
 
     // let the tenant provide the information
@@ -38,6 +43,12 @@ public class TenantController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
     @PostMapping("/{tenantId}/documents")
-    public ResponseEntity<ApiResponse> addTenantDocument(@PathVariable("tenantId")UUID tenantId,@Valid @RequestBody TenantRequestDto dto){return null;}
+    public ResponseEntity<ApiResponse> addTenantDocument(@PathVariable("tenantId")UUID tenantId,@Valid @RequestBody DocumentRequest tenantDocument) {
+        var result = tenantDocumentService.addDocument(tenantId,tenantDocument);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+
 }

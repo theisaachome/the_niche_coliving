@@ -1,7 +1,7 @@
 
 
 
-export interface Unit{
+export interface House {
     id?: number;
     unit_name:string;
     description:string;
@@ -9,7 +9,7 @@ export interface Unit{
     notes:string;
 }
 
-export interface UnitRoom{
+export interface HouseRoom {
     id?: number;
     room_number: string;
     capacity:number;

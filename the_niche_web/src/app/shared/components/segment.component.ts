@@ -11,5 +11,12 @@ import {Component} from "@angular/core";
             <ng-content select="[segment-body]"></ng-content>
         </div>
     `,
+    styles:[
+        `
+            div.ui.icon.header:empty{
+                display: none;
+            }
+        `
+    ]
 })
 export class SegmentComponent {}

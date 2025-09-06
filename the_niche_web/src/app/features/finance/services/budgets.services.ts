@@ -10,10 +10,7 @@ export class BudgetsService {
         return new BehaviorSubject<Budget[]>(budgets);
     }
 }
-
-
-
-const budgets : Budget[]=[
+const budgets: Budget[] = [
     {
         "id": "b1a92d3f-8b7d-4f3e-9d4e-1c9a39e56f77",
         "name": "Groceries",
@@ -30,7 +27,9 @@ const budgets : Budget[]=[
                 "amount": 200,
                 "description": "Supermarket shopping",
                 "date": "2025-09-03",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Groceries",
+                "budget": "Groceries"
             },
             {
                 "id": "t-102",
@@ -38,7 +37,9 @@ const budgets : Budget[]=[
                 "amount": 150,
                 "description": "Butcher & Fish Market",
                 "date": "2025-09-08",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Groceries",
+                "budget": "Groceries"
             },
             {
                 "id": "t-103",
@@ -46,7 +47,9 @@ const budgets : Budget[]=[
                 "amount": 300,
                 "description": "Monthly bulk groceries",
                 "date": "2025-09-15",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Groceries",
+                "budget": "Groceries"
             },
             {
                 "id": "t-104",
@@ -54,7 +57,9 @@ const budgets : Budget[]=[
                 "amount": 120,
                 "description": "Vegetables & fruits",
                 "date": "2025-09-18",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Groceries",
+                "budget": "Groceries"
             },
             {
                 "id": "t-105",
@@ -62,7 +67,9 @@ const budgets : Budget[]=[
                 "amount": 120,
                 "description": "Snacks & drinks",
                 "date": "2025-09-25",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Groceries",
+                "budget": "Groceries"
             }
         ]
     },
@@ -82,7 +89,9 @@ const budgets : Budget[]=[
                 "amount": 150,
                 "description": "Fuel top-up",
                 "date": "2025-09-02",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Transport",
+                "budget": "Transport"
             },
             {
                 "id": "t-202",
@@ -90,7 +99,9 @@ const budgets : Budget[]=[
                 "amount": 50,
                 "description": "Grab ride",
                 "date": "2025-09-05",
-                "paymentMethod": "E-Wallet"
+                "paymentMethod": "E-Wallet",
+                "category": "Transport",
+                "budget": "Transport"
             },
             {
                 "id": "t-203",
@@ -98,7 +109,9 @@ const budgets : Budget[]=[
                 "amount": 120,
                 "description": "Parking fees",
                 "date": "2025-09-10",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Transport",
+                "budget": "Transport"
             },
             {
                 "id": "t-204",
@@ -106,7 +119,9 @@ const budgets : Budget[]=[
                 "amount": 80,
                 "description": "Fuel top-up",
                 "date": "2025-09-17",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Transport",
+                "budget": "Transport"
             },
             {
                 "id": "t-205",
@@ -114,7 +129,9 @@ const budgets : Budget[]=[
                 "amount": 80,
                 "description": "Grab ride",
                 "date": "2025-09-23",
-                "paymentMethod": "E-Wallet"
+                "paymentMethod": "E-Wallet",
+                "category": "Transport",
+                "budget": "Transport"
             }
         ]
     },
@@ -134,7 +151,9 @@ const budgets : Budget[]=[
                 "amount": 200,
                 "description": "Concert tickets",
                 "date": "2025-09-04",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Entertainment",
+                "budget": "Entertainment"
             },
             {
                 "id": "t-302",
@@ -142,7 +161,9 @@ const budgets : Budget[]=[
                 "amount": 150,
                 "description": "Streaming subscription",
                 "date": "2025-09-07",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Entertainment",
+                "budget": "Entertainment"
             },
             {
                 "id": "t-303",
@@ -150,7 +171,9 @@ const budgets : Budget[]=[
                 "amount": 120,
                 "description": "Cinema tickets",
                 "date": "2025-09-12",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Entertainment",
+                "budget": "Entertainment"
             },
             {
                 "id": "t-304",
@@ -158,7 +181,9 @@ const budgets : Budget[]=[
                 "amount": 200,
                 "description": "Weekend trip",
                 "date": "2025-09-19",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Entertainment",
+                "budget": "Entertainment"
             },
             {
                 "id": "t-305",
@@ -166,7 +191,9 @@ const budgets : Budget[]=[
                 "amount": 100,
                 "description": "Bowling & arcade",
                 "date": "2025-09-26",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Entertainment",
+                "budget": "Entertainment"
             }
         ]
     },
@@ -186,7 +213,9 @@ const budgets : Budget[]=[
                 "amount": 300,
                 "description": "Electricity bill",
                 "date": "2025-09-06",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Utilities",
+                "budget": "Utilities"
             },
             {
                 "id": "t-402",
@@ -194,7 +223,9 @@ const budgets : Budget[]=[
                 "amount": 250,
                 "description": "Water bill",
                 "date": "2025-09-09",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Utilities",
+                "budget": "Utilities"
             },
             {
                 "id": "t-403",
@@ -202,7 +233,9 @@ const budgets : Budget[]=[
                 "amount": 200,
                 "description": "Internet & TV",
                 "date": "2025-09-13",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Utilities",
+                "budget": "Utilities"
             },
             {
                 "id": "t-404",
@@ -210,7 +243,9 @@ const budgets : Budget[]=[
                 "amount": 180,
                 "description": "Mobile plans",
                 "date": "2025-09-20",
-                "paymentMethod": "E-Wallet"
+                "paymentMethod": "E-Wallet",
+                "category": "Utilities",
+                "budget": "Utilities"
             },
             {
                 "id": "t-405",
@@ -218,7 +253,9 @@ const budgets : Budget[]=[
                 "amount": 190,
                 "description": "Gas bill",
                 "date": "2025-09-27",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Utilities",
+                "budget": "Utilities"
             }
         ]
     },
@@ -238,7 +275,9 @@ const budgets : Budget[]=[
                 "amount": 120,
                 "description": "Family dinner",
                 "date": "2025-09-01",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Dining Out",
+                "budget": "Dining Out"
             },
             {
                 "id": "t-502",
@@ -246,7 +285,9 @@ const budgets : Budget[]=[
                 "amount": 80,
                 "description": "Lunch with colleagues",
                 "date": "2025-09-06",
-                "paymentMethod": "Cash"
+                "paymentMethod": "Cash",
+                "category": "Dining Out",
+                "budget": "Dining Out"
             },
             {
                 "id": "t-503",
@@ -254,7 +295,9 @@ const budgets : Budget[]=[
                 "amount": 150,
                 "description": "Weekend restaurant",
                 "date": "2025-09-11",
-                "paymentMethod": "Debit Card"
+                "paymentMethod": "Debit Card",
+                "category": "Dining Out",
+                "budget": "Dining Out"
             },
             {
                 "id": "t-504",
@@ -262,7 +305,9 @@ const budgets : Budget[]=[
                 "amount": 130,
                 "description": "Takeaway order",
                 "date": "2025-09-16",
-                "paymentMethod": "E-Wallet"
+                "paymentMethod": "E-Wallet",
+                "category": "Dining Out",
+                "budget": "Dining Out"
             },
             {
                 "id": "t-505",
@@ -270,8 +315,10 @@ const budgets : Budget[]=[
                 "amount": 160,
                 "description": "Dinner with friends",
                 "date": "2025-09-22",
-                "paymentMethod": "Credit Card"
+                "paymentMethod": "Credit Card",
+                "category": "Dining Out",
+                "budget": "Dining Out"
             }
         ]
     }
-]
+];

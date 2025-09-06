@@ -1,27 +1,30 @@
 import { Routes } from '@angular/router';
 import {AccountFormComponent} from './features/account/account-form/account-form.component';
-import {TransactionListComponent} from './features/financials/transactions/transaction-list/transaction-list.component';
-import {UnitsListComponent} from './features/tenant-management/units/units-list/units-list.component';
-import {FinanceDashboardComponent} from "./features/financials/dashboard/finance-dashboard.component";
-import {BudgetType} from "@angular/build/private";
-import {BudgetsComponent} from "./features/financials/budgets/budgets.component";
 import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
-import {FinanceSummaryComponent} from "./features/financials/summary/finance-summary.component";
+import {FinanceSummaryComponent} from "./features/finance/summary/finance-summary.component";
+import {HouseFormComponent} from "./features/tenant-management/house/house-form/house-form.component";
 
 export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
-  {path:'units',
+  {path:'houses',
     loadComponent:async () => {
-        const c = await import("./features/tenant-management/units/units-list/units-list.component");
-        return c.UnitsListComponent;
-    }
+        const c = await import("./features/tenant-management/house/house-list/house-list.component");
+        return c.HouseListComponent;
+    },
+      children:[
+          {
+              path:'new',
+              loadComponent:()=>import('./features/tenant-management/house/house-form/house-form.component')
+                      .then((c)=>c.HouseFormComponent),
+          }
+      ]
   },
     {   path:'finances',
         loadComponent:async () => {
-            const c = await import("./features/financials/dashboard/finance-dashboard.component");
+            const c = await import("./features/finance/dashboard/finance-dashboard.component");
             return c.FinanceDashboardComponent;
         },
         children:[
@@ -36,13 +39,13 @@ export const routes: Routes = [
             {
                 path: 'budgets',
                 loadComponent: () =>
-                    import('./features/financials/budgets/budgets.component')
+                    import('./features/finance/budgets/budgets.component')
                         .then(c => c.BudgetsComponent)
             },
             {
                 path: 'transactions',
                 loadComponent: () =>
-                    import('./features/financials/transactions/transaction-list/transaction-list.component')
+                    import('./features/finance/transactions/transaction-list/transaction-list.component')
                         .then(c => c.TransactionListComponent)
             },
 

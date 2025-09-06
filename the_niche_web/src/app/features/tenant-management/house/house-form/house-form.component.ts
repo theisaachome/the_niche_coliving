@@ -12,23 +12,23 @@ import {
     Validators
 } from '@angular/forms';
 import {JsonPipe, NgForOf} from '@angular/common';
-import {UnitsService} from "../units.service";
+import {HouseService} from "../house.service";
 
 @Component({
-  selector: 'app-units-form',
+  selector: 'house-form',
     imports: [
         InputComponent,
         FormsModule,
         ReactiveFormsModule,
         JsonPipe
     ],
-  templateUrl: './units-form.component.html',
-  styleUrl: './units-form.component.css',
+  templateUrl: './house-form.component.html',
+  styleUrl: './house-form.component.css',
   standalone:true
 })
-export class UnitsFormComponent  implements  OnInit{
+export class HouseFormComponent implements  OnInit{
       unitForm:FormGroup;
-      constructor(private fb: FormBuilder,private unitService:UnitsService) {
+      constructor(private fb: FormBuilder,private unitService:HouseService) {
         this.unitForm = fb.group({
               'unit_name':new FormControl('', [
                 Validators.required,

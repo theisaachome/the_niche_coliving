@@ -15,9 +15,11 @@ export interface Budget{
 
 export interface Transaction {
     id: string; // unique identifier e.g. "t-101"
-    type: "income" | "expense"; // only allow two types
+    type: "income" | "expense" | "Transfer"; // only allow two types
     amount: number; // transaction amount
     description: string; // short description of the transaction
     date: string; // ISO date format "YYYY-MM-DD"
-    paymentMethod: string; // e.g., "Cash", "Credit Card", "Debit Card"
+    paymentMethod: string; // e.g., "Cash", "Credit Card", "Debit Card",
+    category:string;
+    budget:string;
 }

@@ -1,18 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Unit, UnitRoom, UnitsSummary} from "./unit.model";
+import {House, HouseRoom, UnitsSummary} from "./house.model";
 import {BehaviorSubject, Observable} from "rxjs";
 
 
 @Injectable({providedIn: 'root'})
-export class UnitsService {
+export class HouseService {
 
-    addNewUnit(data:Unit){
+    addNewUnit(data:House){
         console.log("Saving New Unit!");
         units.push(data);
     }
 
-    getAllUnits():Observable<Unit[]>{
-        return new BehaviorSubject<Unit[]>(units);
+    getAllUnits():Observable<House[]>{
+        return new BehaviorSubject<House[]>(units);
     }
 
     getUnitSummary(){
@@ -95,7 +95,7 @@ const unitsSummary:UnitsSummary[]=[
 //     }
 // ]
 
-const units: Unit[] = [
+const units: House[] = [
     {
         id: 1,
         unit_name: "Green Villa",
@@ -119,7 +119,7 @@ const units: Unit[] = [
     }
 ];
 
-const unitRooms: UnitRoom[] = [
+const unitRooms: HouseRoom[] = [
     { id: 1, room_number: "101", capacity: 2, notes: "Sea view", },
     { id: 2, room_number: "102", capacity: 3, notes: "", },
     { id: 3, room_number: "201", capacity: 2, notes: "", },

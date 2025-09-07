@@ -9,6 +9,8 @@ import java.util.UUID;
 public record TenantResponseDto(
         UUID id,
         String fullName,
+        String phone,
+        String email,
         Gender gender,
         LocalDate dateOfBirth,
         String createdBy,

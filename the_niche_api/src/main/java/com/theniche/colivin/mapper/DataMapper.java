@@ -19,27 +19,6 @@ import java.util.stream.Collectors;
 @Component
 public class DataMapper  {
 
-    public Tenant mapToTenantEntity(TenantRequestDto dto){
-        return Tenant.builder()
-                .fullName(dto.fullName())
-                .gender(dto.gender())
-                .dateOfBirth(dto.dateOfBirth())
-                .build();
-    }
-
-    public TenantResponseDto mapToTenantResponseDto(Tenant entity){
-        return  new TenantResponseDto(
-                entity.getId(),
-                entity.getFullName(),
-                entity.getGender(),
-                entity.getDateOfBirth(),
-                entity.getCreatedBy(),
-                entity.getUpdatedBy(),
-                entity.getCreatedDate(),
-                entity.getUpdatedDate()
-        );
-    }
-
     public House mapToHouseEntity(HouseDto dto){
         var houseEntity = House.builder()
                 .name(dto.name())

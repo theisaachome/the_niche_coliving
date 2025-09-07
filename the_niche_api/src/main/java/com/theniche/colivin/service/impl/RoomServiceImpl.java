@@ -43,7 +43,9 @@ public class RoomServiceImpl implements RoomService {
     public ApiResponse<RoomResponseDto> getRoomDetails(UUID roomId) {
         var roomDetails = roomRepository.findById(roomId)
                 .orElseThrow(()-> new ResourceNotFoundException("Room","ID",roomId));
-        return new ApiResponse<>("success",dataMapper.mapToHouseRoomDto(roomDetails));
+        return new ApiResponse<>("success",
+                "getRoomDetails retrieved successfully",
+                dataMapper.mapToHouseRoomDto(roomDetails));
     }
 
     @Override
@@ -53,7 +55,9 @@ public class RoomServiceImpl implements RoomService {
         roomDetails.setRoomNumber(dto.room_number());
         roomDetails.setCapacity(dto.capacity());
         roomDetails.setNotes(dto.notes());
-        return new ApiResponse<>("success",new ResponseData(roomDetails.getId(),
+        return new ApiResponse<>("success",
+                "getRoomDetails retrieved successfully",
+                new ResponseData(roomDetails.getId(),
                 roomDetails.getRoomNumber(),roomDetails.getUpdatedDate(), roomDetails.getUpdatedBy()));
     }
 
@@ -64,6 +68,7 @@ public class RoomServiceImpl implements RoomService {
         existingRoom.setDeleted(true);
         roomRepository.save(existingRoom);
         return new ApiResponse<>("success",
+                "deleteRoom operation successfully",
         new ResponseData(existingRoom.getId(),
                 existingRoom.getRoomNumber(),
                 existingRoom.getUpdatedDate(),

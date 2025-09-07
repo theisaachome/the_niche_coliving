@@ -37,6 +37,7 @@ public class TenantDocumentServiceImpl implements TenantDocumentService {
                 .build();
         var savedDocument= tenantDocumentRepository.save(documentEntity);
         return new ApiResponse<>("success",
+                "addDocument operation successfully",
                 new ResponseData(savedDocument.getId(),
                         savedDocument.getDocumentType(),
                         savedDocument.getCreatedDate(),
@@ -51,6 +52,7 @@ public class TenantDocumentServiceImpl implements TenantDocumentService {
         existingDocument.setDocumentNumber(document.documentNumber());
         var savedDocument = tenantDocumentRepository.save(existingDocument);
         return new ApiResponse<>("success",
+                "updateDocument operation successfully",
                 new ResponseData(savedDocument.getId(),
                         savedDocument.getDocumentType(),
                         savedDocument.getCreatedDate(),
@@ -72,7 +74,9 @@ public class TenantDocumentServiceImpl implements TenantDocumentService {
                 existingDocument.getCreatedDate(),
                 existingDocument.getUpdatedDate()
         );
-        return new ApiResponse<>("success", responseData);
+        return new ApiResponse<>("success",
+                "deleteRoom operation successfully",
+                responseData);
     }
 
     @Override
@@ -98,6 +102,7 @@ public class TenantDocumentServiceImpl implements TenantDocumentService {
         var existingDocument = tenantDocumentRepository.findById(documentId).orElseThrow(()->new ResourceNotFoundException("Document","ID",documentId));
         existingDocument.setDeleted(true);
         return new ApiResponse<>("success",
+                "deleteDocument operation successfully",
                 new ResponseData(existingDocument.getId(),
                         existingDocument.getDocumentType(),
                         existingDocument.getCreatedDate(),

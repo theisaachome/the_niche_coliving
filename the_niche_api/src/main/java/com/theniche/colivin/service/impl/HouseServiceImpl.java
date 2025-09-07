@@ -33,6 +33,7 @@ public class HouseServiceImpl implements HouseService {
         var result = houseRepository.findById(houseId)
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
          return new  ApiResponse<>("success",
+                 "data retrieved successfully",
                  dataMapper.mapToHouseDto(result));
     }
 
@@ -46,6 +47,8 @@ public class HouseServiceImpl implements HouseService {
         entity.setRooms(new HashSet<>(houseRooms));
         roomRepository.saveAll(houseRooms);
         return new ApiResponse("success",
+
+                "data inserted successfully",
                 new ResponseData(
                         savedEntity.getId(),
                         savedEntity.getName(),
@@ -63,6 +66,8 @@ public class HouseServiceImpl implements HouseService {
         houseEntity.setNotes(dto.notes());
         var updatedHouse = houseRepository.save(houseEntity);
         return new ApiResponse<>("success",
+
+                "data updated successfully",
                 new ResponseData(
                         updatedHouse.getId(),
                         updatedHouse.getName(),
@@ -76,6 +81,7 @@ public class HouseServiceImpl implements HouseService {
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         houseRepository.delete(foundHouse);
         return new ApiResponse("success",
+                "data deleted successfully",
                 new  ResponseData(foundHouse.getId(),foundHouse.getName(),foundHouse.getUpdatedDate(),foundHouse.getUpdatedBy()));
     }
 
@@ -86,6 +92,7 @@ public class HouseServiceImpl implements HouseService {
         foundHouse.setDeleted(true);
         houseRepository.save(foundHouse);
         return new ApiResponse<>("success",
+                "data deleted successfully",
                 new  ResponseData(foundHouse.getId(),
                         foundHouse.getName(),
                         foundHouse.getUpdatedDate(),
@@ -99,6 +106,8 @@ public class HouseServiceImpl implements HouseService {
                 .orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
         house.addHouseRoom(dataMapper.mapToHouseRoomEntity(dto));
       var savedHouse=  houseRepository.save(house);
-      return new ApiResponse<>("success",new ResponseData(savedHouse.getId(),savedHouse.getName(),savedHouse.getUpdatedDate(),savedHouse.getUpdatedBy()));
+      return new ApiResponse<>("success",
+              "addHouseRoom operattion successfully",
+              new ResponseData(savedHouse.getId(),savedHouse.getName(),savedHouse.getUpdatedDate(),savedHouse.getUpdatedBy()));
     }
 }

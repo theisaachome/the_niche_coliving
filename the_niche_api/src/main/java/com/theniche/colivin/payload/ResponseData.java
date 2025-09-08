@@ -8,5 +8,5 @@ public record ResponseData(
         String name,
         LocalDateTime createdTime,
         String createdBy
-) {
+) implements BaseResponse{
 }

@@ -14,7 +14,7 @@ public interface AddressService<T> extends BaseService<AddressDto,ApiResponse<? 
     ApiResponse<ResponseData> updateAddress(UUID addressId, AddressDto address);
     ApiResponse<ResponseData> deleteAddress(UUID addressId);
     ApiResponse<AddressDto> getAddressDetailsById(UUID addressId);
-    ApiResponse<List<AddressDto>> getAllAddressesByTenantId(UUID tenantId);
+//    ApiResponse<List<AddressDto>> getAllAddressesByTenantId(UUID tenantId);
 
     ApiResponse<AddressDto> testMethod();
 }

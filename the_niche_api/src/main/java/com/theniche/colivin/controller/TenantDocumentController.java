@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
+/*
 @RestController
 @RequestMapping("/api/v1/documents")
 public class TenantDocumentController {
@@ -42,3 +43,5 @@ public class TenantDocumentController {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
+
+ */

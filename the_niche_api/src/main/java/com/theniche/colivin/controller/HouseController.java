@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
-
+/*
 @RestController
 @RequestMapping("resource/v1/houses")
 public class HouseController {
@@ -23,6 +23,7 @@ public class HouseController {
         /*
           POST /houses → Create a house
          */
+/*
         @PostMapping
         public ResponseEntity<ApiResponse<ResponseData>> addNewHouseWithRooms(@Valid @RequestBody HouseDto dto){
             var result = this.houseService.insertHouseWithRooms(dto);
@@ -56,3 +57,5 @@ public class HouseController {
         }
         // GET /houses/{houseId}/rooms → List rooms in a house
 }
+
+ */

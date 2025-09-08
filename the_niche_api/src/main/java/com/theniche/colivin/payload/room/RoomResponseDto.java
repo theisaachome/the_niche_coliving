@@ -1,5 +1,6 @@
 package com.theniche.colivin.payload.room;
 
+import com.theniche.colivin.payload.BaseResponse;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,5 +24,5 @@ public record RoomResponseDto(
         String updatedBy,
         LocalDateTime createdDate,
         LocalDateTime updatedDate
-) {
+) implements BaseResponse {
 }

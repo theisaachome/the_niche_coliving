@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
-
+/*
 @Service
 public class AddressServiceImpl implements AddressService<BaseResponse> {
 
@@ -87,13 +87,13 @@ public class AddressServiceImpl implements AddressService<BaseResponse> {
                 addressMapper.mapToDto(existingAddress));
     }
 
-    @Override
-    public ApiResponse<List<AddressDto>> getAllAddressesByTenantId(UUID tenantId) {
-        var addressList = addressRepository.findByTenantId(tenantId);
-        return new ApiResponse<>("success",
-                "getAddressDetailsById operation successful.",
-                addressMapper.mapList(addressList,addressMapper::mapToDto) );
-    }
+//    @Override
+//    public ApiResponse<List<AddressDto>> getAllAddressesByTenantId(UUID tenantId) {
+//        var addressList = addressRepository.findByTenantId(tenantId);
+//        return new ApiResponse<>("success",
+//                "getAddressDetailsById operation successful.",
+//                addressMapper.mapList(addressList,addressMapper::mapToDto) );
+//    }
 
     @Override
     public ApiResponse<SuccessResponse> create(AddressDto dto) {return  null;}
@@ -117,7 +117,14 @@ public class AddressServiceImpl implements AddressService<BaseResponse> {
     }
 
     @Override
+    public <T> List<T> search() {
+        return List.of();
+    }
+
+    @Override
     public ApiResponse<AddressDto> testMethod() {
         return null;
     }
 }
+
+ */

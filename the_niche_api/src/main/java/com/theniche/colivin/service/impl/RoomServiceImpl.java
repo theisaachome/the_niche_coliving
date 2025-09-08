@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/*
 @Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
@@ -80,3 +81,5 @@ public class RoomServiceImpl implements RoomService {
         return List.of();
     }
 }
+
+ */

@@ -14,7 +14,7 @@ public interface TenantDocumentService {
 
     ApiResponse<ResponseData> addDocument(UUID tenantId, DocumentRequest dto);
     ApiResponse<ResponseData> updateDocument(UUID documentId, DocumentRequest document);
-    ApiResponse<DocumentResponse> getTenantDocumentById(UUID documentId);
+//    ApiResponse<DocumentResponse> getTenantDocumentById(UUID documentId);
     ApiListResponse<List<DocumentResponse>> getTenantDocuments(UUID tenantId);
     ApiResponse<ResponseData> deleteDocument(UUID documentId);
 }

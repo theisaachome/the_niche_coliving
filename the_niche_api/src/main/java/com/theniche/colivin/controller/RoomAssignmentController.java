@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/*
 @RestController
 @RequestMapping("/api/v1/assignments")
 public class RoomAssignmentController {
@@ -25,14 +26,15 @@ public class RoomAssignmentController {
 
      */
 
-
-//    @PostMapping
+/*
+    @PostMapping
     public ResponseEntity<ApiResponse> assignTenantToRoom(TenantRequestDto dto){
         return null;
     }
 
-//    @PostMapping
+    @PostMapping
     public ResponseEntity<ApiResponse> unassignTenantFromRoom(TenantRequestDto dto){
         return null;
     }
 }
+*/

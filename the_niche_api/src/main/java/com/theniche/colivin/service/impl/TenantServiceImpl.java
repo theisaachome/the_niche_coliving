@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
+/*
 @Service
 public class TenantServiceImpl implements TenantService {
 
@@ -84,3 +85,5 @@ public class TenantServiceImpl implements TenantService {
         return result;
     }
 }
+
+ */

@@ -6,12 +6,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Parent coordinates -->
-    <groupId>com.theniche</groupId>
+    <groupId>com.theniche.colivin</groupId>
     <artifactId>the-niche-coliving</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+
     <name>The Niche Coliving - Parent</name>
+    <modules>
+        <module>the-niche-colivin-domain</module>
+        <module>the-niche-colivin-rest</module>
+        <module>the-niche-colivin-application</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <spring.boot.version>3.3.3</spring.boot.version>
+        <project-version>1.0.0-SNAPSHOT</project-version>
+    </properties>
 
     <!-- Dependency management for all child modules -->
     <dependencyManagement>
@@ -20,7 +33,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>3.3.3</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -49,13 +62,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <!-- Modules (subprojects) -->
-    <!--
-    <modules>
-        <module>service-a</module>
-        <module>service-b</module>
-        <module>common-lib</module>
-    </modules>
-    -->
 </project>

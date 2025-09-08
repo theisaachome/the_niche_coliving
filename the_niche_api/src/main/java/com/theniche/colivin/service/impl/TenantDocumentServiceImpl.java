@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/*
 @Service
 public class TenantDocumentServiceImpl implements TenantDocumentService {
     private final TenantDocumentRepository tenantDocumentRepository;
@@ -109,3 +110,5 @@ public class TenantDocumentServiceImpl implements TenantDocumentService {
                         existingDocument.getCreatedBy()));
     }
 }
+
+ */

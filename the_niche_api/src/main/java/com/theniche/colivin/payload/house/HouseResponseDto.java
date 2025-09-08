@@ -1,5 +1,6 @@
 package com.theniche.colivin.payload.house;
 
+import com.theniche.colivin.payload.BaseResponse;
 import com.theniche.colivin.payload.room.RoomResponseDto;
 
 import java.time.LocalDateTime;
@@ -17,5 +18,5 @@ public record HouseResponseDto(
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         Set<RoomResponseDto> rooms
-) {
+) implements BaseResponse {
 }

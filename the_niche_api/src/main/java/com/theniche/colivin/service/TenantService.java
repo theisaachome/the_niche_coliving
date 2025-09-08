@@ -13,7 +13,7 @@ public interface TenantService {
 
     ApiResponse<ResponseData> createNewTenant(TenantRequestDto dto);
     ApiResponse<ResponseData> updateTenant(UUID tenantId, TenantRequestDto dto);
-    ApiResponse<TenantResponseDto> getTenantDetails(UUID tenantId);
+//    ApiResponse<TenantResponseDto> getTenantDetails(UUID tenantId);
     ApiResponse<ResponseData> deleteTenant(UUID tenantId);
     ApiResponse<ResponseData> addTenantAddress(UUID tenantId, AddressDto dto);
 }

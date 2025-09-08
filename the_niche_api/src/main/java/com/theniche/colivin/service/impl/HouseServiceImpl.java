@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.UUID;
 
+/*
 @Service
 public class HouseServiceImpl implements HouseService {
 
@@ -111,3 +112,6 @@ public class HouseServiceImpl implements HouseService {
               new ResponseData(savedHouse.getId(),savedHouse.getName(),savedHouse.getUpdatedDate(),savedHouse.getUpdatedBy()));
     }
 }
+
+
+ */

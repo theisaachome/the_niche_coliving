@@ -3,6 +3,9 @@
 .idea
 .vscode/
 
+
+target/
+
 # Compiled output
 /dist
 /tmp

@@ -9,14 +9,14 @@
 /out-tsc
 /bazel-out
 
-
+**/target/
 
 .mvn
 HELP.md
-target/
+target/**
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+**/src/main/**/target/
+**/src/test/**/target/
 
 ### STS ###
 .apt_generated

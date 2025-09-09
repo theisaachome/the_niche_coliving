@@ -2,7 +2,7 @@ package com.theniche.colivin.rest.controller;
 
 
 import com.theniche.colivin.domain.entity.BaseEntity;
-import com.theniche.colivin.domain.service.BaseService;
+import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.rest.dto.BaseResponseDto;
 import com.theniche.colivin.rest.mapper.BaseMapper;
 import jakarta.validation.Valid;
@@ -12,14 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
 
-public abstract class BaseController< E extends BaseEntity, RQ,RS extends BaseResponseDto> {
+public abstract class BaseController< E extends BaseEntity, RQ,RS > {
     protected final BaseService<E> service;
     protected final BaseMapper<E, RQ,RS> mapper;
 
@@ -50,4 +47,6 @@ public abstract class BaseController< E extends BaseEntity, RQ,RS extends BaseRe
         RS response = mapper.entityToResponse(savedEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    protected  abstract  <D> ResponseEntity<D>  update (@PathVariable UUID id, @Valid @RequestBody RQ requestDto);
 }

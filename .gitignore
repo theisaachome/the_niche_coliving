@@ -1,4 +1,7 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+!**/src/main/**/target/
+!**/src/test/**/target/
+
 
 .idea
 .vscode/

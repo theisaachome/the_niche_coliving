@@ -1,4 +1,4 @@
-package com.theniche.colivin.domain.repository;
+package com.theniche.colivin.domain.common;
 import com.theniche.colivin.domain.entity.BaseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,6 @@
-package com.theniche.colivin.domain.service;
+package com.theniche.colivin.domain.common;
 
 import com.theniche.colivin.domain.entity.BaseEntity;
-import com.theniche.colivin.domain.repository.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;

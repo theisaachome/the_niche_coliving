@@ -1,14 +1,12 @@
 package com.theniche.colivin.rest.mapper;
-
 import com.theniche.colivin.domain.entity.BaseEntity;
-import com.theniche.colivin.rest.dto.BaseResponseDto;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public interface BaseMapper<E extends BaseEntity, RQ,RS extends BaseResponseDto> {
+public interface BaseMapper<E extends BaseEntity, RQ,RS> {
     E requestToEntity(RQ requestDto);
     RS entityToResponse(E entity);
 

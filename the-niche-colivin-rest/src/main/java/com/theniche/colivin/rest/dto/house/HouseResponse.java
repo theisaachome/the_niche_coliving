@@ -1,10 +1,12 @@
 package com.theniche.colivin.rest.dto.house;
 
+import com.theniche.colivin.rest.dto.room.RoomResponse;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-public record HouseResponseDto(
+public record HouseResponse(
         UUID id,
         String houseName,
         String description,
@@ -14,6 +16,6 @@ public record HouseResponseDto(
         String updatedBy,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Set<com.theniche.colivin.rest.dto.room.RoomResponseDto> rooms
+        Set<RoomResponse> rooms
 ){
 }

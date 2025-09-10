@@ -1,6 +1,6 @@
 package com.theniche.colivin.rest.dto.house;
 
-import com.theniche.colivin.rest.dto.room.RoomRequestDto;
+import com.theniche.colivin.rest.dto.room.RoomRequest;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -23,6 +23,6 @@ public record HouseRequest(
         // At least one room is required
         @NotEmpty(message = "At least one room is required.")
         @Size(min = 1, message = "At least one room must be provided.")
-        List<RoomRequestDto> rooms
+        List<RoomRequest> rooms
 ) {
 }

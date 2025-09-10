@@ -3,6 +3,7 @@ package com.theniche.colivin.rest.controller;
 
 import com.theniche.colivin.domain.entity.BaseEntity;
 import com.theniche.colivin.domain.common.BaseService;
+import com.theniche.colivin.rest.ApiResponse;
 import com.theniche.colivin.rest.dto.BaseResponseDto;
 import com.theniche.colivin.rest.mapper.BaseMapper;
 import jakarta.validation.Valid;
@@ -36,7 +37,7 @@ public abstract class BaseController< E extends BaseEntity, RQ,RS > {
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<E> entities = service.findAll(pageable);
 
-        List<RS> responses = mapper.entitiesToResponses(entities.getContent());
+        List<RS> responses = mapper.mapList(entities.getContent(),mapper::entityToResponse);
         return ResponseEntity.ok(responses);
     }
 
@@ -46,6 +47,18 @@ public abstract class BaseController< E extends BaseEntity, RQ,RS > {
         E savedEntity = service.save(entity);
         RS response = mapper.entityToResponse(savedEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RS> getDetailsById(@PathVariable("id") UUID id) {
+        var result = service.findById(id);
+        return ResponseEntity.ok(mapper.entityToResponse(result));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<String>>  deleteById(@PathVariable("id") UUID id) {
+        var result = service.deleteById(id);
+        return  new ResponseEntity<>(new ApiResponse<>("success","content deleted",result.getId().toString()),HttpStatus.OK);
     }
 
     protected  abstract  <D> ResponseEntity<D>  update (@PathVariable UUID id, @Valid @RequestBody RQ requestDto);

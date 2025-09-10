@@ -14,7 +14,7 @@ public interface BaseMapper<E extends BaseEntity, RQ,RS> {
         Objects.requireNonNull(source);
         return source == null? List.of() : source.stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
     }
-    List<RS> entitiesToResponses(List<E> entities);
+//    List<RS> entitiesToResponses(List<E> entities);
 
 //    void updateEntityFromRequest(RQ requestDto, E entity);
 }

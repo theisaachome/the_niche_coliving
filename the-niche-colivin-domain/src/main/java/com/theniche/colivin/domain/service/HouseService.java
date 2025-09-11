@@ -3,6 +3,8 @@ package com.theniche.colivin.domain.service;
 import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.House;
+import com.theniche.colivin.domain.entity.Room;
+import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,7 +18,6 @@ public class HouseService extends BaseService<House> {
 
     @Override
     public House save(House entity) {
-
         if(entity.getRooms() != null){
             entity.getRooms().forEach(entity::addRoom);
         }
@@ -25,7 +26,22 @@ public class HouseService extends BaseService<House> {
 
     @Override
     public House update(UUID id, House entity) {
-
-        return null;
+        var existingHouse = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("House","ID",id));
+        existingHouse.setName(entity.getName());
+        existingHouse.setAddress(entity.getAddress());
+        existingHouse.setDescription(entity.getDescription());
+        existingHouse.setNotes(entity.getNotes());
+        return repository.save(existingHouse);
     }
+
+
+    public String addRoomToHouse(UUID houseId, Room room) {
+        // look for house
+        var house = repository.findById(houseId).orElseThrow(()->new ResourceNotFoundException("House","ID",houseId));
+        house.addRoom(room);
+        room.setHouse(house);
+        repository.save(house);
+        return String.valueOf(house.getId());
+    }
+
 }

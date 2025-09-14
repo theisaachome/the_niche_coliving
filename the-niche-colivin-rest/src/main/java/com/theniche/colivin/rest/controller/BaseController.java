@@ -26,7 +26,7 @@ public abstract class BaseController< E extends BaseEntity, RQ,RS > {
         this.mapper = mapper;
     }
 
-    @GetMapping
+//    @GetMapping
     public ResponseEntity<List<RS>> findAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,

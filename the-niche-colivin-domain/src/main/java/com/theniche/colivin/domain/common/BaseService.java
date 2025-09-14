@@ -1,13 +1,10 @@
 package com.theniche.colivin.domain.common;
-
 import com.theniche.colivin.domain.entity.BaseEntity;
 import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseService <T extends BaseEntity> {
@@ -26,6 +23,7 @@ public abstract class BaseService <T extends BaseEntity> {
         return repository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Entity","ID",id));
     }
 
+    // soft-delete
     @Transactional
     public T deleteById(UUID id){
         var entity = repository.findById(id)

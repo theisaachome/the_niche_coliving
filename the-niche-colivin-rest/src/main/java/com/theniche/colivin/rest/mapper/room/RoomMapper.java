@@ -1,12 +1,10 @@
 package com.theniche.colivin.rest.mapper.room;
 import com.theniche.colivin.domain.entity.Room;
-import com.theniche.colivin.rest.ApiResponse;
 import com.theniche.colivin.rest.dto.room.RoomRequest;
 import com.theniche.colivin.rest.dto.room.RoomResponse;
 import com.theniche.colivin.rest.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 
 @Component

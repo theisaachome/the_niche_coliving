@@ -26,9 +26,12 @@ public class Tenant  extends BaseEntity {
     private Gender gender;
     private LocalDate dateOfBirth;
 
+    @Builder.Default
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-    private Set<Document>  documents;
+    private Set<Document>  documents = new HashSet<>();
 
+
+    @Builder.Default
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
 

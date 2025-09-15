@@ -22,15 +22,22 @@ public class TenantMapper implements BaseMapper<Tenant, TenantRequest, TenantRes
 
     @Override
     public Tenant requestToEntity(TenantRequest requestDto) {
-        return Tenant.builder()
+        var tenant= Tenant.builder()
                 .fullName(requestDto.fullName())
                 .email(requestDto.email())
                 .phone(requestDto.phone())
                 .dateOfBirth(requestDto.dateOfBirth())
                 .gender(requestDto.gender())
-                .addresses(requestDto.addresses().stream().map(addressMapper::requestToEntity).collect(Collectors.toSet()))
-                .documents(requestDto.documentRequests().stream().map(documentMapper::requestToEntity).collect(Collectors.toSet()))
                 .build();
+        if(requestDto.addresses() != null && !requestDto.addresses().isEmpty()) {
+            var addresses =  requestDto.addresses().stream().map(addressMapper::requestToEntity).collect(Collectors.toSet());
+                      addresses.forEach(tenant::addAddress);
+        }
+        if(requestDto.documents() != null && !requestDto.documents().isEmpty()) {
+          var documents=  requestDto.documents().stream().map(documentMapper::requestToEntity).collect(Collectors.toSet());
+                    documents.forEach(tenant::addTenantDocument);
+        }
+        return tenant;
     }
 
     @Override

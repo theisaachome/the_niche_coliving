@@ -3,6 +3,7 @@ package com.theniche.colivin.domain.service;
 import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.Tenant;
+import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import com.theniche.colivin.domain.repository.TenantRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,12 @@ public class TenantService extends BaseService<Tenant> {
 
     @Override
     public Tenant update(UUID id, Tenant entity) {
-        return null;
+        var existingEntity = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Tenant","id",id));
+        existingEntity.setFullName(entity.getFullName());
+        existingEntity.setEmail(entity.getEmail());
+        existingEntity.setPhone(entity.getPhone());
+        existingEntity.setDateOfBirth(entity.getDateOfBirth());
+        return repository.save(existingEntity);
     }
 
     // findTenantOne by tenant-id,document-id,tenant-phone,tenant-code

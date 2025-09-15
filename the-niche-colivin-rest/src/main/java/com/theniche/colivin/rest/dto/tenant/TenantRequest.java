@@ -15,7 +15,7 @@ public record TenantRequest(
         String email,
         Gender gender,
         Set<AddressDto> addresses,
-        Set<DocumentRequest> documentRequests,
+        Set<DocumentRequest> documents,
         LocalDate dateOfBirth
 ) {
 }

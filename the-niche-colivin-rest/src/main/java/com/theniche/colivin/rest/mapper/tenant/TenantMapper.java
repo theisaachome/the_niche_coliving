@@ -1,6 +1,7 @@
 package com.theniche.colivin.rest.mapper.tenant;
 
 import com.theniche.colivin.domain.entity.Tenant;
+import com.theniche.colivin.rest.dto.tenant.TenantDetailsResponse;
 import com.theniche.colivin.rest.dto.tenant.TenantRequest;
 import com.theniche.colivin.rest.dto.tenant.TenantResponse;
 import com.theniche.colivin.rest.mapper.BaseMapper;
@@ -52,6 +53,26 @@ public class TenantMapper implements BaseMapper<Tenant, TenantRequest, TenantRes
                 entity.getEmail(),
                 entity.getGender(),
                 entity.getDateOfBirth(),
+                entity.getCreatedBy(),
+                entity.getUpdatedBy(),
+                entity.getCreatedDate(),
+                entity.getUpdatedDate()
+        );
+    }
+
+    public TenantDetailsResponse entityToDetailsResponse(Tenant entity) {
+        var addresses = entity.getAddresses().stream().map(addressMapper::entityToResponse).collect(Collectors.toList());
+        var documents = entity.getDocuments().stream().map(documentMapper::entityToResponse).collect(Collectors.toList());
+        return new TenantDetailsResponse(
+                entity.getId(),
+                entity.getTenantCode(),
+                entity.getFullName(),
+                entity.getPhone(),
+                entity.getEmail(),
+                entity.getGender(),
+                entity.getDateOfBirth(),
+                documents,
+                addresses,
                 entity.getCreatedBy(),
                 entity.getUpdatedBy(),
                 entity.getCreatedDate(),

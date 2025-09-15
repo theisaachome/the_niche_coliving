@@ -5,8 +5,15 @@ import com.theniche.colivin.domain.entity.Tenant;
 import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import com.theniche.colivin.domain.service.TenantService;
 import com.theniche.colivin.rest.ApiResponse;
+import com.theniche.colivin.rest.dto.PageApiResponse;
+import com.theniche.colivin.rest.dto.address.AddressDto;
+import com.theniche.colivin.rest.dto.document.DocumentRequest;
+import com.theniche.colivin.rest.dto.tenant.TenantDetailsResponse;
 import com.theniche.colivin.rest.dto.tenant.TenantRequest;
 import com.theniche.colivin.rest.dto.tenant.TenantResponse;
+import com.theniche.colivin.rest.dto.tenant.TenantSearchFilters;
+import com.theniche.colivin.rest.mapper.address.AddressMapper;
+import com.theniche.colivin.rest.mapper.doucment.DocumentMapper;
 import com.theniche.colivin.rest.mapper.tenant.TenantMapper;
 import com.theniche.colivin.rest.utils.PageRequestDto;
 import io.micrometer.common.util.StringUtils;
@@ -20,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,12 +35,18 @@ import java.util.UUID;
 public class TenantRestController extends BaseController<Tenant, TenantRequest, TenantResponse> {
 
     private final TenantService tenantService;
-    private TenantMapper tenantMapper;
+    private final TenantMapper tenantMapper;
+    private final AddressMapper addressMapper;
+    private final DocumentMapper documentMapper;
 
-    public TenantRestController(TenantService tenantService, TenantMapper tenantMapper) {
+    public TenantRestController(TenantService tenantService,
+                                TenantMapper tenantMapper,
+                                AddressMapper addressMapper, DocumentMapper documentMapper) {
         super(tenantService, tenantMapper);
         this.tenantService = tenantService;
         this.tenantMapper = tenantMapper;
+        this.addressMapper = addressMapper;
+        this.documentMapper = documentMapper;
     }
 
     @PutMapping("/{tenantId}")
@@ -43,38 +57,73 @@ public class TenantRestController extends BaseController<Tenant, TenantRequest, 
         return new ResponseEntity<>(new ApiResponse("success","Update successful",results.getId()), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
-    ResponseEntity<TenantResponse> searchTenantOne(
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "phone", required = false) String phone,
-            @RequestParam(value = "fullName", required = false) String fullName
+    @GetMapping("/{tenantId}/details")
+    ResponseEntity<TenantDetailsResponse> getTenantDetailsById(@PathVariable("tenantId") UUID id){
+        var entityResult = tenantService.getTenantDetails(id);
+        return new ResponseEntity<>(tenantMapper.entityToDetailsResponse(entityResult), HttpStatus.OK);
+    }
+
+    @GetMapping("/find")
+    ResponseEntity<TenantResponse> findTenant(
+            @RequestParam(value = "tenantCode", required = false) String tenantCode,
+            @RequestParam(value = "phone", required = false) String phone
     ){
         GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
-        if(StringUtils.isNotBlank(email)){
-            specBuilder.add(new SearchCriteria("email",email, SearchCriteria.Operation.EQUAL));
+        if(StringUtils.isNotBlank(tenantCode)){
+            specBuilder.add(new SearchCriteria("tenantCode",tenantCode, SearchCriteria.Operation.EQUAL));
         }
         if(StringUtils.isNotBlank(phone)){
             specBuilder.add(new SearchCriteria("phone",phone, SearchCriteria.Operation.EQUAL));
         }
-        if(StringUtils.isNotBlank(fullName)){
-            specBuilder.add(new SearchCriteria("fullName",fullName, SearchCriteria.Operation.LIKE));
-        }
-        var searchResult = tenantService.searchOne(specBuilder.build()).orElseThrow(()-> new ResourceNotFoundException("No Tenant for",
-                String.format("%s %s %s", email, phone, fullName),
+        var searchResult = tenantService.searchOne(specBuilder.build()).orElseThrow(()-> new ResourceNotFoundException("No Tenant ",
+                String.format("%s %s ", tenantCode, phone),
                 null));
         return new ResponseEntity<>(tenantMapper.entityToResponse(searchResult),HttpStatus.OK);
     }
 
-    @GetMapping("/search#")
-    ResponseEntity<List<TenantResponse>> searchTenants (
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "tenantCode", required = false) String tenantCode,
-            @RequestParam(value = "phone", required = false) String phone,
-            @RequestParam(value = "fullName", required = false) String fullName,
+    @GetMapping("/search")
+    ResponseEntity<PageApiResponse> searchTenants (
+            @ModelAttribute TenantSearchFilters filters,
             @ModelAttribute PageRequestDto pageRequestDto){
         GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
+        if(StringUtils.isNotBlank(filters.getTenantCode())){
+            specBuilder.add(new SearchCriteria("tenantCode",filters.getTenantCode(), SearchCriteria.Operation.EQUAL));
+        }
+        if(StringUtils.isNotBlank(filters.getEmail())){
+            specBuilder.add(new SearchCriteria("email",filters.getEmail(), SearchCriteria.Operation.OR));
+        }
+        if(StringUtils.isNotBlank(filters.getPhone())){
+            specBuilder.add(new SearchCriteria("phone",filters.getPhone(), SearchCriteria.Operation.OR));
+        }
+        if(StringUtils.isNotBlank(filters.getFullName())){
+            specBuilder.add(new SearchCriteria("fullName",filters.getFullName(), SearchCriteria.Operation.LIKE));
+        }
         var pagedList= tenantService.searchList(specBuilder.build(),pageRequestDto.toPageable());
+        var dtoList =pagedList.getContent().stream().map(mapper::entityToResponse).collect(Collectors.toList());
+        var result= new PageApiResponse(
+                dtoList,
+                pagedList.getNumber(),
+                pagedList.getSize(),
+                pagedList.getTotalElements(),
+                pagedList.getTotalPages(),
+                pagedList.isLast()
+        );
+        return new ResponseEntity<>(result,HttpStatus.OK);
 
+    }
+
+    @PostMapping("/{tenantId}/documents")
+    ResponseEntity<?> addTenantDocument(@PathVariable("tenantId") UUID id,@RequestBody DocumentRequest request){
+        var documentEntity = documentMapper.requestToEntity(request);
+        var savedTenant = tenantService.addTenantDocument(id, documentEntity);
+        return new ResponseEntity<>(new ApiResponse<>("success","Document Added successfully",savedTenant.getId()), HttpStatus.OK);
+    }
+
+    @PostMapping("/{tenantId}/addresses")
+    ResponseEntity<?> addTenantAddress(@PathVariable("tenantId") UUID id, @RequestBody AddressDto request){
+        var addressEntity = addressMapper.requestToEntity(request);
+        var savedTenant = tenantService.addTenantAddress(id, addressEntity);
+        return new ResponseEntity<>(new ApiResponse<>("success","Address Added successfully",savedTenant.getId()), HttpStatus.OK);
     }
 
 

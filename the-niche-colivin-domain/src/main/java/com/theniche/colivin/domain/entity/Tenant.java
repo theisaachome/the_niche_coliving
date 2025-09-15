@@ -27,24 +27,24 @@ public class Tenant  extends BaseEntity {
     private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-    private Set<TenantDocument>  documents;
+    private Set<Document>  documents;
 
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
 
 
-    public void addTenantDocument(TenantDocument tenantDocument) {
-        documents.add(tenantDocument);
-        tenantDocument.setTenant(this);
+    public void addTenantDocument(Document document) {
+        documents.add(document);
+        document.setTenant(this);
     }
 
-    public void removeTenantDocument(TenantDocument tenantDocument) {
-        documents.remove(tenantDocument);
-        tenantDocument.setTenant(null);
+    public void removeTenantDocument(Document document) {
+        documents.remove(document);
+        document.setTenant(null);
     }
 
     public void removeTenantDocuments(){
-        Iterator<TenantDocument> iterator = documents.iterator();
+        Iterator<Document> iterator = documents.iterator();
         while(iterator.hasNext()){
             iterator.next().setTenant(null);
             iterator.remove();

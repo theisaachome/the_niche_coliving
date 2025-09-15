@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tenant_documents")
-public class TenantDocument extends BaseEntity{
+public class Document extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false,name = "tenant_id")

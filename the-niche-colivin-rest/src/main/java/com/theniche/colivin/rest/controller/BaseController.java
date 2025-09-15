@@ -5,7 +5,10 @@ import com.theniche.colivin.domain.entity.BaseEntity;
 import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.rest.ApiResponse;
 import com.theniche.colivin.rest.dto.BaseResponseDto;
+import com.theniche.colivin.rest.dto.PageApiResponse;
+import com.theniche.colivin.rest.dto.tenant.TenantResponse;
 import com.theniche.colivin.rest.mapper.BaseMapper;
+import com.theniche.colivin.rest.utils.AppConstants;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public abstract class BaseController< E extends BaseEntity, RQ,RS > {
     protected final BaseService<E> service;
@@ -39,6 +43,28 @@ public abstract class BaseController< E extends BaseEntity, RQ,RS > {
 
         List<RS> responses = mapper.mapList(entities.getContent(),mapper::entityToResponse);
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping
+    public   ResponseEntity<PageApiResponse> getAllPagedResponse(
+            @RequestParam(value = "pageNo",defaultValue = AppConstants.DEFAULT_PAGE_NUMBER,required = false) int pageNo,
+            @RequestParam(value = "pageSize",defaultValue = AppConstants.DEFAULT_PAGE_SIZE,required = false)int pageSize,
+            @RequestParam(value = "sortBy",defaultValue = AppConstants.DEFAULT_SORT_BY,required = false)String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = AppConstants.DEFAULT_SORT_DIR,required = false)String sortDir
+    ){
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortBy);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        var entities = service.findAll(pageable);
+        var pagedList = entities.getContent().stream().map(mapper::entityToResponse).collect(Collectors.toList());
+        var result= new PageApiResponse(
+                pagedList,
+                entities.getNumber(),
+                entities.getSize(),
+                entities.getTotalElements(),
+                entities.getTotalPages(),
+                entities.isLast()
+        );
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping

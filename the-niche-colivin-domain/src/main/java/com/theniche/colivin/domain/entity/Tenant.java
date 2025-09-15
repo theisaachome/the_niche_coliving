@@ -18,6 +18,9 @@ import java.util.Set;
 @Entity
 @Table(name = "tenants")
 public class Tenant  extends BaseEntity {
+
+    @Column(updatable = false, nullable = false, unique = true)
+    private String tenantCode;
     private String fullName;
     @Column(nullable = false)
     private String phone;

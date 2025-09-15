@@ -34,7 +34,7 @@ public class RoomRestController extends BaseController<Room, RoomRequest, RoomRe
         return new ResponseEntity<>(new ApiResponse<>("success","Room updated",dtoRoom), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<RoomResponse>> getAllRooms() {
         var roomList = roomService.findAll();
         var dtoList = roomMapper.mapList(roomList,roomMapper::entityToResponse);

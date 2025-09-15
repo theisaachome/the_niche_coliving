@@ -45,4 +45,8 @@ public class RoomService extends BaseService<Room> {
         return roomRepository.findAll();
     }
 
+    public List<Room> findAvailableRooms(){
+        return null;
+    }
+
 }

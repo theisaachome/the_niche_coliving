@@ -9,4 +9,5 @@ public interface RoomRepository extends BaseRepository<Room> {
 
     List<Room> findByHouseId(UUID houseId);
     Optional<Room> findByRoomNumber(String roomNumber);
+//    List<Room> findRoomByTenantIsNull();
 }

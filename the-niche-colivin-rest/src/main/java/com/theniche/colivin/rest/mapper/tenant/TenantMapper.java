@@ -42,16 +42,15 @@ public class TenantMapper implements BaseMapper<Tenant, TenantRequest, TenantRes
 
     @Override
     public TenantResponse entityToResponse(Tenant entity) {
-        var addresses = entity.getAddresses().stream().map(addressMapper::entityToResponse).collect(Collectors.toSet());
-        var documents = entity.getDocuments().stream().map(documentMapper::entityToResponse).collect(Collectors.toSet());
+//        var addresses = entity.getAddresses().stream().map(addressMapper::entityToResponse).collect(Collectors.toSet());
+//        var documents = entity.getDocuments().stream().map(documentMapper::entityToResponse).collect(Collectors.toSet());
         return new TenantResponse(
                 entity.getId(),
+                entity.getTenantCode(),
                 entity.getFullName(),
                 entity.getPhone(),
                 entity.getEmail(),
                 entity.getGender(),
-                documents,
-                addresses,
                 entity.getDateOfBirth(),
                 entity.getCreatedBy(),
                 entity.getUpdatedBy(),

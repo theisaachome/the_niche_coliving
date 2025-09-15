@@ -12,14 +12,11 @@ import java.util.UUID;
 
 public record TenantResponse(
         UUID id,
-        @NotEmpty(message = "Name required")
+        String tenantCode,
         String fullName,
-        @NotEmpty(message = "Phone required")
         String phone,
         String email,
         Gender gender,
-        Set<DocumentResponse> documents,
-        Set<AddressDto> addresses,
         LocalDate dateOfBirth,
         String createdBy,
         String updatedBy,

@@ -74,7 +74,7 @@ export class HouseFormComponent implements  OnInit{
       onSubmit(){
           const newUnit= {
               id:Date.now(),
-              unit_name:this.unitForm.get('unit_name')?.value,
+              houseName:this.unitForm.get('unit_name')?.value,
               notes:this.unitForm.get('notes')?.value,
               address:this.unitForm.get('address')?.value,
               description:this.unitForm.get('description')?.value,

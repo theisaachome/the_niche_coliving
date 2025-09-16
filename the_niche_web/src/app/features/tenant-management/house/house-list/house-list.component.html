@@ -1,29 +1,33 @@
-<button class="ui basic button">Add House</button>
+<button class="ui basic button" (click)="addNewHouse()">Add House</button>
+<app-divider>
+    House Overviews
+</app-divider>
 <div class="ui">
-    <h3 class="ui dividing header">Property Units Summary</h3>
     <table class="ui celled striped table">
       <thead>
         <tr>
             <th># No</th>
           <th>Unit Name</th>
           <th>Location Address</th>
-          <th> Room Count</th>
-          <th> Total Capacity</th>
           <th>Notes/Remark</th>
+            <th>Actions</th>
         </tr>
       </thead>
-      <tbody>
-          @for(unit of (unitsSummary$ | async) ; track unit.id) {
-              <tr>
-                  <td>{{unit.id }}</td>
-                  <td>{{unit.unitName}}</td>
-                  <td>{{unit.address}}</td>
-                  <td>{{unit.numberOfRooms}}</td>
-                  <td>{{unit.totalCapacity}}</td>
-                  <td>{{unit.notes}}</td>
-              </tr>
-      }
-      </tbody>
+        <tbody>
+            @for (house of house$ | async; track house.id) {
+                <tr>
+                    <td>{{house.id}}</td>
+                    <td>{{ house.houseName }}</td>
+                    <td>{{ house.address }}</td>
+                    <td>{{ house.notes }}</td>
+                    <td >
+                        <a [routerLink]="['/houses', house.id]" >
+<!--                            <i class="eye icon"></i>-->View
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
         <tfoot>
         <tr>
             <td colspan="2">5 Houses</td>
@@ -33,7 +37,6 @@
         </tfoot>
     </table>
 </div>
-<router-outlet></router-outlet>
 
 
 <!--

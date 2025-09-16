@@ -1,0 +1,64 @@
+
+<app-divider>
+    House Details
+</app-divider>
+@if (house) {
+    <div class="ui raised very padded text  segment">
+        <h2 class="ui header">
+            <i class="home icon"></i>
+            <div class="content">
+                {{ house.houseName }}
+                <div class="sub header">{{ house.address }}</div>
+            </div>
+        </h2>
+        <div class="ui divider"></div>
+
+        <div class="ui grid">
+            <div class="eight wide column">
+                <h4 class="ui header">Description</h4>
+                <p>{{ house.description }}</p>
+            </div>
+            <div class="eight wide column">
+                <h4 class="ui header">Notes</h4>
+                <p>{{ house.notes }}</p>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+
+        <h3 class="ui header">
+            <i class="bed icon"></i>
+            <div class="content">Rooms</div>
+        </h3>
+
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Capacity</th>
+                <th>Notes</th>
+                <th>Created</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for (room of house.rooms; track room.id) {
+                    <tr >
+                        <td>{{ room.room_number }}</td>
+                        <td>
+                            <div class="ui label">
+                                <i class="users icon"></i>
+                                {{ room.capacity }}
+                            </div>
+                        </td>
+                        <td>{{ room.notes }}</td>
+                        <td>{{ room.createdDate | date:'medium' }}</td>
+                        <td>{{ room.updatedDate | date:'medium' }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+

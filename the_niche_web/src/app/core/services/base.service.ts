@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {PageResponse} from "../../features/tenant-management/house/house.model";
 
 
 export  class BaseService<T>{
@@ -8,7 +9,7 @@ export  class BaseService<T>{
    }
 
    getAll():Observable<T[]>{
-    return this.http.get<T[]>(`${this.baseUrl}/units`,{})
+    return this.http.get<T[]>(`${this.baseUrl}`,{})
    }
 
    getById():Observable<T>{
@@ -24,6 +25,10 @@ export  class BaseService<T>{
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getAllPagedList():Observable<PageResponse<T>>{
+       return this.http.get<PageResponse<T>>(`${this.baseUrl}`);
   }
 
 }

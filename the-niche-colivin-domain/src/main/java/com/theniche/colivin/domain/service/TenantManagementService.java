@@ -20,6 +20,7 @@ public class TenantManagementService {
 @RequiredArgsConstructor
 public class TenantActivityController {
 
+
     private final TenantActivityService activityService;
 
     @PostMapping("/{tenantId}/check-in")

@@ -9,16 +9,27 @@ export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
-  {path:'houses',
+    {path:'houses',
     loadComponent:async () => {
-        const c = await import("./features/tenant-management/house/house-list/house-list.component");
-        return c.HouseListComponent;
+        const c = await import("./features/tenant-management/house/houses.component");
+        return c.HousesComponent;
     },
       children:[
+          {
+              path: '', // default child when visiting /houses
+              loadComponent: () =>
+                  import('./features/tenant-management/house/house-list/house-list.component')
+                      .then((c) => c.HouseListComponent),
+          },
           {
               path:'new',
               loadComponent:()=>import('./features/tenant-management/house/house-form/house-form.component')
                       .then((c)=>c.HouseFormComponent),
+          },
+          {
+              path:":id",
+              loadComponent:()=>import('./features/tenant-management/house/details/house.details.component')
+                  .then((c)=>c.HouseDetailsComponent),
           }
       ]
   },

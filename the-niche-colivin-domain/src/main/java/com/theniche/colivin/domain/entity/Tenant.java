@@ -1,5 +1,9 @@
 package com.theniche.colivin.domain.entity;
 
+import com.theniche.colivin.domain.common.AssignmentStatus;
+import com.theniche.colivin.domain.common.CodeGenerator;
+import com.theniche.colivin.domain.common.Gender;
+import com.theniche.colivin.domain.common.TenantStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +32,10 @@ public class Tenant  extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDate dateOfBirth;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tenant_status")
+    private TenantStatus tenantStatus;
+
 
     @Builder.Default
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
@@ -37,6 +45,10 @@ public class Tenant  extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
+
+    @OneToMany(mappedBy = "tenant",cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<RoomAssignment> roomAssignments = new HashSet<>();
 
 
     public void addTenantDocument(Document document) {
@@ -74,6 +86,27 @@ public class Tenant  extends BaseEntity {
         }
     }
 
+    // Helper methods for managing assignments
+    public void assignToRoom(Room room, LocalDate assignmentDate,
+                             LocalDate leaseEndDate, AssignmentStatus status) {
+        RoomAssignment assignment = new RoomAssignment()
+                .setTenant(this)
+                .setRoom(room)
+                .setAssignmentDate(assignmentDate)
+                .setLeaseEndDate(leaseEndDate)
+                .setAssignmentStatus(status);
+
+        this.roomAssignments.add(assignment);
+        room.getRoomAssignments().add(assignment);
+    }
+
+    public void removeRoomAssignment(RoomAssignment assignment) {
+        this.roomAssignments.remove(assignment);
+        assignment.getRoom().getRoomAssignments().remove(assignment);
+        assignment.setTenant(null);
+        assignment.setRoom(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Tenant tenant)) return false;
@@ -83,5 +116,12 @@ public class Tenant  extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(fullName, phone, email, gender, dateOfBirth, documents, addresses);
+    }
+
+    @PrePersist
+    public void prePersist(){
+        if(this.tenantCode==null){
+            this.tenantCode = CodeGenerator.generateTenantCode();
+        }
     }
 }

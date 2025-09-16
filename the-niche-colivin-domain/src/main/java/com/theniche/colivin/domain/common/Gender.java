@@ -1,4 +1,4 @@
-package com.theniche.colivin.domain.entity;
+package com.theniche.colivin.domain.common;
 
 public enum Gender {
     MALE,

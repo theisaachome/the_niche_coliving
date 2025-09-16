@@ -1,5 +1,5 @@
 package com.theniche.colivin.rest.dto.tenant;
-import com.theniche.colivin.domain.entity.Gender;
+import com.theniche.colivin.domain.common.Gender;
 import com.theniche.colivin.rest.dto.address.AddressDto;
 import com.theniche.colivin.rest.dto.document.DocumentRequest;
 import jakarta.validation.constraints.NotEmpty;

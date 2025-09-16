@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoomMapper implements BaseMapper<Room, RoomRequest, RoomResponse> {
     @Override
-    public Room requestToEntity(RoomRequest requestDto) {
-        return Room.builder()
-                .roomNumber(requestDto.roomNumber())
-                .capacity(requestDto.capacity())
-                .notes(requestDto.notes())
-                .build();
+    public Room requestToEntity(RoomRequest dto) {
+        return new Room()
+                .setRoomNumber(dto.roomNumber())
+                .setNotes(dto.notes())
+                .setCapacity(dto.capacity());
     }
 
     @Override
@@ -23,8 +22,10 @@ public class RoomMapper implements BaseMapper<Room, RoomRequest, RoomResponse> {
         return new RoomResponse(
                 entity.getId(),
                 entity.getRoomNumber(),
+                entity.getRoomCode(),
                 entity.getCapacity(),
                 entity.getNotes(),
+                entity.getRoomStatus(),
                 entity.getCreatedBy(),
                 entity.getUpdatedBy(),
                 entity.getCreatedDate(),

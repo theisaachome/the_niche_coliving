@@ -1,5 +1,4 @@
 package com.theniche.colivin.domain.service;
-import com.theniche.colivin.domain.common.AppCodeGenerator;
 import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.Address;
@@ -22,12 +21,6 @@ public class TenantService extends BaseService<Tenant> {
                          TenantRepository tenantRepository) {
         super(repository);
         this.repository = tenantRepository;
-    }
-
-    @Override
-    public Tenant save(Tenant entity) {
-        entity.setTenantCode(AppCodeGenerator.generateTenantCode());
-        return super.save(entity);
     }
 
     public Tenant getTenantDetails(UUID id){

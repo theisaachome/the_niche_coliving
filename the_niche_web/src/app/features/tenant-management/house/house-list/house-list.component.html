@@ -1,29 +1,27 @@
-<button class="ui basic button" (click)="addNewHouse()">Add House</button>
+<!--<button class="ui basic button" (click)="addNewHouse()">Add House</button>-->
 <app-divider>
     House Overviews
 </app-divider>
 <div class="ui">
-    <table class="ui celled striped table">
+    <table class="ui celled padded striped table">
       <thead>
         <tr>
-            <th># No</th>
-          <th>Unit Name</th>
-          <th>Location Address</th>
-          <th>Notes/Remark</th>
-            <th>Actions</th>
+            <th>#House Code</th>
+            <th class="single line">Unit</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Room (Vacant/Total)</th>
         </tr>
       </thead>
         <tbody>
             @for (house of house$ | async; track house.id) {
                 <tr>
-                    <td>{{house.id}}</td>
+                    <td>{{house.houseCode}}</td>
                     <td>{{ house.houseName }}</td>
                     <td>{{ house.address }}</td>
-                    <td>{{ house.notes }}</td>
-                    <td >
-                        <a [routerLink]="['/houses', house.id]" >
-<!--                            <i class="eye icon"></i>-->View
-                        </a>
+                    <td>{{ house.houseStatus }}</td>
+                    <td class="left aligned">
+                        80% / <a href="#">18 studies</a>
                     </td>
                 </tr>
             }

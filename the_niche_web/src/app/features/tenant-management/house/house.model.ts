@@ -3,6 +3,8 @@
 export interface HouseDetails {
     id: string;
     houseName: string;
+    houseCode:string;
+    houseStatus:string;
     description: string;
     address: string;
     notes: string;
@@ -15,6 +17,8 @@ export interface HouseDetails {
 export interface House {
     id?: number|string;
     houseName:string;
+    houseCode:string;
+    houseStatus:string;
     description:string;
     address:string;
     notes:string;

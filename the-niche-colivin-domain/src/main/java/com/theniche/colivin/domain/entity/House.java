@@ -1,17 +1,15 @@
 package com.theniche.colivin.domain.entity;
+import com.theniche.colivin.domain.common.CodeGenerator;
+import com.theniche.colivin.domain.common.HouseStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name="houses",
         uniqueConstraints = {
@@ -21,13 +19,29 @@ import java.util.Set;
 public class House extends BaseEntity {
     @Column(unique = true,nullable = false)
     private String name;
+    @Column(unique = true,nullable = false,name = "house_code")
+    private String houseCode;
     @Column(nullable = false,length = 225)
     private String address;
     private String description;
     private String notes;
+    @Column(name = "discontinued_at")
+    private LocalDate discontinuedAt;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "house_status")
+    private HouseStatus houseStatus =HouseStatus.ACTIVE;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "house", orphanRemoval = true)
-    @Builder.Default
     private Set<Room> rooms =new HashSet<>();
+
+    public House() {}
+
+    public House(String name, String houseCode, String address, String description, String notes) {
+        this.name = name;
+        this.houseCode = houseCode;
+        this.address = address;
+        this.description = description;
+        this.notes = notes;
+    }
 
     public void addRoom(Room room) {
         this.rooms.add(room);
@@ -56,5 +70,80 @@ public class House extends BaseEntity {
     @Override
     public int hashCode() {
         return 2025;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        if(this.houseCode==null){
+            this.houseCode = CodeGenerator.generateHouseCode();
+        }
+    }
+
+    public House setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public House setHouseCode(String houseCode) {
+        this.houseCode = houseCode;
+        return this;
+    }
+
+    public House setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public House setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public House setNotes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public House setDiscontinuedAt(LocalDate discontinuedAt) {
+        this.discontinuedAt = discontinuedAt;
+        return this;
+    }
+
+    public House setHouseStatus(HouseStatus houseStatus) {
+        this.houseStatus = houseStatus;
+        return this;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getHouseCode() {
+        return houseCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public LocalDate getDiscontinuedAt() {
+        return discontinuedAt;
+    }
+
+    public HouseStatus getHouseStatus() {
+        return houseStatus;
+    }
+
+    public Set<Room> getRooms() {
+        return rooms;
     }
 }

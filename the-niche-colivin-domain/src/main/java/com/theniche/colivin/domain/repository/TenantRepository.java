@@ -20,4 +20,14 @@ public interface TenantRepository extends BaseRepository<Tenant> {
         """
     )
     Optional<Tenant>  findByIdWithDetails(@Param("id")UUID id);
+
+    @Query(
+            """
+            SELECT t FROM Tenant  t 
+            LEFT JOIN FETCH t.roomAssignments ra            
+            LEFT JOIN FETCH ra.room
+            WHERE t.id = :id
+            """
+    )
+    Optional<Tenant> findByIdWithAssignments(@Param("id")UUID id);
 }

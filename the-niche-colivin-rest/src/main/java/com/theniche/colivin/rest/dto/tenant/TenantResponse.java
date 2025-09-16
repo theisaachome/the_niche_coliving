@@ -1,13 +1,9 @@
 package com.theniche.colivin.rest.dto.tenant;
 
-import com.theniche.colivin.domain.entity.Gender;
-import com.theniche.colivin.rest.dto.address.AddressDto;
-import com.theniche.colivin.rest.dto.document.DocumentResponse;
-import jakarta.validation.constraints.NotEmpty;
+import com.theniche.colivin.domain.common.Gender;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 public record TenantResponse(

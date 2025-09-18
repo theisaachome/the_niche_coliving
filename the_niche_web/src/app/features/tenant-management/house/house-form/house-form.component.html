@@ -8,7 +8,7 @@
 <div class="ui horizontal divider">&</div>
 <form class="ui form warning" (ngSubmit)="onSubmit()" [formGroup]="unitForm">
       <div class="field">
-        <app-input  [label]="'Unit Name'" [control]="unitNameControl"  [required]="true"/>
+        <app-input  [label]="'House Name'" [control]="unitNameControl"  [required]="true"/>
       </div>
     <div class="field">
         <app-input label="Description" [control]="descriptionControl" [required]="true" />
@@ -37,7 +37,7 @@
                <div class="two fields" >
                    <div class="field">
                        <label>Room Number</label>
-                       <input type="text" formControlName="room_number">
+                       <input type="text" formControlName="roomNumber">
                    </div>
                    <div class="field">
                        <label for="capacity">Capacity</label>

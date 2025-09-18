@@ -1,0 +1,70 @@
+<p>Room Details Work</p>
+<div id="roomModal" class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">Room A10001</div>
+
+    <div class="scrolling content">
+        <div class="ui list">
+            <div class="item"><strong>Code:</strong> RJCER9X202509</div>
+            <div class="item"><strong>Capacity:</strong> 1</div>
+            <div class="item"><strong>Status:</strong> VACANT</div>
+            <div class="item"><strong>Notes:</strong> Remark</div>
+        </div>
+
+        <div class="ui divider"></div>
+
+        <h4 class="ui header">Assign Tenant</h4>
+        <div class="ui action input">
+            <input type="text" placeholder="Search tenant...">
+            <button class="ui button">Search</button>
+        </div>
+
+        <div class="ui relaxed divided list" id="tenantResults">
+            <div class="item">
+                <div class="content">
+                    <div class="header">John Doe</div>
+                    john@example.com
+                </div>
+                <button class="ui tiny primary button right floated">Assign</button>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">Alice Tan</div>
+                    alice@example.com
+                </div>
+                <button class="ui tiny primary button right floated">Assign</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="ui button">✏️ Edit</button>
+        <button class="ui red button">🚫 Deactivate</button>
+        <button class="ui green button">👤 Assign Tenant</button>
+    </div>
+</div>
+
+
+
+<!--
++------------------------------------------------------+
+| Room A10001                                          |
++------------------------------------------------------+
+| Code: RJCER9X202509                                  |
+| Capacity: 1                                          |
+| Status: VACANT                                       |
+| Notes: Remark                                        |
++------------------------------------------------------+
+| Assign Tenant Section (expandable or tabbed)         |
+|                                                      |
+|  [ Search Box: "Type tenant name/email..." ] [🔍]    |
+|                                                      |
+|  Results:                                            |
+|   - John Doe (john@example.com)  [Assign]            |
+|   - Alice Tan (alice@example.com) [Assign]           |
+|                                                      |
++------------------------------------------------------+
+| Actions:                                             |
+|  [✏️ Edit]     [🚫 Deactivate]     [👤 Assign Tenant] |
++------------------------------------------------------+
+-->

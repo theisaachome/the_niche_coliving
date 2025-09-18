@@ -26,10 +26,14 @@
 
         <div class="ui divider"></div>
 
-        <h3 class="ui header">
-            <i class="bed icon"></i>
-            <div class="content">Rooms</div>
-        </h3>
+       <div >
+
+           <h3 class="ui header">
+               <i class="bed icon"></i>
+               <div class="content">Rooms</div>
+           </h3>
+           <button class="ui right floated very basic button">Add Room</button>
+       </div>
 
         <table class="ui celled table">
             <thead>
@@ -37,8 +41,9 @@
                 <th>Room Number</th>
                 <th>Capacity</th>
                 <th>Notes</th>
-                <th>Created</th>
+                <th>Status</th>
                 <th>Updated</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -53,7 +58,19 @@
                         </td>
                         <td>{{ room.notes }}</td>
                         <td>{{ room.createdDate | date:'medium' }}</td>
-                        <td>{{ room.updatedDate | date:'medium' }}</td>
+                        <td>Assign Tenant</td>
+                        <td>
+                            <div class="ui label">
+                                <i class="icon sidebar"></i>
+                            </div>
+                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>
+                            <div class="ui icon buttons">
+                                <button class="ui button"><i class="eye icon"></i></button>
+                                <button class="ui button"><i class="align center icon"></i>View</button>
+                                <button class="ui button"><i class="align right icon"></i></button>
+                                <button class="ui button"><i class="align justify icon"></i></button>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>

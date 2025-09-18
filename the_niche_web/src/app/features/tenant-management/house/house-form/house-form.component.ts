@@ -30,24 +30,17 @@ export class HouseFormComponent implements  OnInit{
       unitForm:FormGroup;
       constructor(private fb: FormBuilder,private unitService:HouseService) {
         this.unitForm = fb.group({
-              'unit_name':new FormControl('', [
-                Validators.required,
-                Validators.minLength(7),
-                // Validators.maxLength(50)
-              ]),
+               'name':new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(50)]),
                'description':new FormControl('',[Validators.required,Validators.minLength(7)]),
-                  'address':new FormControl('', [
-                Validators.required,
-                Validators.minLength(5)
-              ]),
-              'notes':new FormControl('' ),
-              'rooms':this.fb.array([this.createRoomForm()])
+               'address':new FormControl('', [Validators.required,Validators.minLength(50)]),
+               'notes':new FormControl('' ),
+               'rooms':this.fb.array([this.createRoomForm()])
         });
       }
 
       createRoomForm():FormGroup{
         return this.fb.group({
-              room_number:new FormControl('', [Validators.required]),
+              roomNumber:new FormControl('', [Validators.required]),
               capacity:new FormControl('', [Validators.required]),
               notes:new FormControl('', [Validators.required])
           })
@@ -56,7 +49,7 @@ export class HouseFormComponent implements  OnInit{
       ngOnInit(): void {
       }
 
-        get unitNameControl():FormControl{ return  (this.unitForm.get('unit_name') )as FormControl;}
+        get unitNameControl():FormControl{ return  (this.unitForm.get('name') )as FormControl;}
         get descriptionControl():FormControl{ return  (this.unitForm.get('description') )as FormControl;}
         get addressControl(){ return (this.unitForm.get('address'))as FormControl;}
         get noteControl(){ return (this.unitForm.get('notes'))as FormControl;}
@@ -72,14 +65,11 @@ export class HouseFormComponent implements  OnInit{
           this.roomsArray.removeAt(index);
         }
       onSubmit(){
-          const newUnit= {
-              id:Date.now(),
-              houseName:this.unitForm.get('unit_name')?.value,
-              notes:this.unitForm.get('notes')?.value,
-              address:this.unitForm.get('address')?.value,
-              description:this.unitForm.get('description')?.value,
-          }
-          // this.unitService.addNewUnit(null)
+          console.log(this.unitForm.value);
+          this.unitService.saveHouse(this.unitForm.value)
+              .subscribe((res)=>{
+                  console.log(res)
+              });
       }
 
 }

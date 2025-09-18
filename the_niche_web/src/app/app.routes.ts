@@ -9,6 +9,7 @@ export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
+
     {path:'houses',
     loadComponent:async () => {
         const c = await import("./features/tenant-management/house/houses.component");
@@ -32,7 +33,24 @@ export const routes: Routes = [
                   .then((c)=>c.HouseDetailsComponent),
           }
       ]
-  },
+    },
+    {
+        path:'rooms',
+        loadComponent:async ()=>{
+            const c = await  import("./features/tenant-management/rooms/rooms.component");
+            return c.RoomsComponent;
+        },
+        children:[
+            {
+                path: '',
+                loadComponent:()=> import("./features/tenant-management/rooms/room-list/room-list.component").then(c=>c.RoomListComponent),
+            },
+            {
+                path: ':id',
+                loadComponent:()=> import("./features/tenant-management/rooms/details/room-details.component").then(c=>c.RoomDetailsComponent),
+            }
+        ]
+    },
     {   path:'finances',
         loadComponent:async () => {
             const c = await import("./features/finance/dashboard/finance-dashboard.component");

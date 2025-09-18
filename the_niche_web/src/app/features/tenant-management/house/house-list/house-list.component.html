@@ -1,4 +1,4 @@
-<!--<button class="ui basic button" (click)="addNewHouse()">Add House</button>-->
+<button class="ui basic button right floated" (click)="addNewHouse()">Add House</button>
 <app-divider>
     House Overviews
 </app-divider>
@@ -16,7 +16,9 @@
         <tbody>
             @for (house of house$ | async; track house.id) {
                 <tr>
-                    <td>{{house.houseCode}}</td>
+                    <td>
+                        <a [routerLink]="['/houses/',house.id]">{{house.houseCode}}</a>
+                    </td>
                     <td>{{ house.houseName }}</td>
                     <td>{{ house.address }}</td>
                     <td>{{ house.houseStatus }}</td>
@@ -38,9 +40,45 @@
 
 
 <!--
-| Unit Name   | Address          | Number of Rooms | Notes                 |
-| ----------- | ---------------- | --------------- | --------------------- |
-| Green Villa | 123 Main Street  | 5               | Renovation next month |
-| Blue Condo  | 45 Ocean Ave     | 10              | Fully occupied        |
-| City Hostel | 88 Downtown Road | 20              | Available for booking |
+----------------------------------------------------------
+|   SUMMARY CARDS                                        |
+----------------------------------------------------------
+| 🏠 Houses: 5 (4 Active | 1 Discontinued)   |
+| 🚪 Rooms: 50 (20 Vacant | 15 Partial | 15 Full) |
+| 👤 Tenants: 120 (100 Active | 10 Registered | 10 Checked-out) |
+| 💰 Income This Month: RM 45,000                        |
+----------------------------------------------------------
+
+----------------------------------------------------------
+|   HOUSES OVERVIEW                                      |
+----------------------------------------------------------
+| House Code  | Name               | Status   | Rooms (Vacant/Total) |
+|-------------|--------------------|----------|----------------------|
+| 202509H-A1  | Niche Coliving A   | ACTIVE   | 10 / 20              |
+| 202509H-B1  | Niche Coliving B   | ACTIVE   | 3 / 15               |
+| 202509H-C1  | Cozy Stay          | DISCONT. | 0 / 10               |
+----------------------------------------------------------
+
+[Click house → show ROOMS]
+
+----------------------------------------------------------
+|   ROOMS IN HOUSE "Niche Coliving A"                    |
+----------------------------------------------------------
+| Room # | Capacity | Occupied | Status   | Action        |
+|--------|----------|----------|----------|---------------|
+| 101    | 2        | 2        | FULL     | [View Tenants]|
+| 102    | 2        | 1        | PARTIAL  | [Assign]      |
+| 103    | 1        | 0        | VACANT   | [Assign]      |
+----------------------------------------------------------
+
+----------------------------------------------------------
+|   TENANTS OVERVIEW                                     |
+----------------------------------------------------------
+| Tenant Code | Name         | Status        | Room   | Action    |
+|-------------|--------------|---------------|--------|-----------|
+| 202509-AB12 | John Smith   | ACTIVE        | 101    | [Release] |
+| 202509-CD34 | Alice Wong   | REGISTERED    | -      | [Assign]  |
+| 202509-EF56 | Raj Kumar    | CHECKED_OUT   | -      | [History] |
+----------------------------------------------------------
+
 -->

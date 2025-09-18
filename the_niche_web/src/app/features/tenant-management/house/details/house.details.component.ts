@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HouseService} from "../house.service";
 import { HouseDetails} from "../house.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
 import {DatePipe} from "@angular/common";
 
@@ -9,7 +9,8 @@ import {DatePipe} from "@angular/common";
   selector: 'app-house.details',
     imports: [
         DividerComponent,
-        DatePipe
+        DatePipe,
+        RouterLink
     ],
   templateUrl: './house.details.component.html',
   styleUrl: './house.details.component.css'

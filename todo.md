@@ -19,3 +19,6 @@ A tenant can have one to many addresses.
 
 ## need to restructure source-code,
 - use base-class to avoid DRY for common operation.
+
+
+## CRUD for House Entity back-end and frontend (master-data view)

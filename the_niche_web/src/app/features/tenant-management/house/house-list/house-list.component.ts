@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {AsyncPipe, NgIf} from '@angular/common';
 import {HouseService} from "../house.service";
-import {House, PageResponse} from "../house.model";
+import {House} from "../house.model";
 import { Router, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
+import {PageResponse} from "../../../../shared/base.model";
 
 @Component({
   selector: 'app-house-list',
@@ -37,6 +38,7 @@ export class HouseListComponent implements OnInit{
        );
   }
     addNewHouse() {
+      this.router.navigate(['/houses/new']);
     }
 
     onViewDetail(id:string){

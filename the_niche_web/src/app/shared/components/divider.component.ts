@@ -8,6 +8,12 @@ import {Component, Input} from "@angular/core";
             <ng-content></ng-content>
         </h1>   
         <div class="ui divider"></div>
+    `,
+    styles:`
+        :host {
+            display: block;
+            margin-top: 20px;
+        }
     `
 })
 export class DividerComponent{

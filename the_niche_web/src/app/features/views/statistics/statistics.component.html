@@ -1,0 +1,11 @@
+<app-divider>Statistics </app-divider>
+<div class="ui statistics">
+    @if (data) {
+        @for (stat of data; track stat.id) {
+            <div class="statistic">
+                <div class="value">{{stat.value}}</div>
+                <div class="label">{{stat.label}}</div>
+            </div>
+        }
+    }
+</div>

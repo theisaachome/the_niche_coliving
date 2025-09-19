@@ -1,0 +1,31 @@
+import {Component} from "@angular/core";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+
+
+@Component({
+    selector: "app-tab",
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+        RouterOutlet
+    ],
+    template: `
+
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui vertical fluid tabular menu">
+                    <a class="item" routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Biography</a>
+                    <a class="item" routerLink="./companies" routerLinkActive="active">Companies</a>
+                    <a class="item" routerLink="./partners" routerLinkActive="active">Partners</a>
+                </div>
+            </div>
+            <div class="twelve wide stretched column">
+                <div class="ui segment">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+
+    `
+})
+export class TabComponent{}

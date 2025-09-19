@@ -1,0 +1,26 @@
+
+<app-divider>
+    Item List
+</app-divider>
+<div class="ui items">
+    @for (item  of data ; track item.id) {
+
+        <div class="item">
+            <div class="image">
+                <img [src]="item.image">
+            </div>
+            <div class="content">
+                <div class="header">{{item.title}}</div>
+                <div class="meta">
+                    <span>Description</span>
+                </div>
+                <div class="description">
+                    <p>{{item.description}}</p>
+                </div>
+                <div class="extra">
+                    Additional Details
+                </div>
+            </div>
+        </div>
+    }
+</div>

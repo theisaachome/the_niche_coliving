@@ -9,6 +9,31 @@ export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
+    {
+        path:'views',
+        loadComponent:()=>import("./features/views/views-home.component").then((c)=>c.ViewsHomeComponent),
+        children:[
+            {path:'',loadComponent:()=>import("./features/views/statistics/statistics.component").then((c)=>c.StatisticsComponent)}
+        ]
+    },
+    {
+        path:'collections',
+        loadComponent:()=>import("./features/collections/collection-home/collection-home.component").then((c)=>c.CollectionHomeComponent),
+        children:[
+            {
+                path: '',
+                loadComponent:()=>import("./features/collections/biography/biography.component").then((c)=>c.BiographyComponent)
+            },
+            {
+                path: 'companies',
+                loadComponent:()=>import("./features/collections/companies/companies.component").then((c)=>c.CompaniesComponent)
+            },
+            {
+                path: 'partners',
+                loadComponent:()=>import("./features/collections/partners/partners.component").then((c)=>c.PartnersComponent)
+            }
+        ]
+    },
 
     {path:'houses',
     loadComponent:async () => {

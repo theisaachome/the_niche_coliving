@@ -10,6 +10,10 @@ export const routes: Routes = [
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
     {
+        path:'mods',
+        loadComponent:()=>import("./features/mods/home/mods-home.component").then((c)=>c.ModsHomeComponent)
+    },
+    {
         path:'views',
         loadComponent:()=>import("./features/views/views-home.component").then((c)=>c.ViewsHomeComponent),
         children:[

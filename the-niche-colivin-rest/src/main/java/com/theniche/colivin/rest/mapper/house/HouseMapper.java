@@ -3,6 +3,7 @@ package com.theniche.colivin.rest.mapper.house;
 import com.theniche.colivin.domain.entity.House;
 import com.theniche.colivin.domain.entity.Room;
 import com.theniche.colivin.rest.ApiResponse;
+import com.theniche.colivin.rest.dto.house.HouseDetails;
 import com.theniche.colivin.rest.dto.house.HouseRequest;
 import com.theniche.colivin.rest.dto.house.HouseResponse;
 import com.theniche.colivin.rest.dto.room.RoomResponse;
@@ -17,20 +18,7 @@ public class HouseMapper implements BaseMapper<House, HouseRequest, HouseRespons
     public House requestToEntity(HouseRequest requestDto) {
         var house= new House()
                 .setName(requestDto.name())
-                .setDescription(requestDto.description())
-                .setAddress(requestDto.address())
-                .setNotes(requestDto.notes());
-        // map if room present
-        if(requestDto.rooms() != null && !requestDto.rooms().isEmpty()) {
-            var rooms =  requestDto.rooms()
-                    .stream().map(r -> new Room()
-                            .setRoomNumber(r.roomNumber())
-                            .setCapacity(r.capacity())
-                            .setNotes(r.notes())
-                            .setHouse(house)).collect(Collectors.toSet());
-            rooms.forEach(house::addRoom);
-        }
-
+                .setRemark(requestDto.remark());
         return house;
     }
 
@@ -56,15 +44,40 @@ public class HouseMapper implements BaseMapper<House, HouseRequest, HouseRespons
                 entity.getId(),
                 entity.getName(),
                 entity.getHouseCode(),
-                entity.getDescription(),
-                entity.getAddress(),
                 entity.getNotes(),
                 entity.getHouseStatus(),
                 entity.getCreatedBy(),
                 entity.getUpdatedBy(),
                 entity.getCreatedDate(),
-                entity.getUpdatedDate(),
-                rooms
+                entity.getUpdatedDate()
         );
+    }
+
+    public HouseDetails mapToDetails(House entity) {
+        var rooms = entity.getRooms()
+                .stream()
+                .map(room->new RoomResponse(
+                        room.getId(),
+                        room.getRoomNumber(),
+                        room.getRoomCode(),
+                        room.getCapacity(),
+                        room.getNotes(),
+                        room.getRoomStatus(),
+                        room.getCreatedBy(),
+                        room.getUpdatedBy(),
+                        room.getCreatedDate(),
+                        room.getUpdatedDate()
+                ))
+                .collect(Collectors.toList());
+        return new HouseDetails(   entity.getId(),
+                entity.getName(),
+                entity.getHouseCode(),
+                entity.getNotes(),
+                entity.getHouseStatus(),
+                rooms,
+                entity.getCreatedBy(),
+                entity.getUpdatedBy(),
+                entity.getCreatedDate(),
+                entity.getUpdatedDate());
     }
 }

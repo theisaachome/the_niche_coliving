@@ -1,0 +1,31 @@
+<div (click)="onCloseClick()" class="ui dimmer visible active">
+    <div (click)="$event.stopImmediatePropagation()"  class="ui modal visible active">
+        <i (click)="onCloseClick()" class="close icon"></i>
+        <!-- Title -->
+        <div class="header">
+            {{config.title}}
+        </div>
+        <!-- Dynamic Content -->
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+            @if (config.actions){
+                @for (action of config.actions; track action.type) {
+                    <div
+                        (click)="onActionCall(action)"
+                        class="ui button"
+                        [ngClass]="{
+                         'approve': action.type === 'approve',
+                         'cancel': action.type === 'cancel',
+                         'neutral': action.type === 'neutral'
+                        }">
+                        {{action.label}}
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -4,8 +4,11 @@ import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.entity.House;
 import com.theniche.colivin.domain.payload.HouseSummary;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface HouseRepository extends BaseRepository<House> {
 /*
@@ -27,4 +30,10 @@ public interface HouseRepository extends BaseRepository<House> {
     List<HouseSummary> findHouseSummaries();
 
  */
+    @Query("""
+          SELECT DISTINCT h FROM House h 
+          LEFT JOIN FETCH h.rooms  r         
+          WHERE h.id = :id
+        """)
+    Optional<House> findHouseDetailsWithRooms(@Param("id")UUID id);
 }

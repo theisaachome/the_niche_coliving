@@ -5,10 +5,9 @@ export interface HouseDetails extends BaseModel {
     houseName: string;
     houseCode:string;
     houseStatus:string;
-    description: string;
     address: string;
-    notes: string;
-    rooms: Room[];
+    remark: string;
+    roomOptions: Room[];
 }
 export interface House {
     id?: number|string;

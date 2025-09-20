@@ -2,7 +2,6 @@ package com.theniche.colivin.domain.entity;
 import com.theniche.colivin.domain.common.CodeGenerator;
 import com.theniche.colivin.domain.common.HouseStatus;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,10 +20,7 @@ public class House extends BaseEntity {
     private String name;
     @Column(unique = true,nullable = false,name = "house_code")
     private String houseCode;
-    @Column(nullable = false,length = 225)
-    private String address;
-    private String description;
-    private String notes;
+    private String remark;
     @Column(name = "discontinued_at")
     private LocalDate discontinuedAt;
     @Enumerated(EnumType.STRING)
@@ -38,9 +34,7 @@ public class House extends BaseEntity {
     public House(String name, String houseCode, String address, String description, String notes) {
         this.name = name;
         this.houseCode = houseCode;
-        this.address = address;
-        this.description = description;
-        this.notes = notes;
+        this.remark = notes;
     }
 
     public void addRoom(Room room) {
@@ -89,18 +83,8 @@ public class House extends BaseEntity {
         return this;
     }
 
-    public House setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public House setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public House setNotes(String notes) {
-        this.notes = notes;
+    public House setRemark(String notes) {
+        this.remark = notes;
         return this;
     }
 
@@ -114,7 +98,6 @@ public class House extends BaseEntity {
         return this;
     }
 
-
     public String getName() {
         return name;
     }
@@ -123,16 +106,8 @@ public class House extends BaseEntity {
         return houseCode;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public String getNotes() {
-        return notes;
+        return remark;
     }
 
     public LocalDate getDiscontinuedAt() {

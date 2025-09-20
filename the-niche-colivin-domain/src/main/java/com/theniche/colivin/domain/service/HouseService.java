@@ -1,37 +1,34 @@
 package com.theniche.colivin.domain.service;
-
-import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.House;
 import com.theniche.colivin.domain.entity.Room;
 import com.theniche.colivin.domain.exception.ResourceNotFoundException;
+import com.theniche.colivin.domain.repository.HouseRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class HouseService extends BaseService<House> {
+    private final HouseRepository houseRepository;
 
-    public HouseService(BaseRepository<House> repository) {
-        super(repository);
+
+    public HouseService(HouseRepository houseRepository) {
+        super(houseRepository);
+        this.houseRepository = houseRepository;
     }
-
-    @Override
-    public House save(House entity) {
-        if(entity.getRooms() != null){
-            entity.getRooms().forEach(entity::addRoom);
-        }
-        return super.save(entity);
-    }
-
     @Override
     public House update(UUID id, House entity) {
         var existingHouse = repository.findById(id).orElseThrow(()->new ResourceNotFoundException("House","ID",id));
         existingHouse.setName(entity.getName());
-        existingHouse.setAddress(entity.getAddress());
-        existingHouse.setDescription(entity.getDescription());
-        existingHouse.setNotes(entity.getNotes());
+        existingHouse.setRemark(entity.getNotes());
         return repository.save(existingHouse);
+    }
+
+    @Transactional(readOnly = true)
+    public House getHouseDetailsWithAllRooms(UUID id){
+        return houseRepository.findHouseDetailsWithRooms(id).orElseThrow(()->new ResourceNotFoundException("House","ID",id));
     }
 
 

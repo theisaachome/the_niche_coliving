@@ -1,0 +1,9 @@
+#spring.datasource.url=jdbc:postgresql://localhost:5432/myapp_db
+#spring.datasource.username=myapp_user
+#spring.datasource.password=strongpassword
+#spring.datasource.driver-class-name=org.postgresql.Driver
+#
+## JPA / Hibernate configs
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect

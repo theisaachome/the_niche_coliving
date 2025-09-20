@@ -2,6 +2,7 @@ package com.theniche.colivin.rest.controller;
 import com.theniche.colivin.domain.entity.House;
 import com.theniche.colivin.domain.service.HouseService;
 import com.theniche.colivin.domain.service.RoomService;
+import com.theniche.colivin.rest.dto.house.HouseDetails;
 import com.theniche.colivin.rest.dto.house.HouseRequest;
 import com.theniche.colivin.rest.dto.house.HouseResponse;
 import com.theniche.colivin.rest.dto.room.RoomRequest;
@@ -12,7 +13,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +39,13 @@ public class HouseRestController extends BaseController<House, HouseRequest, Hou
         var entity = houseMapper.requestToEntity(requestDto);
         var result= houseService.update(id,entity);
         return new ResponseEntity<>(houseMapper.entityToResponse(result), HttpStatus.OK);
+    }
+
+    @GetMapping("/{houseId}/details")
+    ResponseEntity<HouseDetails> getHouseDetails(@PathVariable("houseId") UUID id){
+        var entity = houseService.getHouseDetailsWithAllRooms(id);
+        var dto = houseMapper.mapToDetails(entity);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping("/{houseId}/rooms")

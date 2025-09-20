@@ -28,7 +28,7 @@ export class HouseService extends BaseService<House>{
     }
 
     getHouseDetailsById(id:string):Observable<HouseDetails>{
-       return  this.http.get<HouseDetails>(`${this.url()}/${id}`);
+       return  this.http.get<HouseDetails>(`${this.url()}/${id}/details`);
     }
 }
 

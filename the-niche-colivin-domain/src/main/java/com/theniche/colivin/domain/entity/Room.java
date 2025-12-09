@@ -3,7 +3,6 @@ import com.theniche.colivin.domain.common.AssignmentStatus;
 import com.theniche.colivin.domain.common.CodeGenerator;
 import com.theniche.colivin.domain.common.RoomStatus;
 import jakarta.persistence.*;
-import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

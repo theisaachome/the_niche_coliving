@@ -5,20 +5,12 @@ import com.theniche.colivin.domain.common.CodeGenerator;
 import com.theniche.colivin.domain.common.Gender;
 import com.theniche.colivin.domain.common.TenantStatus;
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
-
-@Builder
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "tenants")
 public class Tenant  extends BaseEntity {
@@ -37,17 +29,15 @@ public class Tenant  extends BaseEntity {
     private TenantStatus tenantStatus;
 
 
-    @Builder.Default
+
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Document>  documents = new HashSet<>();
 
 
-    @Builder.Default
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "tenant",cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
-    @Builder.Default
     private Set<RoomAssignment> roomAssignments = new HashSet<>();
 
 
@@ -123,5 +113,80 @@ public class Tenant  extends BaseEntity {
         if(this.tenantCode==null){
             this.tenantCode = CodeGenerator.generateTenantCode();
         }
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public Tenant setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Tenant setFullName(String fullName) {
+        this.fullName = fullName;
+        return  this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Tenant setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Tenant setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public Tenant setGender(Gender gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Tenant setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        return this;
+    }
+
+    public TenantStatus getTenantStatus() {
+        return tenantStatus;
+    }
+
+    public Tenant setTenantStatus(TenantStatus tenantStatus) {
+        this.tenantStatus = tenantStatus;
+        return this;
+    }
+
+    public Set<Document> getDocuments() {
+        return documents;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public Set<RoomAssignment> getRoomAssignments() {
+        return roomAssignments;
     }
 }

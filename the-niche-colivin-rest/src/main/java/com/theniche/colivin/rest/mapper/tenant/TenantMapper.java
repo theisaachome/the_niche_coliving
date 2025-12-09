@@ -23,13 +23,13 @@ public class TenantMapper implements BaseMapper<Tenant, TenantRequest, TenantRes
 
     @Override
     public Tenant requestToEntity(TenantRequest requestDto) {
-        var tenant= Tenant.builder()
-                .fullName(requestDto.fullName())
-                .email(requestDto.email())
-                .phone(requestDto.phone())
-                .dateOfBirth(requestDto.dateOfBirth())
-                .gender(requestDto.gender())
-                .build();
+        var tenant=new  Tenant()
+                .setFullName(requestDto.fullName())
+                .setEmail(requestDto.email())
+                .setPhone(requestDto.phone())
+                .setDateOfBirth(requestDto.dateOfBirth())
+                .setGender(requestDto.gender());
+
         if(requestDto.addresses() != null && !requestDto.addresses().isEmpty()) {
             var addresses =  requestDto.addresses().stream().map(addressMapper::requestToEntity).collect(Collectors.toSet());
                       addresses.forEach(tenant::addAddress);

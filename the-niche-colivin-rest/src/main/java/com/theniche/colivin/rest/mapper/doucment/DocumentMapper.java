@@ -10,10 +10,9 @@ import org.springframework.stereotype.Component;
 public class DocumentMapper implements BaseMapper<Document, DocumentRequest, DocumentResponse> {
     @Override
     public Document requestToEntity(DocumentRequest requestDto) {
-        return Document.builder()
-                .documentNumber(requestDto.documentNumber())
-                .documentType(requestDto.documentType())
-                .build();
+        return new Document()
+                .setDocumentNumber(requestDto.documentNumber())
+                .setDocumentType(requestDto.documentType());
     }
 
     @Override

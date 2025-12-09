@@ -41,4 +41,8 @@ public class HouseService extends BaseService<House> {
         return String.valueOf(house.getId());
     }
 
+    @Override
+    public House deleteById(UUID id) {
+        return super.deleteById(id);
+    }
 }

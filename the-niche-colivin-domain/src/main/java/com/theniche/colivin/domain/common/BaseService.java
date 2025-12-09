@@ -32,6 +32,7 @@ public abstract class BaseService <T extends BaseEntity> {
                         .orElseThrow(()-> new ResourceNotFoundException("Entity","ID",id));
 //        repository.delete(entity);
         entity.setDeleted(true);
+        entity.setStatus(EntityStatus.INACTIVE);
         var savedEntity=repository.save(entity);
         return savedEntity;
     }

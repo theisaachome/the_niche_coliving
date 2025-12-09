@@ -8,10 +8,11 @@ import {DividerComponent} from "../../../../shared/components/divider.component"
 import {PageResponse} from "../../../../shared/base.model";
 import {ModalComponent} from "../../../../shared/components/modal/modal.component";
 import {BaseModalConfig} from "../../../../shared/components/modal/base-modal-config";
+import {HouseEditComponent} from "../house-edit/house-edit.component";
 
 @Component({
   selector: 'app-house-list',
-    imports: [AsyncPipe, DividerComponent, RouterLink, ModalComponent, NgClass],
+    imports: [AsyncPipe, DividerComponent, RouterLink, ModalComponent, NgClass, HouseEditComponent],
   templateUrl: './house-list.component.html',
   styleUrl: './house-list.component.css',
   standalone:true
@@ -19,9 +20,11 @@ import {BaseModalConfig} from "../../../../shared/components/modal/base-modal-co
 export class HouseListComponent implements OnInit{
 
     showModal = false;
+    isEditMode=false;
+    selectedHouse?:House;
 
     modalConfig: BaseModalConfig = {
-        title: 'Confirm Action',
+        title: 'Default Action',
         actions: [
             { label: 'Approve', type: 'approve', callback: () => this.onApprove() },
             { label: 'Neutral', type: 'neutral', callback: () => this.onNeutral() },
@@ -50,9 +53,7 @@ export class HouseListComponent implements OnInit{
            }),
        );
   }
-    addNewHouse() {
-      this.router.navigate(['/houses/new']);
-    }
+
 
     onViewDetail(id:string){
         // this.router.navigate(['/houses', id]);
@@ -70,5 +71,16 @@ export class HouseListComponent implements OnInit{
     onModalClosed() {
         this.showModal = !this.showModal;
         console.log("Modal closed ❌");
+    }
+    openNewHouseModal() {
+      this.modalConfig.title="Add New House"
+        this.selectedHouse = undefined; // no data → new entry
+        this.showModal = true;
+    }
+
+    openEditHouseModal(house: House) {
+      this.modalConfig.title="Edit House"
+        this.selectedHouse = house; // pass object for editing
+        this.showModal = true;
     }
 }

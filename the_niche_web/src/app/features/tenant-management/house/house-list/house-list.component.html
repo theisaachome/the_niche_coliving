@@ -1,4 +1,4 @@
-<button class="ui basic button right floated" (click)="addNewHouse()">Add House</button>
+<button class="ui basic button right floated" (click)="openNewHouseModal()">Add House</button>
 <app-divider>
     House Overviews
 </app-divider>
@@ -33,7 +33,7 @@
 <!--                        80% / <a href="#">18 studies</a>-->
 <!--                    </td>-->
                     <td>
-                        <button class="tiny ui button" (click)="onViewDetail(house.houseCode)">Edit</button>
+                        <button class="tiny ui button" (click)="openEditHouseModal(house)">Edit</button>
 <!--                        <a>View Details</a>-->
                     </td>
                 </tr>
@@ -57,9 +57,7 @@
             [config]="modalConfig"
             (close)="onModalClosed()"
     >
-        <div class="ui header">We've auto-chosen a profile image for you.</div>
-        <p>We've grabbed the image associated with your registered e-mail address.</p>
-        <p>Is it okay to use this photo?</p>
+       <house-edit [house]="selectedHouse"></house-edit>
     </app-base-modal>
 }
 

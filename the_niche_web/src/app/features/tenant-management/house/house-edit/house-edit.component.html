@@ -1,0 +1,18 @@
+<div class="form-margin ">
+  <h2 class="ui header">Manage Units </h2>
+  <div class="ui">
+    Effortlessly track, edit, and organize your financial transactions in one place.
+  </div>
+</div>
+<div class="ui horizontal divider">&</div>
+<form class="ui form warning" (ngSubmit)="onSubmit()" [formGroup]="houseForm">
+      <div class="field">
+        <app-input  [label]="'House Name'" [control]="nameController"  [required]="true"/>
+      </div>
+    <!-- Notes -->
+    <div class="field">
+        <label>Notes</label>
+        <textarea rows="2" placeholder="Any additional notes..." formControlName="remark"></textarea>
+    </div>
+  <button type="submit" class="ui button" [disabled]="!houseForm.valid"> Submit </button>
+</form>

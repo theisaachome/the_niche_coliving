@@ -6,14 +6,14 @@ import {DividerComponent} from "../../../../shared/components/divider.component"
 import {DatePipe} from "@angular/common";
 
 @Component({
-  selector: 'app-house.details',
+  selector: 'app-house-details',
     imports: [
         DividerComponent,
         DatePipe,
         RouterLink
     ],
-  templateUrl: './house.details.component.html',
-  styleUrl: './house.details.component.css'
+  templateUrl: './house-details.component.html',
+  styleUrl: './house-details.component.css'
 })
 export class HouseDetailsComponent implements OnInit {
 

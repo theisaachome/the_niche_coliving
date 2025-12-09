@@ -16,7 +16,7 @@ export interface House {
     houseStatus:string;
     description:string;
     address:string;
-    notes:string;
+    remark:string;
     createdBy?: string;
     updatedBy?: string;
     createdAt?: string;

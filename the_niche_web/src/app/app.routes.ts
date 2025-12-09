@@ -3,7 +3,7 @@ import {AccountFormComponent} from './features/account/account-form/account-form
 import {NotFoundComponent} from "./shared/components/not-found/not-found.component";
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
 import {FinanceSummaryComponent} from "./features/finance/summary/finance-summary.component";
-import {HouseFormComponent} from "./features/tenant-management/house/house-form/house-form.component";
+import {HouseEditComponent} from "./features/tenant-management/house/house-edit/house-edit.component";
 
 export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
@@ -53,12 +53,12 @@ export const routes: Routes = [
           },
           {
               path:'new',
-              loadComponent:()=>import('./features/tenant-management/house/house-form/house-form.component')
-                      .then((c)=>c.HouseFormComponent),
+              loadComponent:()=>import('./features/tenant-management/house/house-edit/house-edit.component')
+                      .then((c)=>c.HouseEditComponent),
           },
           {
               path:":id",
-              loadComponent:()=>import('./features/tenant-management/house/details/house.details.component')
+              loadComponent:()=>import('./features/tenant-management/house/details/house-details.component')
                   .then((c)=>c.HouseDetailsComponent),
           }
       ]

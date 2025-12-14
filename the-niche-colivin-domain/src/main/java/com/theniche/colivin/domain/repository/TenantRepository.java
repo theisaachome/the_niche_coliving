@@ -1,6 +1,5 @@
 package com.theniche.colivin.domain.repository;
 
-import com.theniche.colivin.domain.common.BaseRepository;
 import com.theniche.colivin.domain.entity.Tenant;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,4 @@
 package com.theniche.colivin.domain.service;
-import com.theniche.colivin.domain.common.BaseRepository;
-import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.Address;
 import com.theniche.colivin.domain.entity.Contact;
 import com.theniche.colivin.domain.entity.Document;

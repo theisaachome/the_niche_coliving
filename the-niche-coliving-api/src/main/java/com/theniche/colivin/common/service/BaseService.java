@@ -1,10 +1,14 @@
-package com.theniche.colivin.domain.common;
-import com.theniche.colivin.domain.entity.BaseEntity;
-import com.theniche.colivin.domain.exception.ResourceNotFoundException;
+package com.theniche.colivin.common.service;
+
+import com.theniche.colivin.common.domain.BaseEntity;
+import com.theniche.colivin.common.domain.EntityStatus;
+import com.theniche.colivin.common.exception.ResourceNotFoundException;
+import com.theniche.colivin.common.repository.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +33,7 @@ public abstract class BaseService <T extends BaseEntity> {
     @Transactional
     public T deleteById(UUID id){
         var entity = repository.findById(id)
-                        .orElseThrow(()-> new ResourceNotFoundException("Entity","ID",id));
+                .orElseThrow(()-> new ResourceNotFoundException("Entity","ID",id));
 //        repository.delete(entity);
         entity.setDeleted(true);
         entity.setStatus(EntityStatus.INACTIVE);

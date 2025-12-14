@@ -1,6 +1,5 @@
 package com.theniche.colivin.domain.service;
 
-import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.Room;
 import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import com.theniche.colivin.domain.repository.RoomRepository;

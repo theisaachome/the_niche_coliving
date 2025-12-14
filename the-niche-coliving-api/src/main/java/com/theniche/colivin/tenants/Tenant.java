@@ -1,15 +1,12 @@
 package com.theniche.colivin.tenants;
 
-import com.theniche.colivin.common.BaseEntity;
-import com.theniche.colivin.common.Gender;
-import com.theniche.colivin.common.TenantStatus;
+import com.theniche.colivin.common.domain.BaseEntity;
+import com.theniche.colivin.common.domain.Gender;
+import com.theniche.colivin.common.domain.TenantStatus;
+import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "tenants")
@@ -29,7 +26,7 @@ public class Tenant extends BaseEntity {
     private TenantStatus tenantStatus;
 
 
-
+    /*
     @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Document>  documents = new HashSet<>();
 
@@ -96,7 +93,6 @@ public class Tenant extends BaseEntity {
         assignment.setTenant(null);
         assignment.setRoom(null);
     }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Tenant tenant)) return false;
@@ -108,13 +104,13 @@ public class Tenant extends BaseEntity {
         return Objects.hash(fullName, phone, email, gender, dateOfBirth, documents, addresses);
     }
 
+    */
     @PrePersist
     public void prePersist(){
         if(this.tenantCode==null){
             this.tenantCode = CodeGenerator.generateTenantCode();
         }
     }
-
     public String getTenantCode() {
         return tenantCode;
     }
@@ -176,17 +172,5 @@ public class Tenant extends BaseEntity {
     public Tenant setTenantStatus(TenantStatus tenantStatus) {
         this.tenantStatus = tenantStatus;
         return this;
-    }
-
-    public Set<Document> getDocuments() {
-        return documents;
-    }
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public Set<RoomAssignment> getRoomAssignments() {
-        return roomAssignments;
     }
 }

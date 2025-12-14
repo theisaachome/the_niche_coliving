@@ -1,13 +1,10 @@
 package com.theniche.colivin.tenants;
-import com.theniche.colivin.common.BaseRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.theniche.colivin.common.repository.BaseRepository;
 
 public interface TenantRepository extends BaseRepository<Tenant> {
 
+    /*
     Optional<Tenant> findTenantByEmailAndPhone(String email, String phone);
     @Query(
         """
@@ -28,4 +25,6 @@ public interface TenantRepository extends BaseRepository<Tenant> {
             """
     )
     Optional<Tenant> findByIdWithAssignments(@Param("id")UUID id);
+
+     */
 }

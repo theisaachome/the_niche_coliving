@@ -1,12 +1,11 @@
 package com.theniche.colivin.domain.service;
-import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.House;
 import com.theniche.colivin.domain.entity.Room;
 import com.theniche.colivin.domain.exception.ResourceNotFoundException;
 import com.theniche.colivin.domain.repository.HouseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
+
 import java.util.UUID;
 
 @Service

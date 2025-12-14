@@ -1,6 +1,5 @@
 package com.theniche.colivin.rest.controller;
 import com.theniche.colivin.domain.entity.BaseEntity;
-import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.rest.ApiResponse;
 import com.theniche.colivin.rest.dto.PageApiResponse;
 import com.theniche.colivin.rest.mapper.BaseMapper;

@@ -1,6 +1,5 @@
 package com.theniche.colivin.domain.service;
 
-import com.theniche.colivin.domain.common.BaseService;
 import com.theniche.colivin.domain.entity.Document;
 import com.theniche.colivin.domain.repository.DocumentRepository;
 import org.springframework.stereotype.Service;

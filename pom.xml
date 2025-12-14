@@ -17,7 +17,6 @@
         <module>the-niche-colivin-domain</module>
         <module>the-niche-colivin-rest</module>
         <module>the-niche-colivin-application</module>
-        <module>the-niche-coliving-infrastruture</module>
     </modules>
 
     <properties>

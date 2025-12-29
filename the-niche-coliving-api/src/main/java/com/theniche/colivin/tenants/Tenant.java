@@ -23,7 +23,7 @@ public class Tenant extends BaseEntity {
     private LocalDate dateOfBirth;
     @Enumerated(EnumType.STRING)
     @Column(name = "tenant_status")
-    private TenantStatus tenantStatus;
+    private TenantStatus tenantStatus = TenantStatus.ACTIVE;
 
 
     /*
@@ -113,11 +113,6 @@ public class Tenant extends BaseEntity {
     }
     public String getTenantCode() {
         return tenantCode;
-    }
-
-    public Tenant setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-        return this;
     }
 
     public String getFullName() {

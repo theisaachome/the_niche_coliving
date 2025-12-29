@@ -29,7 +29,6 @@ public class TenantController {
        return  new ResponseEntity<>(new ApiResponse<>(true, "Tenant created successfully", savedEntity), HttpStatus.OK);
     }
     // update tenant
-
     @PutMapping("/{tenantId}")
     public ResponseEntity updateTenant(@PathVariable("tenantId") UUID tenantId, @RequestBody TenantRequest request){
         var updatedTenant = tenantService.updateTenant(tenantId, request);
@@ -37,8 +36,11 @@ public class TenantController {
     }
 
 
-
     // delete tenant
-
+    @DeleteMapping("/{tenantId}")
+    public ResponseEntity<String>  deleteTenant(@PathVariable("tenantId") UUID tenantId) {
+        tenantService.deleteTenant(tenantId);
+        return new ResponseEntity<>("Content data deleted successfully", HttpStatus.OK);
+    }
     // upload tenant documents
 }

@@ -1,7 +1,6 @@
 package com.theniche.colivin.tenants;
-
-import com.theniche.colivin.common.payload.ApiResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
+import com.theniche.colivin.tenants.dto.TenantResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +14,17 @@ public class TenantMapper {
                 .setGender(request.gender());
 
         return tenant;
+    }
+
+    TenantResponse toResponse(Tenant entity){
+         return new TenantResponse(
+                 entity.getId().toString(),
+                 entity.getTenantCode(),
+                 entity.getFullName(),
+                 entity.getEmail(),
+                 entity.getPhone(),
+                 entity.getStatus().toString()
+         );
     }
 
 }

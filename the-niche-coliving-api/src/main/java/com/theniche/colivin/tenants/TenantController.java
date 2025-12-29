@@ -1,6 +1,9 @@
 package com.theniche.colivin.tenants;
-import com.theniche.colivin.common.payload.ApiResponse;
+import com.theniche.colivin.common.payload.PageApiResponse;
+import com.theniche.colivin.common.payload.PageRequestDto;
 import com.theniche.colivin.tenants.dto.TenantRequest;
+import com.theniche.colivin.tenants.dto.TenantResponse;
+import com.theniche.colivin.tenants.dto.TenantSearchFilters;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,27 +15,35 @@ import java.util.UUID;
 public class TenantController {
 
     private final TenantService tenantService;
-    public TenantController(TenantService tenantService, TenantMapper tenantMapper) {
+    public TenantController(TenantService tenantService) {
         this.tenantService = tenantService;
     }
 
+    @GetMapping("/search")
+    public PageApiResponse<TenantResponse> searchTenants(
+            @ModelAttribute TenantSearchFilters filters,
+            @ModelAttribute PageRequestDto pageRequestDto
+            ){
+      return  tenantService.searchTenant(filters, pageRequestDto);
+    }
+
     @GetMapping
-    public ResponseEntity<List<Tenant>> getAllTenants() {
+    public ResponseEntity<List<TenantResponse>> getAllTenants() {
          var tenants = tenantService.getTenants();
          return new ResponseEntity<>(tenants, HttpStatus.OK);
     }
 
     // register a new tenant
     @PostMapping
-    public ResponseEntity<ApiResponse<Tenant>> createNewTenant(@RequestBody TenantRequest request) {
+    public ResponseEntity<TenantResponse> createNewTenant(@RequestBody TenantRequest request) {
        var savedEntity= tenantService.registerNewTenant(request);
-       return  new ResponseEntity<>(new ApiResponse<>(true, "Tenant created successfully", savedEntity), HttpStatus.OK);
+       return  new ResponseEntity<>(savedEntity, HttpStatus.OK);
     }
     // update tenant
     @PutMapping("/{tenantId}")
-    public ResponseEntity updateTenant(@PathVariable("tenantId") UUID tenantId, @RequestBody TenantRequest request){
+    public ResponseEntity<String> updateTenant(@PathVariable("tenantId") UUID tenantId, @RequestBody TenantRequest request){
         var updatedTenant = tenantService.updateTenant(tenantId, request);
-        return new ResponseEntity(new ApiResponse<>(true, "Tenant updated successfully", updatedTenant), HttpStatus.OK);
+        return new ResponseEntity<>( String.format("%s updated successfully.",updatedTenant.tenantCode()), HttpStatus.OK);
     }
 
 

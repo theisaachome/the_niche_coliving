@@ -1,13 +1,20 @@
 package com.theniche.colivin.tenants;
 
 import com.theniche.colivin.common.domain.EntityStatus;
+import com.theniche.colivin.common.domain.GenericSpecification;
+import com.theniche.colivin.common.domain.SearchCriteria;
 import com.theniche.colivin.common.domain.TenantStatus;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
+import com.theniche.colivin.common.payload.PageApiResponse;
+import com.theniche.colivin.common.payload.PageRequestDto;
 import com.theniche.colivin.tenants.dto.TenantRequest;
+import com.theniche.colivin.tenants.dto.TenantResponse;
+import com.theniche.colivin.tenants.dto.TenantSearchFilters;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TenantServiceImpl  implements TenantService {
@@ -20,14 +27,14 @@ public class TenantServiceImpl  implements TenantService {
     }
 
     @Override
-    public Tenant registerNewTenant(TenantRequest dto) {
+    public TenantResponse registerNewTenant(TenantRequest dto) {
         var newTenant = tenantMapper.toEntity(dto);
        var savedTenant=   tenantRepository.save(newTenant);
-        return savedTenant;
+        return tenantMapper.toResponse(savedTenant);
     }
 
     @Override
-    public Tenant updateTenant(UUID id, TenantRequest dto) {
+    public TenantResponse updateTenant(UUID id, TenantRequest dto) {
         var existingTenant = tenantRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Tenant","ID",id));
 
@@ -36,12 +43,13 @@ public class TenantServiceImpl  implements TenantService {
         existingTenant.setPhone(dto.phone());
         existingTenant.setGender(dto.gender());
         existingTenant.setDateOfBirth(existingTenant.getDateOfBirth());
-        return null;
+
+       var updatedTenant= tenantRepository.save(existingTenant);
+        return tenantMapper.toResponse(updatedTenant);
     }
 
     @Override
     public Tenant getTenant(UUID id) {
-
         return tenantRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Tenant","ID",id));
     }
@@ -62,7 +70,39 @@ public class TenantServiceImpl  implements TenantService {
         tenantRepository.delete(existingTenant);
     }
     @Override
-    public List<Tenant> getTenants() {
-        return tenantRepository.findAll();
+    public List<TenantResponse> getTenants() {
+        return tenantRepository.findAll().stream()
+                .map(tenantMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    // search tenant with param
+    @Override
+    public PageApiResponse<TenantResponse> searchTenant(TenantSearchFilters filters, PageRequestDto pageRequest) {
+        // build specification
+        GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
+        if(!filters.getTenantCode().isEmpty()){
+            specBuilder.add(new SearchCriteria("tenantCode",filters.getTenantCode(),SearchCriteria.Operation.EQUAL));
+        }
+        if(!filters.getEmail().isEmpty()){
+            specBuilder.add(new SearchCriteria("email",filters.getEmail(),SearchCriteria.Operation.EQUAL));
+        }
+        if(!filters.getPhone().isEmpty()){
+            specBuilder.add(new SearchCriteria("phone",filters.getPhone(),SearchCriteria.Operation.EQUAL));
+        }
+        if(!filters.getFullName().isEmpty()){
+            specBuilder.add(new SearchCriteria("fullName",filters.getFullName(),SearchCriteria.Operation.LIKE));
+        }
+        var pagedResults = tenantRepository.findAll(specBuilder.build(),pageRequest.toPageable());
+        var pageToList = pagedResults.getContent()
+                .stream().map(tenantMapper::toResponse).collect(Collectors.toList());
+        return new PageApiResponse<>(
+                pageToList,
+                pagedResults.getNumber(),
+                pagedResults.getSize(),
+                pagedResults.getTotalElements(),
+                pagedResults.getTotalPages(),
+                pagedResults.isLast()
+        );
     }
 }

@@ -23,7 +23,7 @@ import {House} from "../house.model";
   styleUrl: './house-edit.component.css',
   standalone:true
 })
-export class HouseEditComponent implements  OnInit,BaseModalA<House> {
+export class HouseEditComponent implements  OnInit {
 
        @Input() house?:House;
       houseForm:FormGroup;
@@ -33,10 +33,6 @@ export class HouseEditComponent implements  OnInit,BaseModalA<House> {
                'remark':new FormControl('' )
         });
       }
-
-    protected override onClose(): House {
-        throw new Error("Method not implemented.");
-    }
 
       ngOnInit(): void {
           if (this.house) {
@@ -63,8 +59,4 @@ export class HouseEditComponent implements  OnInit,BaseModalA<House> {
               });
       }
 
-}
-
-export abstract class BaseModalA<T>{
-    protected abstract   onClose():T;
 }

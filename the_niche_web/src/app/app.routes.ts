@@ -80,6 +80,32 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+        path:'tenants',
+        loadComponent:async ()=>{
+            const c = await  import("./features/tenant-management/tenants/tenants-layout.component");
+            return c.TenantsLayoutComponent
+        },
+        children:[
+            {
+                 path:"",
+                 loadComponent: () => import("./features/tenant-management/tenants/tenants.component").then(c=>c.TenantsComponent)
+            },
+            {
+                path:"create",
+                loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
+            },
+            {
+                path:"edit/:id",
+                loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
+            },
+            {
+                path:":id",
+                loadComponent: () => import("./features/tenant-management/tenants/tenant-details/tenant-details.component").then(c=>c.TenantDetailsComponent)
+            }
+
+        ]
+    },
     {   path:'finances',
         loadComponent:async () => {
             const c = await import("./features/finance/dashboard/finance-dashboard.component");

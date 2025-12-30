@@ -24,8 +24,6 @@ public class GenericSpecification <T>{
                 switch (searchCriteria.getOperation()){
                     case EQUAL -> predicates.add(builder.equal(path,searchCriteria.getValue()));
                     case LIKE -> predicates.add(builder.like(path.as(String.class), "%" + searchCriteria.getValue() + "%"));
-                    case AND -> predicates.add(builder.and(predicates.toArray(new Predicate[0])));
-                    case OR -> predicates.add(builder.or(predicates.toArray(new Predicate[0])));
                     case GREATER_THAN -> predicates.add(builder.greaterThan(path.as(String.class), searchCriteria.getValue().toString()));
                     case LESS_THAN -> predicates.add(builder.lessThan(path.as(String.class), searchCriteria.getValue().toString()));
                 }
@@ -46,4 +44,8 @@ public class GenericSpecification <T>{
         }
         return root.get(key);
     }
+    public int getCriteriaCount() {
+        return searchCriteriaList.size();
+    }
+
 }

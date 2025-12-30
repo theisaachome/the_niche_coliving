@@ -16,6 +16,6 @@ public class SearchCriteria {
     public Operation getOperation() { return operation; }
 
     public enum Operation {
-        EQUAL, LIKE, GREATER_THAN, LESS_THAN, AND, OR
+        EQUAL, LIKE, GREATER_THAN, LESS_THAN
     }
 }

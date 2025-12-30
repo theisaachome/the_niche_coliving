@@ -4,6 +4,8 @@ import com.theniche.colivin.common.domain.BaseEntity;
 import com.theniche.colivin.common.domain.EntityStatus;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.common.repository.BaseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,7 +15,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class BaseService <T extends BaseEntity> {
+public abstract class BaseService  {
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+   /*
+
     protected final BaseRepository<T> repository;
     public BaseService(BaseRepository<T> repository) {
         this.repository = repository;
@@ -106,4 +111,6 @@ public abstract class BaseService <T extends BaseEntity> {
     protected void afterDelete(UUID id) {
         // Override in subclasses if needed
     }
+
+    */
 }

@@ -18,4 +18,20 @@ public class PageRequestDto {
                 Sort.by(Sort.Direction.fromString(sortDir), sortBy)
         );
     }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
+
+    public void setSortDir(String sortDir) {
+        this.sortDir = sortDir;
+    }
 }

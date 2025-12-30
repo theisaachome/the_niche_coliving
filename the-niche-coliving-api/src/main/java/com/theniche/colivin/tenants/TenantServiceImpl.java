@@ -1,5 +1,6 @@
 package com.theniche.colivin.tenants;
 
+import com.theniche.colivin.common.aop.annotation.Audit;
 import com.theniche.colivin.common.domain.EntityStatus;
 import com.theniche.colivin.common.domain.GenericSpecification;
 import com.theniche.colivin.common.domain.SearchCriteria;
@@ -7,17 +8,19 @@ import com.theniche.colivin.common.domain.TenantStatus;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.common.payload.PageApiResponse;
 import com.theniche.colivin.common.payload.PageRequestDto;
+import com.theniche.colivin.common.service.BaseService;
 import com.theniche.colivin.tenants.dto.TenantRequest;
 import com.theniche.colivin.tenants.dto.TenantResponse;
 import com.theniche.colivin.tenants.dto.TenantSearchFilters;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class TenantServiceImpl  implements TenantService {
+public class TenantServiceImpl extends BaseService implements TenantService {
 
     private final TenantMapper tenantMapper;
     private final TenantRepository tenantRepository;
@@ -26,6 +29,7 @@ public class TenantServiceImpl  implements TenantService {
         this.tenantRepository = tenantRepository;
     }
 
+    @Audit(action = "tenant.registerNewTenant",logArgs = true)
     @Override
     public TenantResponse registerNewTenant(TenantRequest dto) {
         var newTenant = tenantMapper.toEntity(dto);
@@ -78,21 +82,18 @@ public class TenantServiceImpl  implements TenantService {
 
     // search tenant with param
     @Override
+    @Audit(action="tenant.search")
     public PageApiResponse<TenantResponse> searchTenant(TenantSearchFilters filters, PageRequestDto pageRequest) {
         // build specification
         GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
-        if(!filters.getTenantCode().isEmpty()){
-            specBuilder.add(new SearchCriteria("tenantCode",filters.getTenantCode(),SearchCriteria.Operation.EQUAL));
-        }
-        if(!filters.getEmail().isEmpty()){
-            specBuilder.add(new SearchCriteria("email",filters.getEmail(),SearchCriteria.Operation.EQUAL));
-        }
-        if(!filters.getPhone().isEmpty()){
-            specBuilder.add(new SearchCriteria("phone",filters.getPhone(),SearchCriteria.Operation.EQUAL));
-        }
-        if(!filters.getFullName().isEmpty()){
-            specBuilder.add(new SearchCriteria("fullName",filters.getFullName(),SearchCriteria.Operation.LIKE));
-        }
+
+        addIfHasText(specBuilder, "tenantCode", filters.getTenantCode(), SearchCriteria.Operation.EQUAL);
+        addIfHasText(specBuilder, "email", filters.getEmail(), SearchCriteria.Operation.EQUAL);
+        addIfHasText(specBuilder, "phone", filters.getPhone(), SearchCriteria.Operation.EQUAL);
+        addIfHasText(specBuilder, "fullName", filters.getFullName(), SearchCriteria.Operation.LIKE);
+
+        log.info("Search filters count: {}", specBuilder.getCriteriaCount());
+
         var pagedResults = tenantRepository.findAll(specBuilder.build(),pageRequest.toPageable());
         var pageToList = pagedResults.getContent()
                 .stream().map(tenantMapper::toResponse).collect(Collectors.toList());
@@ -104,5 +105,15 @@ public class TenantServiceImpl  implements TenantService {
                 pagedResults.getTotalPages(),
                 pagedResults.isLast()
         );
+    }
+
+
+    private void addIfHasText( GenericSpecification<Tenant> spec,
+                               String field,
+                               String value,
+                               SearchCriteria.Operation operation){
+            if(StringUtils.hasText(value)){
+                spec.add(new SearchCriteria(field,value,operation));
+            }
     }
 }

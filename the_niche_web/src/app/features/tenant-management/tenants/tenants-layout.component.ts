@@ -9,8 +9,7 @@ import {RouterOutlet} from "@angular/router";
     ],
     template: `
         <div class="tenant-layout">
-            <h1>Tenants</h1>
-            <button routerLink="create">Create Tenant</button>
+            <button class="ui button" routerLink="create">Create Tenant</button>
             <router-outlet></router-outlet>
         </div>
 

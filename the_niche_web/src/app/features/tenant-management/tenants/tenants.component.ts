@@ -4,6 +4,7 @@ import {TenantsService} from "./tenants-service";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
+import {TenantFormComponent} from "./tenant-form/tenant-form.component";
 
 @Component({
   selector: 'app-tenants',
@@ -11,7 +12,8 @@ import {NgForOf, NgIf} from "@angular/common";
         FormsModule,
         RouterLink,
         NgForOf,
-        NgIf
+        NgIf,
+        TenantFormComponent
     ],
   templateUrl: './tenants.component.html',
   styleUrl: './tenants.component.css',

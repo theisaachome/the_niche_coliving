@@ -1,18 +1,6 @@
-<form (ngSubmit)="createTenant()">
-    <input [(ngModel)]="tenant.fullName" name="fullName" placeholder="Full Name" required>
-    <input [(ngModel)]="tenant.phone" name="phone" placeholder="Phone" required>
-    <input [(ngModel)]="tenant.email" name="email" placeholder="Email" type="email" required>
-    <select [(ngModel)]="tenant.gender" name="gender">
-        <option value="FEMALE">Female</option>
-        <option value="MALE">Male</option>
-        <option value="OTHER">Other</option>
-    </select>
-    <button type="submit" [disabled]="isLoading">Create</button>
-</form>
-
-<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
 
+<app-tenant-form></app-tenant-form>
 
 <table>
     <tr *ngFor="let tenant of tenants">

@@ -4,7 +4,7 @@
 <!--    <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>-->
 <!--</form>-->
 
-<form class="ui form" [formGroup]="tenantForm" (ngSubmit)="onSubmit()">
+<form class="ui form" [formGroup]="tenantForm" (ngSubmit)="submit()">
     <p>Complete the form to enable the submit button</p>
     <p>Form status: {{tenantForm.status}}</p>
     <div class="field">
@@ -39,7 +39,7 @@
         <button
                 type="button"
                 class="ui primary button"
-                [disabled]="tenantForm.invalid"
+                [disabled]="!tenantForm.valid"
                 (click)="submit()">
             Save
         </button>

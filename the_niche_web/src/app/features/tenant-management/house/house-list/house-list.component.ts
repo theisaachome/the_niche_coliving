@@ -46,7 +46,7 @@ export class HouseListComponent implements OnInit{
                     pageNo:res.pageNo,
                     pageSize:res.pageSize,
                     totalElement:res.totalElement,
-                    totalPages:res.totalPages,
+                    totalPage:res.totalPage,
                     last:res.last
                 }
                 return res.content;

@@ -14,6 +14,6 @@ export interface PageResponse<T> {
     pageNo: number;
     pageSize: number;
     totalElement: number;
-    totalPages: number;
+    totalPage: number;
     last: boolean;
 }

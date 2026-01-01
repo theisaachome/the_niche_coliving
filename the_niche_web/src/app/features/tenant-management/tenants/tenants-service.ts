@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {TenantRequest} from "./tenant-modal";
+import {TenantRequest, TenantResponse} from "./tenant-modal";
 import {catchError, Observable, throwError} from "rxjs";
+import {PageResponse} from "../../../shared/base.model";
 
 
 @Injectable({providedIn:'root'})
@@ -15,6 +16,12 @@ export class TenantsService{
         return  this.http.post<TenantRequest>(this.API_URL,request)
             .pipe(catchError(this.handleError))
     }
+
+    getTenantsPage(page: number, size: number):Observable<PageResponse<TenantResponse>> {
+        return this.http.get<PageResponse<TenantResponse>>(this.API_URL+`/search?page=${page}&size=${size}`)
+            .pipe(catchError(this.handleError));
+    }
+
     private handleError(error:HttpErrorResponse){
         let errorMsg = '';
         if (error.error instanceof ErrorEvent) {

@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {RouterOutlet} from "@angular/router";
-import {ModalComponent} from "../../../shared/modal.component";
+import {ModalComponent} from "../../../shared/components/modal.component";
 import {TenantFormComponent} from "./tenant-form/tenant-form.component";
 
 

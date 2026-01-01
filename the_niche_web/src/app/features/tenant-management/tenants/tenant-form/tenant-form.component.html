@@ -1,49 +1,47 @@
-
-
-<!--<form (ngSubmit)="createTenant()">-->
-<!--    <input [(ngModel)]="tenant.fullName" name="fullName" placeholder="Full Name" required>-->
-<!--    <input [(ngModel)]="tenant.phone" name="phone" placeholder="Phone" required>-->
-<!--    <input [(ngModel)]="tenant.email" name="email" placeholder="Email" type="email" required>-->
-<!--    <select [(ngModel)]="tenant.gender" name="gender">-->
-<!--        <option value="FEMALE">Female</option>-->
-<!--        <option value="MALE">Male</option>-->
-<!--        <option value="OTHER">Other</option>-->
-<!--    </select>-->
-<!--    <button type="submit" [disabled]="isLoading">Create</button>-->
-<!--</form>-->
-
-<!--<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>-->
-
-
 <!--<h2>{{ isEditMode ? 'Edit Tenant' : 'Create Tenant' }}</h2>-->
 <!--<form (ngSubmit)="onSubmit()">-->
 <!--    <input formControlName="name" placeholder="Full Name" />-->
 <!--    <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>-->
 <!--</form>-->
 
-<div class="form-margin">
-    <h2 class="ui header"> Manage Tenants</h2>
-    <div class="ui">
-        Effortlessly track, edit and organize your tenants.
-    </div>
-</div>
-<div class="ui horizontal divider">&</div>
-
-<form class="ui form">
+<form class="ui form" [formGroup]="tenantForm" (ngSubmit)="onSubmit()">
+    <p>Complete the form to enable the submit button</p>
+    <p>Form status: {{tenantForm.status}}</p>
     <div class="field">
-        <label for="fullName">Full Name</label>
-        <input type="text" name="fullName" placeholder="Full Name">
+        <app-input [label]="'Full Name'" [control]="tenantForm.controls.fullName" [required]="true" />
     </div>
 
     <div class="field">
-        <label for="phone">Phone</label>
-        <input type="number" name="phone" placeholder="09 963 009 283">
+      <app-input [label]="'Phone'" [control]="tenantForm.controls.phone" [required]="true" />
     </div>
 
     <div class="field">
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="yourmail@example.com">
+        <app-input [label]="'Email'" [control]="tenantForm.controls.email" [required]="true"/>
     </div>
+    <div class="field">
+        <app-fui-select
+                label="Gender"
+                placeholder="Select Gender"
+                formControlName="gender"
+                [options]="genders">
+        </app-fui-select>
+    </div>
+    <div class="ui divider"></div>
 
-    <button type="button" class="ui button"> Submit</button>
+    <div class="ui right aligned actions">
+        <button
+                type="button"
+                class="ui button"
+                (click)="onCancel()">
+            Cancel
+        </button>
+
+        <button
+                type="button"
+                class="ui primary button"
+                [disabled]="tenantForm.invalid"
+                (click)="submit()">
+            Save
+        </button>
+    </div>
 </form>

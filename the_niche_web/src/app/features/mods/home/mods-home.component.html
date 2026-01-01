@@ -2,4 +2,23 @@
 
 <button class="ui basic button" (click)="onClick()">Open Modal</button>
 
-<app-modal (close)="onClick()" *ngIf="modalOpen"></app-modal>
+@if (modalOpen) {
+
+    <app-modal (close)="onClick()">
+        <div modal-title>
+            Hello
+        </div>
+        <div modal-content>
+            <div class="ui header">We've auto-chosen a profile image for you.</div>
+            <p>We've grabbed the following image from the  image associated with your registered e-mail address.</p>
+            <p>Is it okay to use this photo?</p>
+        </div>
+        <div modal-actions>
+            <div class="actions">
+                <div class="ui approve button">Approve</div>
+                <div class="ui button">Neutral</div>
+                <div class="ui button" (click)="onClick()">Cancel</div>
+            </div>
+        </div>
+    </app-modal>
+}

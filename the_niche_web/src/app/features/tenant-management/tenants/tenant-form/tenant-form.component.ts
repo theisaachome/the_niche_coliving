@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {InputComponent} from "../../../../shared/components/input/input.component";
+import {FuiDropdownComponent} from "../../../../shared/components/dropdown/dropdown-component";
+import {FuiSelectComponent} from "../../../../shared/components/select.component";
+import {ModalComponent} from "../../../../shared/modal.component";
 
 @Component({
   selector: 'app-tenant-form',
     imports: [
         ReactiveFormsModule,
         FormsModule,
-        NgIf
+        InputComponent,
+        FuiDropdownComponent,
+        FuiSelectComponent,
+        ModalComponent,
     ],
   templateUrl: './tenant-form.component.html',
   styleUrl: './tenant-form.component.css',
@@ -16,8 +22,24 @@ import {NgIf} from "@angular/common";
 export class TenantFormComponent {
 
 
+    @Output() cancel = new EventEmitter<void>();
+    @Output() saved = new EventEmitter<void>();
+
+    private formBuilder = inject(FormBuilder);
+    genders= [
+        {label:'Male',value:'Male'},
+        {label:'Female',value:'Female'},
+        {label:'Other',value:'Other'}
+    ]
     isEditMode = false;
     tenantId?: string;
+
+    tenantForm = this.formBuilder.group({
+        fullName:['',Validators.required],
+        phone:['',Validators.required],
+        email:['',Validators.required],
+        gender:['',Validators.required]
+    })
 
     constructor(private route: ActivatedRoute, private router: Router) {
         this.route.paramMap.subscribe(params => {
@@ -42,7 +64,19 @@ export class TenantFormComponent {
         }
 
          */
-        this.router.navigate(['/tenants']);
+        // this.router.navigate(['/tenants']);
+        console.log(this.tenantForm.value)
+    }
+
+    submit(): void {
+        if (this.tenantForm.invalid) return;
+
+        // API call here
+        this.saved.emit();
+    }
+
+    onCancel(): void {
+        this.cancel.emit();
     }
 
 }

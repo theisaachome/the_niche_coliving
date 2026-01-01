@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import {ModalComponent} from "../modal/modal.component";
 import {DividerComponent} from "../../../shared/components/divider.component";
 import {NgIf} from "@angular/common";
+import {ModalComponent} from "../../../shared/modal.component";
 
 @Component({
   selector: 'app-mods.home',
     imports: [
         ModalComponent,
         DividerComponent,
-        NgIf
+        NgIf,
+        ModalComponent
     ],
   templateUrl: './mods-home.component.html',
   styleUrl: './mods-home.component.css'

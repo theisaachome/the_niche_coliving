@@ -3,7 +3,7 @@
 
 export interface ModalActionConfig {
     label: string;
-    type?: 'approve' | 'cancel' | 'neutral'; // Fomantic button style
+    type?: 'approve' | 'cancel' | 'neutral' | 'submit'; // Fomantic button style
     callback?: () => void; // function executed when clicked
 }
 

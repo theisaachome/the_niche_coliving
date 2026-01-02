@@ -13,15 +13,15 @@ import {TenantFormComponent} from "./tenant-form/tenant-form.component";
     ],
     template: `
         <!-- Toolbar -->
-        <div class="ui clearing segment">
-            <h3 class="ui left floated header">Tenants</h3>
-            <button
-                    class="ui primary right floated button"
-                    (click)="openCreateModal()">
-                <i class="plus icon"></i>
-                Add Tenant
-            </button>
-        </div>
+<!--        <div class="ui clearing segment">-->
+<!--            <h3 class="ui left floated header">Tenants</h3>-->
+<!--            <button-->
+<!--                    class="ui primary right floated button"-->
+<!--                    (click)="openCreateModal()">-->
+<!--                <i class="plus icon"></i>-->
+<!--                Add Tenant-->
+<!--            </button>-->
+<!--        </div>-->
         <!-- List of tenants -->
          <router-outlet></router-outlet>
         @if (showCreateModal){

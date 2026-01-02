@@ -1,4 +1,19 @@
 
+<!--<div style="display: flex;align-items: center">-->
+<!--    <app-divider>-->
+<!--        Tenant List-->
+<!--    </app-divider>-->
+<!--    <div style="margin-left: auto">-->
+<!--        <button class="ui button">Add New</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="header">
+    <app-divider>Tenant List</app-divider>
+    <button class="ui button">Add New</button>
+</div>
+
+
 <div class="ui">
     <table class="ui celled padded striped table">
         <thead>
@@ -10,20 +25,33 @@
                 <th>Status</th>
             </tr>
         </thead>
-        <tbody>
-            @for (tenant of tenant$ | async; track tenant.id) {
-                <tr>
-                    <td>{{tenant.tenantCode}}</td>
-                    <td>{{tenant.fullName}}</td>
-                    <td>{{tenant.phone}}</td>
-                    <td>{{tenant.email}}</td>
-                    <td>
-                        <app-tenant-status-badge [status]="tenant.status"
-                        ></app-tenant-status-badge>
-                    </td>
-                </tr>
-            }
-        </tbody>
+        @if ((tenant$ | async)?.length) {
+            <tbody>
+                @for (tenant of tenant$ | async; track trackByTenantId) {
+                    <tr>
+                        <td>
+                            <a [routerLink]="['/tenants/',tenant.id]">
+                                {{tenant.tenantCode}}
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/tenants/',tenant.id]">{{tenant.fullName}}</a>
+                        </td>
+                        <td>{{tenant.phone}}</td>
+                        <td>{{tenant.email}}</td>
+                        <td>
+                            <app-tenant-status-badge [status]="tenant.status"
+                            ></app-tenant-status-badge>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        } @else {
+            <tr>
+                <td colspan="5" class="text-center">No tenants found.</td>
+            </tr>
+        }
+
     </table>
 
     <!-- Pagination -->

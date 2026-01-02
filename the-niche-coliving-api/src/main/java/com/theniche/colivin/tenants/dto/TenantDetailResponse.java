@@ -22,5 +22,4 @@ public record TenantDetailResponse (
         String updatedBy,
         LocalDateTime createdDate,
         LocalDateTime updatedDate
-){
-}
+){}

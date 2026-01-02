@@ -4,6 +4,7 @@ import {NotFoundComponent} from "./shared/components/not-found/not-found.compone
 import {DashboardComponent} from "./features/dashboard/dashboard.component";
 import {FinanceSummaryComponent} from "./features/finance/summary/finance-summary.component";
 import {HouseEditComponent} from "./features/tenant-management/house/house-edit/house-edit.component";
+import {TenantResolver} from "./features/tenant-management/tenants/tenant.resolver";
 
 export const routes: Routes = [
   {path:'dashboard',component:DashboardComponent},
@@ -101,7 +102,8 @@ export const routes: Routes = [
             },
             {
                 path:":id",
-                loadComponent: () => import("./features/tenant-management/tenants/tenant-details/tenant-details.component").then(c=>c.TenantDetailsComponent)
+                loadComponent: () => import("./features/tenant-management/tenants/tenant-detail/tenant-detail.component").then(c=>c.TenantDetailComponent),
+                resolve: {'tenantData':TenantResolver}
             }
 
         ]

@@ -8,15 +8,17 @@ import {PageResponse} from "../../../shared/base.model";
 import {AsyncPipe} from "@angular/common";
 import {TenantStatusBadgeComponent} from "../../../shared/components/tenant-status-badge.component";
 import {PaginationComponent} from "../../../shared/components/pagination.component";
+import {DividerComponent} from "../../../shared/components/divider.component";
 
 @Component({
   selector: 'app-tenants',
     imports: [
         FormsModule,
-        RouterLink,
         AsyncPipe,
         TenantStatusBadgeComponent,
-        PaginationComponent
+        PaginationComponent,
+        DividerComponent,
+        RouterLink
     ],
   templateUrl: './tenants.component.html',
   styleUrl: './tenants.component.css',
@@ -26,11 +28,9 @@ export class TenantsComponent implements OnInit{
     tenant$:Observable<TenantResponse[]> | undefined;
     meta?: Omit<PageResponse<any>,'content'>;
     pageNo = 0;
-    pageSize = 2;
+    pageSize = 5;
 
-    constructor(private tenantService: TenantsService) {
-
-    }
+    constructor(private tenantService: TenantsService,) {}
 
     ngOnInit(): void {
         this.loadTenants(this.pageNo,this.pageSize);
@@ -59,4 +59,12 @@ export class TenantsComponent implements OnInit{
         this.pageNo = 0; // reset to first page
         this.loadTenants(0, newSize);
     }
+    viewDetail(){
+
+    }
+
+    trackByTenantId(index: number, tenant: TenantResponse) {
+        return tenant?.id ?? index;
+    }
+
 }

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {TenantRequest, TenantResponse} from "./tenant-modal";
+import {TenantDetail, TenantRequest, TenantResponse} from "./tenant-modal";
 import {catchError, Observable, throwError} from "rxjs";
 import {PageResponse} from "../../../shared/base.model";
 
@@ -19,6 +19,11 @@ export class TenantsService{
 
     getTenantsPage(page: number, size: number):Observable<PageResponse<TenantResponse>> {
         return this.http.get<PageResponse<TenantResponse>>(this.API_URL+`/search?page=${page}&size=${size}`)
+            .pipe(catchError(this.handleError));
+    }
+
+    getTenantById(tenantId:string):Observable<TenantDetail>{
+        return this.http.get<TenantDetail>(this.API_URL+`/${tenantId}`)
             .pipe(catchError(this.handleError));
     }
 

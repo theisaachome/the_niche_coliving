@@ -1,6 +1,7 @@
 package com.theniche.colivin.tenants;
 import com.theniche.colivin.common.payload.PageApiResponse;
 import com.theniche.colivin.common.payload.PageRequestDto;
+import com.theniche.colivin.tenants.dto.TenantDetailResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
 import com.theniche.colivin.tenants.dto.TenantResponse;
 import com.theniche.colivin.tenants.dto.TenantSearchFilters;
@@ -31,6 +32,11 @@ public class TenantController {
     public ResponseEntity<List<TenantResponse>> getAllTenants() {
          var tenants = tenantService.getTenants();
          return new ResponseEntity<>(tenants, HttpStatus.OK);
+    }
+    @GetMapping("/{tenantId}")
+    public ResponseEntity<TenantDetailResponse> getTenantDetails(@PathVariable("tenantId") UUID id) {
+        var tenant = tenantService.getTenant(id);
+        return new ResponseEntity<>(tenant, HttpStatus.OK);
     }
 
     // register a new tenant

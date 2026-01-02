@@ -9,6 +9,7 @@ import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.common.payload.PageApiResponse;
 import com.theniche.colivin.common.payload.PageRequestDto;
 import com.theniche.colivin.common.service.BaseService;
+import com.theniche.colivin.tenants.dto.TenantDetailResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
 import com.theniche.colivin.tenants.dto.TenantResponse;
 import com.theniche.colivin.tenants.dto.TenantSearchFilters;
@@ -53,9 +54,10 @@ public class TenantServiceImpl extends BaseService implements TenantService {
     }
 
     @Override
-    public Tenant getTenant(UUID id) {
-        return tenantRepository.findById(id)
+    public TenantDetailResponse getTenant(UUID id) {
+        var foundTenant = tenantRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Tenant","ID",id));
+        return tenantMapper.toTenantDetailsResponse(foundTenant);
     }
 
     @Override

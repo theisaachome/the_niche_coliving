@@ -1,4 +1,5 @@
 package com.theniche.colivin.tenants;
+import com.theniche.colivin.tenants.dto.TenantDetailResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
 import com.theniche.colivin.tenants.dto.TenantResponse;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,22 @@ public class TenantMapper {
                  entity.getEmail(),
                  entity.getPhone(),
                  entity.getStatus().toString()
+         );
+    }
+
+    TenantDetailResponse toTenantDetailsResponse(Tenant entity){
+         return new TenantDetailResponse(
+                 entity.getId(),
+                 entity.getTenantCode(),
+                 entity.getFullName(),
+                 entity.getEmail(),
+                 entity.getPhone(),
+                 entity.getTenantStatus(),
+                 entity.isDeleted(),
+                 entity.getCreatedBy(),
+                 entity.getUpdatedBy(),
+                 entity.getCreatedDate(),
+                 entity.getUpdatedDate()
          );
     }
 

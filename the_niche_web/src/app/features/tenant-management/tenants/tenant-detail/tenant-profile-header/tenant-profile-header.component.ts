@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {TenantDetail} from "../../tenant-modal";
 
 @Component({
   selector: 'app-tenant-profile-header',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './tenant-profile-header.component.css',
 })
 export class TenantProfileHeaderComponent {
+   @Input() tenantProfile: TenantDetail | undefined;
+
+   constructor() {
+   }
 
 }

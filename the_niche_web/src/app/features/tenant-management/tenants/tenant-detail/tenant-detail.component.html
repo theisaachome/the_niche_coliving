@@ -1,53 +1,53 @@
 @if (tenant) {
-    <div class="ui grid tenant-profile">
-        <!-- HEADER   -->
-        <div class="four wide column center aligned">
-            <img src="assets/images/tenant-avatar.png"
-                 alt="Tenant avatar"
-                 class="ui small circular image"
-            />
-            <div class="ui small header">
-                {{tenant.fullName}}
-            </div>
-            <div class="ui tiny label">
-                {{tenant.status}}
-            </div>
-        </div>
-        <!--    Basic Info-->
-        <div class="twelve wide column">
-            <h2 class="ui header">
-                {{tenant.fullName}}
-                <div class="sub header">
-                    Tenant Code: {{ tenant.tenantCode }}
-                </div>
-            </h2>
-
-            <div class="ui list">
-                <div class="item">
-                    <i class="phone icon"></i>
-                    <div class="content">{{ tenant.phone}}</div>
-                </div>
-
-                <div class="item">
-                    <i class="mail icon"></i>
-                    <div class="content">{{ tenant.email }}</div>
-                </div>
-
-
-                    <div class="item">
-                        <i class="map marker alternate icon"></i>
-                        <div class="content">
-                            <p><strong>Address Line 1:</strong> No. 25, Jalan Bukit Indah 3</p>
-                            <p><strong>Address Line 2:</strong> Taman Bukit Indah</p>
-                            <p><strong>City:</strong> Johor Bahru</p>
-                            <p><strong>State:</strong> Johor</p>
-                            <p><strong>Postcode:</strong> 81200</p>
-                            <p><strong>Country:</strong> Malaysia</p>
-                        </div>
-                    </div>
-
-            </div>
-        </div>
+<div class="ui grid">
+    <div class="four wide column">
+        <app-avatar-header [imageUrl]="'assets/images/tenant-avatar.png'"
+                           [tittle]="tenant.fullName"
+                           [subTitle]="tenant.tenantCode"
+        />
+        <!--  other-fields from profile       -->
+        <app-info-list
+                [title]="'About'"
+                [infoItems]="aboutItems"
+                [showDivider]="true">
+        </app-info-list>
+        <app-info-list
+                [title]="'Address'"
+                [infoItems]="aboutAddress"
+                [showDivider]="true">
+        </app-info-list>
+        <app-info-list
+            [title]="'Tenant Details'"
+            [infoItems]="aboutTenantDetails"
+            [showDivider]="true">
+        </app-info-list>
+<!--        Quick actions-->
+<!--        Edit profile-->
+<!--        Assign room-->
+<!--        Add payment-->
     </div>
-
+    <div class="twelve wide column">
+        <div class="ui container">
+            <h4 class="ui horizontal divider header">
+                <i class="bar chart icon"></i>
+                Specifications
+            </h4>
+            <div class="ui secondary pointing menu">
+                <a routerLink="/finances" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Summary</a>
+                <a routerLink="transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Transactions</a>
+                <a routerLink="budgets" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="item">Budgets</a>
+            </div>
+            <div class="ui segment">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!--        <app-payment-summary />-->
+<!--        <app-tenant-tabs>-->
+<!--            ├── <app-rent-history-table />-->
+<!--            ├── <app-payment-table />-->
+<!--            ├── <app-documents />-->
+<!--            └── <app-notes />-->
+<!--        </app-tenant-tabs>-->
+    </div>
+</div>
 }

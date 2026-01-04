@@ -1,0 +1,90 @@
+package com.theniche.colivin.house;
+
+import com.theniche.colivin.common.domain.BaseEntity;
+import com.theniche.colivin.util.CodeGenerator;
+import jakarta.persistence.*;
+import java.util.Objects;
+
+
+@Entity
+@Table(name="houses",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UK_HOUSE_NAME", columnNames = "name")
+        }
+)
+public class House extends BaseEntity {
+    @Column(unique = true,nullable = false)
+    private String name;
+    @Column(unique = true,nullable = false,name = "house_code")
+    private String houseCode;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "house_status")
+    private HouseStatus houseStatus =HouseStatus.ACTIVE;
+    @Column(name = "location",nullable = false)
+    private String location;
+    @Column(name = "remark")
+    private String remark;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public House setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getHouseCode() {
+        return houseCode;
+    }
+
+    public House setHouseCode(String houseCode) {
+        this.houseCode = houseCode;
+        return this;
+    }
+
+    public HouseStatus getHouseStatus() {
+        return houseStatus;
+    }
+
+    public House setHouseStatus(HouseStatus houseStatus) {
+        this.houseStatus = houseStatus;
+        return this;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public House setLocation(String location) {
+        this.location = location;
+        return this;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public House setRemark(String remark) {
+        this.remark = remark;
+        return this;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if(this.houseCode == null) {
+            this.houseCode = CodeGenerator.generateHouseCode();
+        }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof House house)) return false;
+        return Objects.equals(name, house.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return 2025;
+    }
+}

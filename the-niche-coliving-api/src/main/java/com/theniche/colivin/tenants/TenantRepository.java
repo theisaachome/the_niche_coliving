@@ -15,7 +15,6 @@ public interface TenantRepository extends BaseRepository<Tenant> {
         """
     )
     Optional<Tenant>  findByIdWithDetails(@Param("id")UUID id);
-
     @Query(
             """
             SELECT t FROM Tenant  t 
@@ -25,6 +24,5 @@ public interface TenantRepository extends BaseRepository<Tenant> {
             """
     )
     Optional<Tenant> findByIdWithAssignments(@Param("id")UUID id);
-
      */
 }

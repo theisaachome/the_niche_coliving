@@ -88,7 +88,6 @@ public class TenantServiceImpl extends BaseService implements TenantService {
     public PageApiResponse<TenantResponse> searchTenant(TenantSearchFilters filters, PageRequestDto pageRequest) {
         // build specification
         GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
-
         addIfHasText(specBuilder, "tenantCode", filters.getTenantCode(), SearchCriteria.Operation.EQUAL);
         addIfHasText(specBuilder, "email", filters.getEmail(), SearchCriteria.Operation.EQUAL);
         addIfHasText(specBuilder, "phone", filters.getPhone(), SearchCriteria.Operation.EQUAL);

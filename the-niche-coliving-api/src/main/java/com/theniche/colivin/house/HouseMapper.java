@@ -1,6 +1,7 @@
 package com.theniche.colivin.house;
 
 import com.theniche.colivin.house.dto.HouseDetailResponse;
+import com.theniche.colivin.house.dto.HouseOverviewResponse;
 import com.theniche.colivin.house.dto.HouseRequest;
 import com.theniche.colivin.house.dto.HouseResponse;
 import org.springframework.stereotype.Component;

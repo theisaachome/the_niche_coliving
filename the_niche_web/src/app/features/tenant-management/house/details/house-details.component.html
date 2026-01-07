@@ -7,7 +7,7 @@
         <h2 class="ui header">
             <i class="home icon"></i>
             <div class="content">
-                {{ house.houseName }}
+                {{ house.name }}
                 <div class="sub header">Example Address</div>
             </div>
         </h2>
@@ -46,34 +46,34 @@
                 <th>Action</th>
             </tr>
             </thead>
-            <tbody>
-                @for (room of house.roomOptions; track room.id) {
-                    <tr >
-                        <td>{{ room.room_number }}</td>
-                        <td>
-                            <div class="ui label">
-                                <i class="users icon"></i>
-                                {{ room.capacity }}
-                            </div>
-                        </td>
-                        <td>{{ room.notes }}</td>
-                        <td>{{ room.createdDate | date:'medium' }}</td>
-                        <td>Assign Tenant</td>
-                        <td>
-                            <div class="ui label">
-                                <i class="icon sidebar"></i>
-                            </div>
-                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>
-                            <div class="ui icon buttons">
-                                <button class="ui button"><i class="eye icon"></i></button>
-                                <button class="ui button"><i class="align center icon"></i>View</button>
-                                <button class="ui button"><i class="align right icon"></i></button>
-                                <button class="ui button"><i class="align justify icon"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+<!--            <tbody>-->
+<!--                @for (room of house.roomOptions; track room.id) {-->
+<!--                    <tr >-->
+<!--                        <td>{{ room.room_number }}</td>-->
+<!--                        <td>-->
+<!--                            <div class="ui label">-->
+<!--                                <i class="users icon"></i>-->
+<!--                                {{ room.capacity }}-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td>{{ room.notes }}</td>-->
+<!--                        <td>{{ room.createdDate | date:'medium' }}</td>-->
+<!--                        <td>Assign Tenant</td>-->
+<!--                        <td>-->
+<!--                            <div class="ui label">-->
+<!--                                <i class="icon sidebar"></i>-->
+<!--                            </div>-->
+<!--                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>-->
+<!--                            <div class="ui icon buttons">-->
+<!--                                <button class="ui button"><i class="eye icon"></i></button>-->
+<!--                                <button class="ui button"><i class="align center icon"></i>View</button>-->
+<!--                                <button class="ui button"><i class="align right icon"></i></button>-->
+<!--                                <button class="ui button"><i class="align justify icon"></i></button>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                }-->
+<!--            </tbody>-->
         </table>
     </div>
 }

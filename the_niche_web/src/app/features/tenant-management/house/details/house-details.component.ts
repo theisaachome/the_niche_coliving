@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HouseService} from "../house.service";
-import { HouseDetails} from "../house.model";
+import {HouseDetails, HouseResponse} from "../house.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
 import {DatePipe} from "@angular/common";
@@ -17,7 +17,7 @@ import {DatePipe} from "@angular/common";
 })
 export class HouseDetailsComponent implements OnInit {
 
-    house?:HouseDetails;
+    house?:HouseResponse;
     constructor(private houseService:HouseService,
                 private route:ActivatedRoute) {
     }
@@ -25,7 +25,7 @@ export class HouseDetailsComponent implements OnInit {
 
     ngOnInit() {
         const id = this.route.snapshot.params['id'];
-        this.houseService.getHouseDetailsById(id).subscribe(
+        this.houseService.getById(id).subscribe(
             (res)=>{
                 console.log(res)
                 this.house=res;

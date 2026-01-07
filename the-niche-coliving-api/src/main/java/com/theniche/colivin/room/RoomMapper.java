@@ -23,4 +23,5 @@ public class RoomMapper {
                 room.getRemark(),
                 room.getRoomStatus());
     }
+
 }

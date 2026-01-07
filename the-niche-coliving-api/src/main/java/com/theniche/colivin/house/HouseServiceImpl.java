@@ -3,11 +3,9 @@ import com.theniche.colivin.common.domain.GenericSpecification;
 import com.theniche.colivin.common.domain.SearchCriteria;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.common.service.BaseService;
-import com.theniche.colivin.house.dto.HouseDetailResponse;
-import com.theniche.colivin.house.dto.HouseRequest;
-import com.theniche.colivin.house.dto.HouseResponse;
-import com.theniche.colivin.house.dto.HouseSearchFilters;
+import com.theniche.colivin.house.dto.*;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -82,6 +80,13 @@ public class HouseServiceImpl extends BaseService implements HouseService {
        var result=  houseRepository.findOne( specification.build())
                .orElseThrow(()->new EntityNotFoundException("No House Found"));
         return houseMapper.toResponse(result);
+    }
+
+    @Override
+    public HouseOverviewResponse getHouseOverview(Integer pageNumber,Integer pageSize) {
+        var pageable = PageRequest.of(pageNumber, pageSize);
+        var result= houseRepository.findHouseOverview(pageable);
+
     }
 
     private void addIfHasText( GenericSpecification<House> spec,

@@ -6,31 +6,28 @@
     <table class="ui celled padded striped table">
       <thead>
         <tr>
-            <th>#Code</th>
-            <th class="single line">Unit</th>
+            <th>House</th>
+            <th>Location</th>
+            <th>Rooms</th>
+            <th>Availability</th>
+            <th>Capacity</th>
             <th>Status</th>
 <!--            <th>Room (Vacant/Total)</th>-->
-            <th >Action</th>
+            <th ></th>
         </tr>
       </thead>
         <tbody>
             @for (house of house$ | async; track house.id) {
                 <tr>
-                    <td>
-                        <a class="ui mini label" [routerLink]="['/houses/',house.id]">{{house.houseCode}}</a>
+
+                    <td> <a class="ui  link" [routerLink]="['/houses/',house.id]">{{house.name}}</a></td>
+                    <td> {{house.location}}</td>
+                    <td>12</td>
+                    <td class="left aligned">
+                        80% / <a href="#">18 studies</a>
                     </td>
-                    <td> <a class="ui  link" [routerLink]="['/houses/',house.id]">{{house.houseName}}</a></td>
-                    <td><a class="ui teal tag label"
-                           [ngClass]="{
-                           'green': house.houseStatus === 'Available',
-                           'red': house.houseStatus === 'Occupied',
-                           'yellow': house.houseStatus === 'Maintenance',
-                           'grey': house.houseStatus === 'Inactive'
-                         }"
-                    >{{ house.houseStatus }}</a>  </td>
-<!--                    <td class="left aligned">-->
-<!--                        80% / <a href="#">18 studies</a>-->
-<!--                    </td>-->
+                    <td>4</td>
+                    <td>{{house.houseStatus}}</td>
                     <td>
                         <button class="tiny ui button" (click)="openEditHouseModal(house)">Edit</button>
 <!--                        <a>View Details</a>-->
@@ -40,8 +37,10 @@
         </tbody>
         <tfoot>
         <tr>
-            <td >5 Houses</td>
-            <td >Total Room: 40</td>
+            @if (house$ | async; as houses) {
+                <td><i class="home icon"></i>Total House: {{ houses.length }}</td>
+            }
+            <td ><i class="hotel icon"></i>Total Room: 40</td>
             <td >2 House fully occupied.</td>
             <td>
                 <button class="tiny ui button" (click)="onViewDetail('abc')">Total</button>
@@ -56,7 +55,7 @@
             [config]="modalConfig"
             (close)="onModalClosed()"
     >
-       <house-edit [house]="selectedHouse"></house-edit>
+<!--       <house-edit [house]="selectedHouse"></house-edit>-->
     </app-base-modal>
 }
 

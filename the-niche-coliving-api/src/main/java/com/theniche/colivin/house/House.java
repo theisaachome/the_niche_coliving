@@ -1,9 +1,14 @@
 package com.theniche.colivin.house;
 
 import com.theniche.colivin.common.domain.BaseEntity;
+import com.theniche.colivin.room.Room;
 import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -24,7 +29,29 @@ public class House extends BaseEntity {
     private String location;
     @Column(name = "remark")
     private String remark;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "house",orphanRemoval = true)
+    private Set<Room> rooms = new HashSet<>();
 
+
+    public House(){}
+
+    public void addRoom(Room room){
+        this.rooms.add(room);
+        room.setHouse(this);
+    }
+    public void removeRoom(Room room){
+        rooms.remove(room);
+        room.setHouse(null);
+    }
+
+    public void removeRooms(){
+        Iterator<Room> iterator = this.rooms.iterator();
+        while (iterator.hasNext()) {
+            var room = iterator.next();
+            room.setHouse(null);
+            iterator.remove();
+        }
+    }
 
     public String getName() {
         return name;

@@ -1,6 +1,7 @@
 package com.theniche.colivin.room;
 
 import com.theniche.colivin.common.repository.BaseRepository;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;

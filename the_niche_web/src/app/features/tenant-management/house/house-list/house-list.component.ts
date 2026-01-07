@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 import {HouseService} from "../house.service";
-import {House} from "../house.model";
+import {House, HouseResponse} from "../house.model";
 import { Router, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
 import {PageResponse} from "../../../../shared/base.model";
@@ -21,7 +21,7 @@ export class HouseListComponent implements OnInit{
 
     showModal = false;
     isEditMode=false;
-    selectedHouse?:House;
+    selectedHouse?:HouseResponse;
 
     modalConfig: BaseModalConfig = {
         title: 'Default Action',
@@ -31,7 +31,7 @@ export class HouseListComponent implements OnInit{
             { label: 'Cancel', type: 'cancel' } // no callback, just closes
         ]
     };
-  house$: Observable<House[]> | undefined;
+  house$: Observable<HouseResponse[]> | undefined;
   meta?: Omit<PageResponse<any>, 'content'>;
 
   constructor(private houseService:HouseService,
@@ -39,19 +39,21 @@ export class HouseListComponent implements OnInit{
               ) {
   }
   ngOnInit(): void {
-   this.house$ = this.houseService.getAllPagedList()
-       .pipe(
-           map((res:PageResponse<House>)=>{
-                this.meta={
-                    pageNo:res.pageNo,
-                    pageSize:res.pageSize,
-                    totalElement:res.totalElement,
-                    totalPage:res.totalPage,
-                    last:res.last
-                }
-                return res.content;
-           }),
-       );
+   // this.house$ = this.houseService.getAllPagedList()
+   //     .pipe(
+   //         map((res:PageResponse<House>)=>{
+   //              this.meta={
+   //                  pageNo:res.pageNo,
+   //                  pageSize:res.pageSize,
+   //                  totalElement:res.totalElement,
+   //                  totalPage:res.totalPage,
+   //                  last:res.last
+   //              }
+   //              return res.content;
+   //         }),
+   //     );
+      this.house$ = this.houseService.getAll();
+      console.log(this.house$)
   }
 
 
@@ -78,7 +80,7 @@ export class HouseListComponent implements OnInit{
         this.showModal = true;
     }
 
-    openEditHouseModal(house: House) {
+    openEditHouseModal(house: HouseResponse) {
       this.modalConfig.title="Edit House"
         this.selectedHouse = house; // pass object for editing
         this.showModal = true;

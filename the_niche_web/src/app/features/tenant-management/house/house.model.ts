@@ -1,5 +1,13 @@
 import {BaseModel} from "../../../shared/base.model";
 
+export const HOUSE_STATUS=[
+    'ACTIVE',
+    'INACTIVE',
+    'MAINTENANCE',
+    'CLOSED'
+] as const;
+
+export type HouseTenant = typeof HOUSE_STATUS[number];
 
 export interface HouseDetails extends BaseModel {
     houseName: string;
@@ -34,4 +42,13 @@ export interface HouseRoom {
     room_number: string;
     capacity:number;
     notes:string;
+}
+
+export interface HouseResponse{
+    id?: string;
+    houseCode: string;
+    name: string;
+    location: string;
+    remark: string;
+    houseStatus: string;
 }

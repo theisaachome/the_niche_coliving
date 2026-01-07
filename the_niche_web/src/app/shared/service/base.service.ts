@@ -14,7 +14,6 @@ export abstract class BaseService<TResponse>{
     getAll(): Observable<TResponse[]> {
         return this.http.get<TResponse[]>(this.url());
     }
-
     getById(id: string | number): Observable<TResponse> {
         return this.http.get<TResponse>(`${this.url()}/${id}`);
     }

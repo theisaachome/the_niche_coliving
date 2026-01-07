@@ -25,7 +25,7 @@ import {House} from "../house.model";
 })
 export class HouseEditComponent implements  OnInit {
 
-       @Input() house?:House;
+       @Input() house?:any;
       houseForm:FormGroup;
       constructor(private fb: FormBuilder,private unitService:HouseService) {
         this.houseForm = fb.group({

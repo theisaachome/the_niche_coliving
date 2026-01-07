@@ -10,8 +10,7 @@ public record RoomResponse(
         String roomNumber,
         RoomType roomType,
         String roomCode,
-        String capacity,
-        String notes,
+        Integer capacity,
+        String remark,
         RoomStatus roomStatus
-) {
-}
+) {}

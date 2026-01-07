@@ -2,6 +2,7 @@ package com.theniche.colivin.room;
 
 import com.theniche.colivin.room.dto.RoomRequest;
 import com.theniche.colivin.room.dto.RoomResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -7,7 +7,7 @@ export const HOUSE_STATUS=[
     'CLOSED'
 ] as const;
 
-export type HouseTenant = typeof HOUSE_STATUS[number];
+export type HouseStatus = typeof HOUSE_STATUS[number];
 
 export interface HouseDetails extends BaseModel {
     houseName: string;
@@ -51,4 +51,21 @@ export interface HouseResponse{
     location: string;
     remark: string;
     houseStatus: string;
+}
+
+export interface  HouseOverviewResponse extends BaseModel{
+    houseCode: string;
+    name: string;
+    location: string;
+    houseStatus: HouseStatus;
+    totalRooms: number;
+    availableRooms: number;
+}
+export interface  HouseDetailResponse extends  BaseModel{
+    houseCode: string;
+    name: string;
+    location: string;
+    remark: string;
+    houseStatus: HouseStatus;
+    deleted: boolean;
 }

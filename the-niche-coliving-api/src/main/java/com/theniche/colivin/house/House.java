@@ -1,10 +1,8 @@
 package com.theniche.colivin.house;
-
 import com.theniche.colivin.common.domain.BaseEntity;
 import com.theniche.colivin.room.Room;
 import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;

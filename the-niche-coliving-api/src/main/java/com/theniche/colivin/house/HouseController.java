@@ -1,8 +1,5 @@
 package com.theniche.colivin.house;
-import com.theniche.colivin.house.dto.HouseDetailResponse;
-import com.theniche.colivin.house.dto.HouseRequest;
-import com.theniche.colivin.house.dto.HouseResponse;
-import com.theniche.colivin.house.dto.HouseSearchFilters;
+import com.theniche.colivin.house.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +22,13 @@ public class HouseController {
     public ResponseEntity createHouse(@RequestBody HouseRequest request) {
         var newHouse= houseService.createHouse(request);
         return new ResponseEntity<>(newHouse, HttpStatus.CREATED);
+    }
+    @GetMapping("/overviews")
+    public ResponseEntity<List<HouseOverviewResponse>> getHouseOverview(
+            @RequestParam(value = "page",required = false,defaultValue = "0") int page,
+            @RequestParam(value = "size",required = false,defaultValue = "20") int size){
+        var result = this.houseService.getHouseOverview(page, size);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/search")

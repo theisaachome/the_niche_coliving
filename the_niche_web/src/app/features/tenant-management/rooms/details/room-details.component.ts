@@ -18,10 +18,10 @@ export class RoomDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         const roomId = this.route.snapshot.params["id"];
-        this.roomService.getRoomDetailsById(roomId)
-            .subscribe((res)=>{
-                this.roomDetails = res;
-            })
+        // this.roomService.getRoomDetailsById(roomId)
+        //     .subscribe((res)=>{
+        //         this.roomDetails = res;
+        //     })
     }
 
 

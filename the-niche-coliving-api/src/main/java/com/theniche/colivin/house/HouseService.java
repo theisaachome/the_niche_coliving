@@ -13,5 +13,5 @@ public interface HouseService {
     void deleteHouse(UUID id);
     List<HouseResponse> getHouses();
     HouseResponse searchHouse(HouseSearchFilters filters);
-    HouseOverviewResponse  getHouseOverview();
+    List<HouseOverviewResponse> getHouseOverview(Integer pageNumber, Integer pageSize);
 }

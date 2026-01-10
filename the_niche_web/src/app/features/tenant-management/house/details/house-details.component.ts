@@ -1,24 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {HouseService} from "../house.service";
-import {HouseDetails, HouseResponse} from "../house.model";
+import {HouseDetailResponse, HouseDetails, HouseResponse} from "../house.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
-import {DatePipe} from "@angular/common";
+import {AsyncPipe, DatePipe} from "@angular/common";
+import {RoomResponse} from "../../rooms/room.model";
+import {Observable} from "rxjs";
+import {RoomService} from "../../rooms/room.service";
 
 @Component({
   selector: 'app-house-details',
     imports: [
         DividerComponent,
+        AsyncPipe,
         DatePipe,
-        RouterLink
+        RouterLink,
     ],
   templateUrl: './house-details.component.html',
   styleUrl: './house-details.component.css'
 })
 export class HouseDetailsComponent implements OnInit {
 
-    house?:HouseResponse;
+    house?:HouseDetailResponse;
+    rooms$: Observable< RoomResponse[]> | undefined;
+
     constructor(private houseService:HouseService,
+                private roomService:RoomService,
                 private route:ActivatedRoute) {
     }
 
@@ -30,7 +37,12 @@ export class HouseDetailsComponent implements OnInit {
                 console.log(res)
                 this.house=res;
             }
-        )
+        );
+        this.getRoom(id);
+    }
+
+    getRoom(houseId:string){
+       this.rooms$ =  this.roomService.getRoomsByHouse(houseId);
     }
 
 }

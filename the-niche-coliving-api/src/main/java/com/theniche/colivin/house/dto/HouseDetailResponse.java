@@ -15,6 +15,6 @@ public record HouseDetailResponse(
         // Todo: show room list
         String createdBy,
         String updatedBy,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime createdDate,
+        LocalDateTime updatedDate
 ){}

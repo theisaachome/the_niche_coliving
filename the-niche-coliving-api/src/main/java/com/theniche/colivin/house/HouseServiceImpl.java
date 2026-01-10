@@ -83,10 +83,11 @@ public class HouseServiceImpl extends BaseService implements HouseService {
     }
 
     @Override
-    public HouseOverviewResponse getHouseOverview(Integer pageNumber,Integer pageSize) {
+    public List<HouseOverviewResponse> getHouseOverview(Integer pageNumber, Integer pageSize) {
         var pageable = PageRequest.of(pageNumber, pageSize);
-        var result= houseRepository.findHouseOverview(pageable);
-
+        var resultPage= houseRepository.findHouseOverview(pageable);
+       var list= resultPage.getContent();
+       return  list;
     }
 
     private void addIfHasText( GenericSpecification<House> spec,

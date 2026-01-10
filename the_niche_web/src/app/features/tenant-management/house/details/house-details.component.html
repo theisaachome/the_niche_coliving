@@ -8,15 +8,22 @@
             <i class="home icon"></i>
             <div class="content">
                 {{ house.name }}
-                <div class="sub header">Example Address</div>
             </div>
         </h2>
+        <div class="sub header grey marked">{{house.houseCode}}</div>
+        <div>
+            <p>Location</p>
+            <p>{{house.location}}</p>
+        </div>
         <div class="ui divider"></div>
-
         <div class="ui grid">
             <div class="eight wide column">
                 <h4 class="ui header">Description</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto consequatur dolor dolore doloremque est id incidunt, ipsa iste laborum maxime nihil, nobis porro similique temporibus, vitae voluptatibus. Labore, natus.</p>
+                <p>{{house.houseStatus}}</p>
+                <p>{{house.createdBy}}</p>
+                <p>{{house.updatedBy}}</p>
+                <p>{{house.createdDate}}</p>
+                <p>{{house.updatedDate}}</p>
             </div>
             <div class="eight wide column">
                 <h4 class="ui header">Notes</h4>
@@ -46,34 +53,34 @@
                 <th>Action</th>
             </tr>
             </thead>
-<!--            <tbody>-->
-<!--                @for (room of house.roomOptions; track room.id) {-->
-<!--                    <tr >-->
-<!--                        <td>{{ room.room_number }}</td>-->
-<!--                        <td>-->
-<!--                            <div class="ui label">-->
-<!--                                <i class="users icon"></i>-->
-<!--                                {{ room.capacity }}-->
-<!--                            </div>-->
-<!--                        </td>-->
-<!--                        <td>{{ room.notes }}</td>-->
-<!--                        <td>{{ room.createdDate | date:'medium' }}</td>-->
-<!--                        <td>Assign Tenant</td>-->
-<!--                        <td>-->
-<!--                            <div class="ui label">-->
-<!--                                <i class="icon sidebar"></i>-->
-<!--                            </div>-->
-<!--                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>-->
-<!--                            <div class="ui icon buttons">-->
-<!--                                <button class="ui button"><i class="eye icon"></i></button>-->
-<!--                                <button class="ui button"><i class="align center icon"></i>View</button>-->
-<!--                                <button class="ui button"><i class="align right icon"></i></button>-->
-<!--                                <button class="ui button"><i class="align justify icon"></i></button>-->
-<!--                            </div>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                }-->
-<!--            </tbody>-->
+            <tbody>
+                @for (room of rooms$ | async; track room.id) {
+                    <tr >
+                        <td>{{ room.roomNumber }}</td>
+                        <td>
+                            <div class="ui label">
+                                <i class="users icon"></i>
+                                {{ room.capacity }}
+                            </div>
+                        </td>
+                        <td>{{ room.remark }}</td>
+                        <td>{{ room.createdDate | date:'medium' }}</td>
+                        <td>Assign Tenant</td>
+                        <td>
+                            <div class="ui label">
+                                <i class="icon sidebar"></i>
+                            </div>
+                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>
+                            <div class="ui icon buttons">
+                                <button class="ui button"><i class="eye icon"></i></button>
+                                <button class="ui button"><i class="align center icon"></i>View</button>
+                                <button class="ui button"><i class="align right icon"></i></button>
+                                <button class="ui button"><i class="align justify icon"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 }

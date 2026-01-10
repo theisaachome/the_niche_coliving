@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 import {HouseService} from "../house.service";
-import {House, HouseResponse} from "../house.model";
+import {House, HouseOverviewResponse, HouseResponse} from "../house.model";
 import { Router, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
 import {PageResponse} from "../../../../shared/base.model";
@@ -31,7 +31,7 @@ export class HouseListComponent implements OnInit{
             { label: 'Cancel', type: 'cancel' } // no callback, just closes
         ]
     };
-  house$: Observable<HouseResponse[]> | undefined;
+  house$: Observable<HouseOverviewResponse[]> | undefined;
   meta?: Omit<PageResponse<any>, 'content'>;
 
   constructor(private houseService:HouseService,
@@ -52,8 +52,7 @@ export class HouseListComponent implements OnInit{
    //              return res.content;
    //         }),
    //     );
-      this.house$ = this.houseService.getAll();
-      console.log(this.house$)
+      this.house$ = this.houseService.getAllHouseOverview();
   }
 
 

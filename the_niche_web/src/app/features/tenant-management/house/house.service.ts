@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {House, HouseDetails, HouseResponse} from "./house.model";
+import {House, HouseDetailResponse, HouseDetails, HouseOverviewResponse, HouseResponse} from "./house.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {BaseService} from "../../../shared/service/base.service";
 import {HOUSE_API} from "../../../shared/api-constants";
@@ -15,7 +15,7 @@ interface HouseRequest {
 
 
 @Injectable({providedIn: 'root'})
-export class HouseService implements CrudInterface<HouseResponse>{
+export class HouseService implements CrudInterface<any>{
 
     constructor(private http: HttpClient) {}
 
@@ -23,14 +23,18 @@ export class HouseService implements CrudInterface<HouseResponse>{
         return this.http
             .get<HouseResponse[]>(HOUSE_API);
     }
-    getById(id: string | number): Observable<HouseResponse> {
-        return  this.http.get<HouseResponse>(HOUSE_API+`/{id}`);
+    getById(id: string | number): Observable<HouseDetailResponse> {
+        return  this.http.get<HouseDetailResponse>(   `${HOUSE_API}/${id}`);
     }
     delete(id: string | number): Observable<void> {
         throw new Error("Method not implemented.");
     }
     saveHouse(data:HouseRequest):Observable<any>{
        return  this.http.post(HOUSE_API,data);
+    }
+    getAllHouseOverview():Observable<HouseOverviewResponse[]>{
+            return this.http
+                .get<HouseOverviewResponse[]>(HOUSE_API+`/overviews`);
     }
 
 }

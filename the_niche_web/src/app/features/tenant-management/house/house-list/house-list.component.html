@@ -22,14 +22,15 @@
 
                     <td> <a class="ui  link" [routerLink]="['/houses/',house.id]">{{house.name}}</a></td>
                     <td> {{house.location}}</td>
-                    <td>12</td>
+                    <td>{{house.totalRooms}}</td>
                     <td class="left aligned">
                         80% / <a href="#">18 studies</a>
                     </td>
-                    <td>4</td>
+                    <td>{{house.availableRooms}}</td>
                     <td>{{house.houseStatus}}</td>
                     <td>
-                        <button class="tiny ui button" (click)="openEditHouseModal(house)">Edit</button>
+<!--                        <button class="tiny ui button" (click)="openEditHouseModal(house)">Edit</button>-->
+                        <button class="tiny ui button">Edit</button>
 <!--                        <a>View Details</a>-->
                     </td>
                 </tr>

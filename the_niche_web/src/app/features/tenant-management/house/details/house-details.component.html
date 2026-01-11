@@ -1,88 +1,186 @@
 
-<app-divider>
-    House Details
-</app-divider>
 @if (house) {
-    <div class="ui raised very padded text  segment">
-        <h2 class="ui header">
-            <i class="home icon"></i>
-            <div class="content">
-                {{ house.name }}
+    <div class="ui fluid card">
+        <!-- Header -->
+        <div class="content">
+            <div class="ui grid">
+                <div class="twelve wide column">
+                    <h2 class="ui header">
+                        <i class="home icon"></i>
+                        <div class="content">
+                            {{ house.name }}
+                            <div class="sub header">
+                                {{ house.houseCode }} • {{ house.location }}
+                            </div>
+                        </div>
+                    </h2>
+                </div>
+
+                <!-- Actions -->
+                <div class="four wide column right aligned">
+                    <div class="ui small buttons">
+                        <button class="ui primary button">
+                            <i class="edit icon"></i>
+                            Edit
+                        </button>
+                        <div class="or"></div>
+                        <button class="ui green button">
+                            <i class="plus icon"></i>
+                            Add Room
+                        </button>
+                    </div>
+                </div>
             </div>
-        </h2>
-        <div class="sub header grey marked">{{house.houseCode}}</div>
-        <div>
-            <p>Location</p>
-            <p>{{house.location}}</p>
         </div>
-        <div class="ui divider"></div>
+
+        <!-- Status -->
+        <div class="content">
+            <div class="ui labels">
+                <div class="ui blue label">
+                    <i class="info circle icon"></i>
+                    {{ house.houseStatus }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Details -->
+        <div class="content">
+            <div class="ui two column grid">
+                <div class="column">
+                    <h4 class="ui header">Description</h4>
+                    <p>{{ house.remark || 'No description provided.' }}</p>
+                </div>
+
+                <div class="column">
+                    <h4 class="ui header">Remark</h4>
+                    <p>{{ house.remark || 'No notes available.' }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer / Meta -->
+        <div class="extra content">
+            <div class="ui small grey text">
+                <i class="user icon"></i> <i>Created by {{ house.createdBy }} on {{ house.createdDate | date:'dd mm yyyy hh:mm' }}</i><br />
+                <i class="edit icon"></i> <small>Last updated by {{ house.updatedBy }} on {{ house.updatedDate | date: 'dd mm yyyy hh:mm'}} </small>
+            </div>
+        </div>
+
+    </div>
+
+<!--    house-rooms section-->
+        <!-- House Rooms -->
+    <div class="ui raised padded segment">
+
+        <!-- Header -->
         <div class="ui grid">
             <div class="eight wide column">
-                <h4 class="ui header">Description</h4>
-                <p>{{house.houseStatus}}</p>
-                <p>{{house.createdBy}}</p>
-                <p>{{house.updatedBy}}</p>
-                <p>{{house.createdDate}}</p>
-                <p>{{house.updatedDate}}</p>
+                <h3 class="ui header">
+                    <i class="bed icon"></i>
+                    <div class="content">
+                        Rooms
+                        <div class="sub header">
+                            Manage rooms under this house
+                        </div>
+                    </div>
+                </h3>
             </div>
-            <div class="eight wide column">
-                <h4 class="ui header">Notes</h4>
-                <p>{{ house.remark }}</p>
+
+            <div class="eight wide column right aligned">
+                <button class="ui small green button">
+                    <i class="plus icon"></i>
+                    Add Room
+                </button>
             </div>
         </div>
 
         <div class="ui divider"></div>
 
-       <div >
-
-           <h3 class="ui header">
-               <i class="bed icon"></i>
-               <div class="content">Rooms</div>
-           </h3>
-           <button class="ui right floated very basic button">Add Room</button>
-       </div>
-
-        <table class="ui celled table">
+        <!-- Table -->
+        <table class="ui very basic selectable table">
             <thead>
             <tr>
-                <th>Room Number</th>
+                <th>Room</th>
+                <th>Room Type</th>
                 <th>Capacity</th>
-                <th>Notes</th>
                 <th>Status</th>
-                <th>Updated</th>
-                <th>Action</th>
+                <th class="right aligned">Actions</th>
             </tr>
             </thead>
+
             <tbody>
                 @for (room of rooms$ | async; track room.id) {
-                    <tr >
-                        <td>{{ room.roomNumber }}</td>
+                    <tr>
+
+                        <!-- Room Number -->
                         <td>
-                            <div class="ui label">
+                            <strong>{{ room.roomNumber }}</strong>
+                        </td>
+
+
+                        <!-- Updated -->
+                        <td>
+                            {{ room.roomType}}
+                        </td>
+
+
+                        <!-- Capacity -->
+                        <td>
+                            <div class="ui small label">
                                 <i class="users icon"></i>
                                 {{ room.capacity }}
                             </div>
                         </td>
-                        <td>{{ room.remark }}</td>
-                        <td>{{ room.createdDate | date:'medium' }}</td>
-                        <td>Assign Tenant</td>
+
+                        <!-- Status -->
                         <td>
-                            <div class="ui label">
-                                <i class="icon sidebar"></i>
-                            </div>
-                            <a [routerLink]="['/rooms',room.id]" class="small ui button">View</a>
-                            <div class="ui icon buttons">
-                                <button class="ui button"><i class="eye icon"></i></button>
-                                <button class="ui button"><i class="align center icon"></i>View</button>
-                                <button class="ui button"><i class="align right icon"></i></button>
-                                <button class="ui button"><i class="align justify icon"></i></button>
+                            <div
+                                    class="ui small label"
+                                    [ngClass]="{
+                'green': room.roomStatus === 'AVAILABLE',
+                'red': room.roomStatus === 'OCCUPIED',}"
+                            >
+                                {{ room.roomStatus }}
                             </div>
                         </td>
+
+                        <!-- Actions -->
+                        <td class="right aligned">
+                            <div class="ui small icon buttons">
+
+                                <a
+                                        class="ui button"
+                                        [routerLink]="['/rooms', room.id]"
+                                        title="View room"
+                                >
+                                    <i class="eye icon"></i>
+                                </a>
+
+                                <button
+                                        class="ui button"
+                                        title="Edit room"
+                                >
+                                    <i class="edit icon"></i>
+                                </button>
+
+                                <button
+                                        *ngIf="room.roomStatus === 'AVAILABLE'"
+                                        class="ui green button"
+                                        title="Assign tenant"
+                                >
+                                    <i class="user plus icon"></i>
+                                </button>
+
+                            </div>
+                        </td>
+
                     </tr>
                 }
             </tbody>
         </table>
+
     </div>
+
 }
 
 

@@ -35,5 +35,5 @@ GRANT ALL PRIVILEGES ON DATABASE THENICHEDB_PRD TO the_niche_app;
 
 Exit psql and reconnect:
 ```sh 
-psql -U myapp_user -d myapp_db -h localhost
+psql -U the_niche_app -d the_niche_app -h localhost
 ```

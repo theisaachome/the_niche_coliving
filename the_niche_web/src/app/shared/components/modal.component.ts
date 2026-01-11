@@ -21,7 +21,7 @@ import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output} from '@a
                 <div class="content">
                     <ng-content select="[modal-content]"></ng-content>
                 </div>
-
+                
                 <!-- ACTIONS -->
                 <div class="actions">
                     <ng-content select="[modal-actions]"></ng-content>
@@ -47,5 +47,6 @@ export class ModalComponent implements OnInit,OnDestroy {
 
     onCloseClick(): void {
         this.close.emit();
+        console.log("close")
     }
 }

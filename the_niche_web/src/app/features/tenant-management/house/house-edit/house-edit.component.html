@@ -1,4 +1,4 @@
-<div class="form-margin ">
+<div>
   <h2 class="ui header">Manage Units </h2>
   <div class="ui">
     Effortlessly track, edit, and organize your financial transactions in one place.
@@ -9,9 +9,12 @@
       <div class="field">
         <app-input  [label]="'House Name'" [control]="nameController"  [required]="true"/>
       </div>
-    <!-- Notes -->
     <div class="field">
-        <label>Notes</label>
+        <app-input  [label]="'Location'" [control]="locationController"  [required]="true"/>
+    </div>
+    <!-- Remark -->
+    <div class="field">
+        <label>Remark</label>
         <textarea rows="2" placeholder="Any additional notes..." formControlName="remark"></textarea>
     </div>
   <button type="submit" class="ui button" [disabled]="!houseForm.valid"> Submit </button>

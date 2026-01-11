@@ -5,7 +5,7 @@ import {RouterOutlet} from "@angular/router";
 @Component({
     selector: 'houses-list',
     template: `
-        <div class="ui breadcrumb">
+        <div class="ui breadcrumb" style="margin-bottom: 16px">
             <a class="section">Home</a>
             <div class="divider"> / </div>
             <a class="section">Store</a>

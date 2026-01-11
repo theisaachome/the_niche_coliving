@@ -1,4 +1,4 @@
-<button class="ui basic button right floated" (click)="openNewHouseModal()">Add House</button>
+<button class="ui basic button right floated" (click)="openModal()">Add House</button>
 <app-divider>
     House Overviews
 </app-divider>
@@ -51,13 +51,13 @@
     </table>
 </div>
 
-@if (showModal) {
-    <app-base-modal
-            [config]="modalConfig"
-            (close)="onModalClosed()"
-    >
-<!--       <house-edit [house]="selectedHouse"></house-edit>-->
-    </app-base-modal>
+@if (modalOpen) {
+
+    <app-modal (close)="onModalClosed()">
+        <house-edit modal-content
+                    (submitted)="onModalClosed()"
+                    [house]="selectedHouse"></house-edit>
+    </app-modal>
 }
 
 <!--

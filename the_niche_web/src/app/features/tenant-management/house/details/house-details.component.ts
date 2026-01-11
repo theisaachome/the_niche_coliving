@@ -3,7 +3,7 @@ import {HouseService} from "../house.service";
 import {HouseDetailResponse, HouseDetails, HouseResponse} from "../house.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
-import {AsyncPipe, DatePipe} from "@angular/common";
+import {AsyncPipe, DatePipe, JsonPipe, NgClass, NgIf} from "@angular/common";
 import {RoomResponse} from "../../rooms/room.model";
 import {Observable} from "rxjs";
 import {RoomService} from "../../rooms/room.service";
@@ -15,6 +15,9 @@ import {RoomService} from "../../rooms/room.service";
         AsyncPipe,
         DatePipe,
         RouterLink,
+        NgClass,
+        JsonPipe,
+        NgIf,
     ],
   templateUrl: './house-details.component.html',
   styleUrl: './house-details.component.css'

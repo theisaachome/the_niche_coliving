@@ -19,7 +19,7 @@
                 <!-- Actions -->
                 <div class="four wide column right aligned">
                     <div class="ui small buttons">
-                        <button class="ui primary button">
+                        <button class="ui primary button" (click)="onHouseEdit(house)">
                             <i class="edit icon"></i>
                             Edit
                         </button>
@@ -181,6 +181,15 @@
 
     </div>
 
+}
+@if (modalOpen){
+    <app-modal (close)="onSubmit()">
+        <div modal-title>House Edit</div>
+        <house-edit modal-content
+                    (submitted)="onSubmit()"
+                    [isEdit]="true"
+                    [house]="house"></house-edit>
+    </app-modal>
 }
 
 

@@ -45,3 +45,5 @@ the-niche-coliving
 └── payload            # DTOs / request/response objects
 └── config             # Web / Spring MVC config
 └── exception          # API-level exception handlers
+
+### Jan 12 2025

@@ -3,7 +3,7 @@
     House Overviews
 </app-divider>
 <div class="ui">
-    <table class="ui celled padded striped table">
+    <table class="ui single line striped table">
       <thead>
         <tr>
             <th>House</th>
@@ -13,7 +13,7 @@
             <th>Capacity</th>
             <th>Status</th>
 <!--            <th>Room (Vacant/Total)</th>-->
-            <th ></th>
+            <th >Action</th>
         </tr>
       </thead>
         <tbody>
@@ -28,11 +28,24 @@
                     </td>
                     <td>{{house.availableRooms}}</td>
                     <td>{{house.houseStatus}}</td>
-                    <td>
-<!--                        <button class="tiny ui button" (click)="openEditHouseModal(house)">Edit</button>-->
-                        <button class="tiny ui button">Edit</button>
-<!--                        <a>View Details</a>-->
+                    <td class="right aligned">
+                        <div class="ui basic icon dropdown button right pointing  ">
+                            <i class="ellipsis vertical icon"></i>
+                            <div class="menu">
+                                <div class="item">
+                                    <i class="eye icon"></i> View
+                                </div>
+                                <div class="item">
+                                    <i class="edit icon"></i> Edit
+                                </div>
+                                <div class="divider"></div>
+                                <div class="item">
+                                    <i class="trash icon"></i> Delete
+                                </div>
+                            </div>
+                        </div>
                     </td>
+
                 </tr>
             }
         </tbody>
@@ -56,6 +69,7 @@
     <app-modal (close)="onModalClosed()">
         <house-edit modal-content
                     (submitted)="onModalClosed()"
+                    [isEdit]="false"
                     [house]="selectedHouse"></house-edit>
     </app-modal>
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {map, Observable} from 'rxjs';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 import {HouseService} from "../house.service";
@@ -10,6 +10,8 @@ import {BaseModalConfig} from "../../../../shared/components/modal/base-modal-co
 import {HouseEditComponent} from "../house-edit/house-edit.component";
 import {ModalComponent} from "../../../../shared/components/modal.component";
 
+declare var $: any;
+
 @Component({
   selector: 'app-house-list',
     imports: [AsyncPipe, DividerComponent, RouterLink, NgClass, HouseEditComponent, ModalComponent],
@@ -17,7 +19,7 @@ import {ModalComponent} from "../../../../shared/components/modal.component";
   styleUrl: './house-list.component.css',
   standalone:true
 })
-export class HouseListComponent implements OnInit{
+export class HouseListComponent implements OnInit,AfterViewInit{
 
     modalOpen=false;
 
@@ -41,6 +43,12 @@ export class HouseListComponent implements OnInit{
               private router: Router,
               ) {
   }
+
+    ngAfterViewInit(): void {
+        $('.ui.dropdown').dropdown({
+            on: 'hover'
+        });
+    }
   ngOnInit(): void {
    // this.house$ = this.houseService.getAllPagedList()
    //     .pipe(
@@ -59,9 +67,6 @@ export class HouseListComponent implements OnInit{
   }
 
 
-    onClick(){
-        this.modalOpen= !this.modalOpen;
-    }
     onViewDetail(id:string){
         // this.router.navigate(['/houses', id]);
         this.showModal = !this.showModal;
@@ -85,16 +90,5 @@ export class HouseListComponent implements OnInit{
     }
 
 
-    openNewHouseModal() {
-      this.modalConfig.title="Add New House"
-        this.selectedHouse = undefined; // no data → new entry
-        this.showModal = true;
-    }
-
-    openEditHouseModal(house: HouseResponse) {
-      this.modalConfig.title="Edit House"
-        this.selectedHouse = house; // pass object for editing
-        this.showModal = true;
-    }
 
 }

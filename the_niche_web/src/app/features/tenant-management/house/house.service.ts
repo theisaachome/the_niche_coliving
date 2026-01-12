@@ -32,6 +32,9 @@ export class HouseService implements CrudInterface<any>{
     saveHouse(data:HouseRequest):Observable<any>{
        return  this.http.post(HOUSE_API,data);
     }
+    updateHouse(id:string,data:HouseRequest): Observable<any>{
+       return  this.http.put(`${HOUSE_API}/${id}`,data);
+    }
     getAllHouseOverview():Observable<HouseOverviewResponse[]>{
             return this.http
                 .get<HouseOverviewResponse[]>(HOUSE_API+`/overviews`);

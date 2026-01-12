@@ -10,7 +10,7 @@ import {
     Validators
 } from '@angular/forms';
 import {HouseService} from "../house.service";
-import {House} from "../house.model";
+import {House, HouseResponse} from "../house.model";
 import {JsonPipe} from "@angular/common";
 
 @Component({
@@ -26,9 +26,11 @@ import {JsonPipe} from "@angular/common";
   standalone:true
 })
 export class HouseEditComponent implements  OnInit {
-    @Output() submitted = new EventEmitter<void>();
+       @Output() submitted = new EventEmitter<void>();
+
        @Input() house?:any;
-        houseForm:FormGroup;
+       @Input({required:true}) isEdit = false;
+       houseForm:FormGroup;
       constructor(private fb: FormBuilder,private unitService:HouseService) {
         this.houseForm = fb.group({
                'name':new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(50)]),
@@ -38,15 +40,17 @@ export class HouseEditComponent implements  OnInit {
       }
 
       ngOnInit(): void {
-          // if (this.house) {
-          //     this.houseForm.patchValue({
-          //         name: this.house.houseName,
-          //         remark: this.house.remark
-          //     })
-          // } else {
-          //     // reset for New Entry
-          //     this.houseForm.reset();
-          // }
+          console.log(this.house)
+          if (this.house) {
+              this.houseForm.patchValue({
+                  name: this.house.name,
+                  location: this.house.location,
+                  remark: this.house.remark
+              })
+          } else {
+              // reset for New Entry
+              this.houseForm.reset();
+          }
       }
 
       get nameController():FormControl{ return  (this.houseForm.get('name') )as FormControl;}
@@ -58,16 +62,31 @@ export class HouseEditComponent implements  OnInit {
       }
       onSubmit(){
           console.log(this.houseForm.value);
-          this.unitService.saveHouse(this.houseForm.value)
-              .subscribe({
-               next:(res)=>{
-                    console.log(res)
-                   this.submitted.emit(); // notify parent
-                },
-                error: (err) => {
-                      console.error(err);
-                }
-              });
+          if(!this.isEdit){
+              this.unitService.saveHouse(this.houseForm.value)
+                  .subscribe({
+                      next:(res)=>{
+                          console.log(res)
+                          this.submitted.emit(); // notify parent
+                      },
+                      error: (err) => {
+                          console.error(err);
+                      }
+                  });
+          }else {
+              this.unitService.updateHouse(this.house.id,this.houseForm.value)
+                  .subscribe({
+                      next:(res)=>{
+                          console.log(res)
+                          this.house = res;
+                          this.submitted.emit(); // notify parent
+                      },
+                      error: (err) => {
+                          console.error(err);
+                      }
+                  });
+          }
+
       }
 
 }

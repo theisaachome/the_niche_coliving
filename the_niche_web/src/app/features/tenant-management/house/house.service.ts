@@ -39,6 +39,9 @@ export class HouseService implements CrudInterface<any>{
             return this.http
                 .get<HouseOverviewResponse[]>(HOUSE_API+`/overviews`);
     }
+    archiveHouse(data:any):Observable<any>{
+        return this.http.patch(`${HOUSE_API}/${data.houseId}/archive`,data);
+    }
 
 }
 

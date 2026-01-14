@@ -38,7 +38,32 @@
             <div class="ui labels">
                 <div class="ui blue label">
                     <i class="info circle icon"></i>
-                    {{ house.houseStatus }}
+                    {{ house.status }}
+                </div>
+
+                <div class="ui blue label" (click)="archiveHouse(house)" style="cursor: pointer">
+                    <i class="info circle icon"></i>
+                    {{ house.status == 'ACTIVE'? 'ARCHIVE':''}}
+                </div>
+            </div>
+            <div class="ui selection dropdown" #statusDropdown>
+                <input type="hidden" name="status" [(ngModel)]="selectedStatus">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select status</div>
+                <div class="ui label">
+                    <i class="{{ getHouseStatusIcon(house.status) }} icon"></i>
+                    {{ getHouseStatusLabel(house.status) }}
+                </div>
+
+
+                <div class="menu">
+                    @for (houseStatus of houseStatuses ; track houseStatus.value) {
+                        <div class="item"
+                             [attr.data-value]="houseStatus.value">
+                            <i class="{{ houseStatus.icon }} icon"></i>
+                            {{ houseStatus.label }}
+                        </div>
+                    }
                 </div>
             </div>
         </div>

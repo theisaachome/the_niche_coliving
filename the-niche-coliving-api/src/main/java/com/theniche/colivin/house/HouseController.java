@@ -52,6 +52,13 @@ public class HouseController {
         return new ResponseEntity<>(updatedHouse, HttpStatus.OK);
     }
 
+    @PatchMapping("/{houseId}/archive")
+    public ResponseEntity<String> updateArchiveStatus(@PathVariable("houseId")UUID houseId,
+                                                      @RequestBody ArchiveHouseRequest request) {
+        var updatedHouse = houseService.archiveHouse(houseId);
+        return new ResponseEntity<>(updatedHouse, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{houseId}")
     public ResponseEntity<String> deleteHouse(@PathVariable("houseId")UUID houseId) {
         houseService.deleteHouse(houseId);

@@ -31,7 +31,7 @@ export class HouseEditComponent implements  OnInit {
        @Input() house?:any;
        @Input({required:true}) isEdit = false;
        houseForm:FormGroup;
-      constructor(private fb: FormBuilder,private unitService:HouseService) {
+      constructor(private fb: FormBuilder,private houseService:HouseService) {
         this.houseForm = fb.group({
                'name':new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(50)]),
                'location':new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(50)]),
@@ -63,7 +63,7 @@ export class HouseEditComponent implements  OnInit {
       onSubmit(){
           console.log(this.houseForm.value);
           if(!this.isEdit){
-              this.unitService.saveHouse(this.houseForm.value)
+              this.houseService.saveHouse(this.houseForm.value)
                   .subscribe({
                       next:(res)=>{
                           console.log(res)
@@ -74,7 +74,7 @@ export class HouseEditComponent implements  OnInit {
                       }
                   });
           }else {
-              this.unitService.updateHouse(this.house.id,this.houseForm.value)
+              this.houseService.updateHouse(this.house.id,this.houseForm.value)
                   .subscribe({
                       next:(res)=>{
                           console.log(res)
@@ -88,5 +88,6 @@ export class HouseEditComponent implements  OnInit {
           }
 
       }
+
 
 }

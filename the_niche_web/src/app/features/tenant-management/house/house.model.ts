@@ -9,6 +9,26 @@ export const HOUSE_STATUS=[
 
 export type HouseStatus = typeof HOUSE_STATUS[number];
 
+export const HOUSE_STATUS_META: Record<HouseStatus,{ label: string; icon: string }> = {
+    ACTIVE: {
+        label: 'Active',
+        icon: 'check circle green'
+    },
+    INACTIVE: {
+        label: 'Inactive',
+        icon: 'pause circle grey'
+    },
+    MAINTENANCE: {
+        label: 'Maintenance',
+        icon: 'tools orange'
+    },
+    CLOSED: {
+        label: 'Closed',
+        icon: 'times circle red'
+    }
+};
+
+
 export interface HouseDetails extends BaseModel {
     houseName: string;
     houseCode:string;
@@ -66,6 +86,6 @@ export interface  HouseDetailResponse extends  BaseModel{
     name: string;
     location: string;
     remark: string;
-    houseStatus: HouseStatus;
+    status: HouseStatus;
     deleted: boolean;
 }

@@ -65,6 +65,24 @@ public class HouseServiceImpl extends BaseService implements HouseService {
     }
 
     @Override
+    public String archiveHouse(UUID id) {
+        var existingEntity = houseRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("House","ID",id));
+        existingEntity.setHouseStatus(HouseStatus.INACTIVE);
+        houseRepository.save(existingEntity);
+        return String.format("Successfully archived house with ID: %s", id);
+    }
+
+    @Override
+    public String unarchiveHouse(UUID id) {
+        var existingEntity = houseRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("House","ID",id));
+        existingEntity.setHouseStatus(HouseStatus.ACTIVE);
+        houseRepository.save(existingEntity);
+        return String.format("Successfully unarchived house with ID: %s", id);
+    }
+
+    @Override
     public List<HouseResponse> getHouses() {
         return houseRepository.findAll().stream()
                 .map(houseMapper::toResponse).toList();

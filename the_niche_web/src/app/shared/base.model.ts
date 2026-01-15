@@ -1,7 +1,7 @@
 
 
 export interface BaseModel{
-    id:number|string;
+    id:string;
     createdBy: string;
     updatedBy: string;
     createdDate: string; // ISO 8601 string

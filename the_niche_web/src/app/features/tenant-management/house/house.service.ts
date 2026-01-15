@@ -26,8 +26,8 @@ export class HouseService implements CrudInterface<any>{
     getById(id: string | number): Observable<HouseDetailResponse> {
         return  this.http.get<HouseDetailResponse>(   `${HOUSE_API}/${id}`);
     }
-    delete(id: string | number): Observable<void> {
-        throw new Error("Method not implemented.");
+    delete(id: string | number): Observable<any> {
+        return  this.http.delete<any>(`${HOUSE_API}/${id}`);
     }
     saveHouse(data:HouseRequest):Observable<any>{
        return  this.http.post(HOUSE_API,data);

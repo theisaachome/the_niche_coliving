@@ -39,6 +39,7 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
     house?:HouseDetailResponse;
     rooms$: Observable< RoomResponse[]> | undefined;
     modalOpen = false;
+    openDeleteDialog = false;
 
     selectedStatus?: string;
     houseStatuses = HOUSE_STATUS.map(status => ({
@@ -54,7 +55,7 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        $('ui.dropdown').dropdown({});
+        $('.ui.selection.dropdown').dropdown();
     }
 
 
@@ -96,14 +97,30 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
             });
 
     }
-    unarchiveHouse(){
-
-    }
     getHouseStatusIcon(status: HouseStatus): string {
         return HOUSE_STATUS_META[status].icon;
     }
     getHouseStatusLabel(status: HouseStatus): string {
         return HOUSE_STATUS_META[status].label;
+    }
+
+    deleteHouse(house:HouseDetailResponse){
+        this.houseService.delete(house.id).subscribe({
+            next:(res)=>{
+                console.log(res);
+            },
+            error: (err) => {},
+            complete:()=>{
+                this.closeDeleteModal();
+            }
+        })
+    }
+    openDeleteModal(house:any) {
+        this.openDeleteDialog = true;
+    }
+    closeDeleteModal() {
+        this.openDeleteDialog = !this.openDeleteDialog;
+        console.log("Modal closed");
     }
 
 

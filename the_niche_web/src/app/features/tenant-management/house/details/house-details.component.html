@@ -40,12 +40,18 @@
                     <i class="info circle icon"></i>
                     {{ house.status }}
                 </div>
-
                 <div class="ui blue label" (click)="archiveHouse(house)" style="cursor: pointer">
                     <i class="info circle icon"></i>
                     {{ house.status == 'ACTIVE'? 'ARCHIVE':''}}
                 </div>
             </div>
+
+            <button class="ui negative labeled tiny icon button"
+                    (click)="openDeleteModal(house)">
+                <i class="trash icon"></i>
+                Delete
+            </button>
+
             <div class="ui selection dropdown" #statusDropdown>
                 <input type="hidden" name="status" [(ngModel)]="selectedStatus">
                 <i class="dropdown icon"></i>
@@ -54,8 +60,6 @@
                     <i class="{{ getHouseStatusIcon(house.status) }} icon"></i>
                     {{ getHouseStatusLabel(house.status) }}
                 </div>
-
-
                 <div class="menu">
                     @for (houseStatus of houseStatuses ; track houseStatus.value) {
                         <div class="item"
@@ -217,4 +221,26 @@
     </app-modal>
 }
 
+@if(openDeleteDialog && house){
+  <app-modal (close)="closeDeleteModal()">
+        <div modal-title>Confirm Delete</div>
+        <div modal-content>
+            <p>
+                Are you sure you want to delete
+                <strong>{{ house?.name }}</strong>?
+            </p>
+            <p class="ui red text">
+                This action cannot be undone.
+            </p>
+        </div>
+        <div modal-actions>
+            <button class="ui button">Confirm</button>
+            <button class="ui negative labeled tiny icon button"
+                    (click)="deleteHouse(house)">
+                <i class="trash icon"></i>
+                Confirm
+            </button>
+        </div>
+  </app-modal>
+}
 

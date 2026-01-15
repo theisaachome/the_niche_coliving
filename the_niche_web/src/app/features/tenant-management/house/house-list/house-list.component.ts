@@ -22,27 +22,14 @@ declare var $: any;
 export class HouseListComponent implements OnInit,AfterViewInit{
 
     modalOpen=false;
-
     showModal = false;
     isEditMode=false;
     selectedHouse?:HouseResponse;
-
-    modalConfig: BaseModalConfig = {
-        title: 'Default Action',
-        actions: [
-            // { label: 'Approve', type: 'approve', callback: () => this.onApprove() },
-            // { label: 'Neutral', type: 'neutral', callback: () => this.onNeutral() },
-            { label: 'Submit', type: 'submit', callback: () => this.onNeutral() },
-            { label: 'Cancel', type: 'cancel' } // no callback, just closes
-        ]
-    };
   house$: Observable<HouseOverviewResponse[]> | undefined;
   meta?: Omit<PageResponse<any>, 'content'>;
 
   constructor(private houseService:HouseService,
-              private router: Router,
-              ) {
-  }
+              private router: Router) {}
 
     ngAfterViewInit(): void {
         $('.ui.dropdown').dropdown({

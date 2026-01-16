@@ -25,7 +25,7 @@ export class HouseListComponent implements OnInit,AfterViewInit{
     showModal = false;
     isEditMode=false;
     selectedHouse?:HouseResponse;
-  house$: Observable<HouseOverviewResponse[]> | undefined;
+    house$: Observable<HouseOverviewResponse[]> | undefined;
   meta?: Omit<PageResponse<any>, 'content'>;
 
   constructor(private houseService:HouseService,
@@ -33,23 +33,10 @@ export class HouseListComponent implements OnInit,AfterViewInit{
 
     ngAfterViewInit(): void {
         $('.ui.dropdown').dropdown({
-            on: 'hover'
+            on: 'click'
         });
     }
   ngOnInit(): void {
-   // this.house$ = this.houseService.getAllPagedList()
-   //     .pipe(
-   //         map((res:PageResponse<House>)=>{
-   //              this.meta={
-   //                  pageNo:res.pageNo,
-   //                  pageSize:res.pageSize,
-   //                  totalElement:res.totalElement,
-   //                  totalPage:res.totalPage,
-   //                  last:res.last
-   //              }
-   //              return res.content;
-   //         }),
-   //     );
       this.house$ = this.houseService.getAllHouseOverview();
   }
 
@@ -57,14 +44,6 @@ export class HouseListComponent implements OnInit,AfterViewInit{
     onViewDetail(id:string){
         // this.router.navigate(['/houses', id]);
         this.showModal = !this.showModal;
-    }
-
-    onApprove() {
-        console.log("Approved ✅");
-    }
-
-    onNeutral() {
-        console.log("Neutral 🤔");
     }
 
     openModal(house?: HouseResponse) {

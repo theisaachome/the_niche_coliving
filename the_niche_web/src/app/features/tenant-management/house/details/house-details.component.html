@@ -14,6 +14,11 @@
                             </div>
                         </div>
                     </h2>
+                    <div class="subheader">
+                        <p class="ui small grey text">Status
+                            <i class="ui check circle green icon "></i>
+                            {{house.status}}</p>
+                    </div>
                 </div>
 
                 <!-- Actions -->
@@ -34,57 +39,53 @@
         </div>
 
         <!-- Status -->
-        <div class="content">
-            <div class="ui labels">
-                <div class="ui blue label">
-                    <i class="info circle icon"></i>
-                    {{ house.status }}
-                </div>
-                <div class="ui blue label" (click)="archiveHouse(house)" style="cursor: pointer">
-                    <i class="info circle icon"></i>
-                    {{ house.status == 'ACTIVE'? 'ARCHIVE':''}}
-                </div>
-            </div>
+<!--        <div class="content">-->
+<!--            <div class="ui labels">-->
+<!--                <div class="ui blue label">-->
+<!--                    <i class="info circle icon"></i>-->
+<!--                    {{ house.status }}-->
+<!--                </div>-->
+<!--                <div class="ui blue label" (click)="archiveHouse(house)" style="cursor: pointer">-->
+<!--                    <i class="info circle icon"></i>-->
+<!--                    {{ house.status == 'ACTIVE'? 'ARCHIVE':''}}-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <button class="ui negative labeled tiny icon button"
-                    (click)="openDeleteModal(house)">
-                <i class="trash icon"></i>
-                Delete
-            </button>
+<!--            <button class="ui negative labeled tiny icon button"-->
+<!--                    (click)="openDeleteModal(house)">-->
+<!--                <i class="trash icon"></i>-->
+<!--                Delete-->
+<!--            </button>-->
 
-            <div class="ui selection dropdown" #statusDropdown>
-                <input type="hidden" name="status" [(ngModel)]="selectedStatus">
-                <i class="dropdown icon"></i>
-                <div class="default text">Select status</div>
-                <div class="ui label">
-                    <i class="{{ getHouseStatusIcon(house.status) }} icon"></i>
-                    {{ getHouseStatusLabel(house.status) }}
-                </div>
-                <div class="menu">
-                    @for (houseStatus of houseStatuses ; track houseStatus.value) {
-                        <div class="item"
-                             [attr.data-value]="houseStatus.value">
-                            <i class="{{ houseStatus.icon }} icon"></i>
-                            {{ houseStatus.label }}
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
+<!--            <div class="ui selection dropdown" #statusDropdown>-->
+<!--                <input type="hidden" name="status" [(ngModel)]="selectedStatus">-->
+<!--                <i class="dropdown icon"></i>-->
+<!--                <div class="default text">Select status</div>-->
+<!--                <div class="ui label">-->
+<!--                    <i class="{{ getHouseStatusIcon(house.status) }} icon"></i>-->
+<!--                    {{ getHouseStatusLabel(house.status) }}-->
+<!--                </div>-->
+<!--                <div class="menu">-->
+<!--                    @for (houseStatus of houseStatuses ; track houseStatus.value) {-->
+<!--                        <div class="item"-->
+<!--                             [attr.data-value]="houseStatus.value">-->
+<!--                            <i class="{{ houseStatus.icon }} icon"></i>-->
+<!--                            {{ houseStatus.label }}-->
+<!--                        </div>-->
+<!--                    }-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <!-- Main Details -->
         <div class="content">
             <div class="ui two column grid">
                 <div class="column">
-                    <h4 class="ui header">Description</h4>
-                    <p>{{ house.remark || 'No description provided.' }}</p>
-                </div>
-
-                <div class="column">
                     <h4 class="ui header">Remark</h4>
                     <p>{{ house.remark || 'No notes available.' }}</p>
                 </div>
             </div>
+
         </div>
 
         <!-- Footer / Meta -->
@@ -99,117 +100,115 @@
 
 <!--    house-rooms section-->
         <!-- House Rooms -->
-    <div class="ui raised padded segment">
+}
+@if (rooms$ | async; as rooms) {
+    @if (rooms.length!==0){
+        <div class="ui raised padded segment">
 
-        <!-- Header -->
-        <div class="ui grid">
-            <div class="eight wide column">
-                <h3 class="ui header">
-                    <i class="bed icon"></i>
-                    <div class="content">
-                        Rooms
-                        <div class="sub header">
-                            Manage rooms under this house
-                        </div>
-                    </div>
-                </h3>
-            </div>
-
-            <div class="eight wide column right aligned">
-                <button class="ui small green button">
-                    <i class="plus icon"></i>
-                    Add Room
-                </button>
-            </div>
-        </div>
-
-        <div class="ui divider"></div>
-
-        <!-- Table -->
-        <table class="ui very basic selectable table">
-            <thead>
-            <tr>
-                <th>Room</th>
-                <th>Room Type</th>
-                <th>Capacity</th>
-                <th>Status</th>
-                <th class="right aligned">Actions</th>
-            </tr>
-            </thead>
-
-            <tbody>
-                @for (room of rooms$ | async; track room.id) {
-                    <tr>
-
-                        <!-- Room Number -->
-                        <td>
-                            <strong>{{ room.roomNumber }}</strong>
-                        </td>
-
-
-                        <!-- Updated -->
-                        <td>
-                            {{ room.roomType}}
-                        </td>
-
-
-                        <!-- Capacity -->
-                        <td>
-                            <div class="ui small label">
-                                <i class="users icon"></i>
-                                {{ room.capacity }}
+            <!-- Header -->
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <h3 class="ui header">
+                        <i class="bed icon"></i>
+                        <div class="content">
+                            Rooms
+                            <div class="sub header">
+                                Manage rooms under this house
                             </div>
-                        </td>
+                        </div>
+                    </h3>
+                </div>
+            </div>
 
-                        <!-- Status -->
-                        <td>
-                            <div
-                                    class="ui small label"
-                                    [ngClass]="{
+            <div class="ui divider"></div>
+
+            <!-- Table -->
+            <table class="ui very basic selectable table">
+                <thead>
+                <tr>
+                    <th>Room</th>
+                    <th>Room Type</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th class="right aligned">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    @for (room of rooms$ | async; track room.id) {
+                        <tr>
+
+                            <!-- Room Number -->
+                            <td>
+                                <strong>{{ room.roomNumber }}</strong>
+                            </td>
+
+
+                            <!-- Updated -->
+                            <td>
+                                {{ room.roomType}}
+                            </td>
+
+
+                            <!-- Capacity -->
+                            <td>
+                                <div class="ui small label">
+                                    <i class="users icon"></i>
+                                    {{ room.capacity }}
+                                </div>
+                            </td>
+
+                            <!-- Status -->
+                            <td>
+                                <div
+                                        class="ui small label"
+                                        [ngClass]="{
                 'green': room.roomStatus === 'AVAILABLE',
                 'red': room.roomStatus === 'OCCUPIED',}"
-                            >
-                                {{ room.roomStatus }}
-                            </div>
-                        </td>
-
-                        <!-- Actions -->
-                        <td class="right aligned">
-                            <div class="ui small icon buttons">
-
-                                <a
-                                        class="ui button"
-                                        [routerLink]="['/rooms', room.id]"
-                                        title="View room"
                                 >
-                                    <i class="eye icon"></i>
-                                </a>
+                                    {{ room.roomStatus }}
+                                </div>
+                            </td>
 
-                                <button
-                                        class="ui button"
-                                        title="Edit room"
-                                >
-                                    <i class="edit icon"></i>
-                                </button>
+                            <!-- Actions -->
+                            <td class="right aligned">
+                                <div class="ui small icon buttons">
 
-                                <button
-                                        *ngIf="room.roomStatus === 'AVAILABLE'"
-                                        class="ui green button"
-                                        title="Assign tenant"
-                                >
-                                    <i class="user plus icon"></i>
-                                </button>
+                                    <a
+                                            class="ui button"
+                                            [routerLink]="['/rooms', room.id]"
+                                            title="View room"
+                                    >
+                                        <i class="eye icon"></i>
+                                    </a>
 
-                            </div>
-                        </td>
+                                    <button
+                                            class="ui button"
+                                            title="Edit room"
+                                    >
+                                        <i class="edit icon"></i>
+                                    </button>
 
-                    </tr>
-                }
-            </tbody>
-        </table>
+                                    <button
+                                            *ngIf="room.roomStatus === 'AVAILABLE'"
+                                            class="ui green button"
+                                            title="Assign tenant"
+                                    >
+                                        <i class="user plus icon"></i>
+                                    </button>
 
-    </div>
+                                </div>
+                            </td>
 
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    } @else {
+        <div>There is no Rooms</div>
+    }
 }
 @if (modalOpen){
     <app-modal (close)="onSubmit()">

@@ -1,0 +1,18 @@
+<form class="ui form warning" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+        <app-input [label]="'Room Number'" [control]="roomNumberController" [required]="true"/>
+    </div>
+    <div class="field">
+        <app-input [label]="'Room Type'" [control]="roomTypeController" [required]="true"/>
+    </div>
+    <div class="field">
+        <app-input [label]="'Capacity'" [control]="capacityController" [required]="true"/>
+    </div>
+    <!-- Remark -->
+    <div class="field">
+        <label>Remark</label>
+        <textarea rows="2" placeholder="Any additional notes..." formControlName="remark"></textarea>
+    </div>
+    <button type="submit" class="ui button" [disabled]="!roomForm.valid">Submit</button>
+
+</form>

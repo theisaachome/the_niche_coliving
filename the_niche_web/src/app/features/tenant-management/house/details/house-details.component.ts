@@ -17,6 +17,9 @@ import {RoomService} from "../../rooms/room.service";
 import {ModalComponent} from "../../../../shared/components/modal.component";
 import {HouseEditComponent} from "../house-edit/house-edit.component";
 import {FormsModule} from "@angular/forms";
+import {RoomFormComponent} from "../../rooms/room-form/room-form.component";
+import {HouseHeaderComponent} from "./house-header.component";
+import {RoomListComponent} from "../../rooms/room-list/room-list.component";
 
 
 declare var $: any;
@@ -24,23 +27,32 @@ declare var $: any;
   selector: 'app-house-details',
     imports: [
         AsyncPipe,
-        DatePipe,
-        RouterLink,
-        NgClass,
         ModalComponent,
         HouseEditComponent,
         FormsModule,
+        RoomFormComponent,
+        HouseHeaderComponent,
+        RoomListComponent,
     ],
   templateUrl: './house-details.component.html',
   styleUrl: './house-details.component.css'
 })
 export class HouseDetailsComponent implements OnInit,AfterViewInit {
 
-    house?:HouseDetailResponse;
-    rooms$: Observable< RoomResponse[]> | undefined;
-    modalOpen = false;
-    openDeleteDialog = false;
+    house!:HouseDetailResponse;
+    rooms$!: Observable< RoomResponse[]>;
 
+    selectedRoom: any | null = null;
+    // Modal states
+    modalStates = {
+        houseEdit: false,
+        houseDelete: false,
+        roomForm: false,
+        roomEdit: false
+    };
+
+    modalOpen = false;
+    roomForm = true;
     selectedStatus?: string;
     houseStatuses = HOUSE_STATUS.map(status => ({
         value: status,
@@ -60,14 +72,16 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
 
 
     ngOnInit() {
-        const id = this.route.snapshot.params['id'];
-        this.houseService.getById(id).subscribe(
+        this.loadHouseDetails();
+    }
+    private loadHouseDetails():void {
+        const houseId = this.route.snapshot.paramMap.get('id')!;
+        this.houseService.getById(houseId).subscribe(
             (res)=>{
-                console.log(res)
                 this.house=res;
+                this.roomService.getRoomsByHouse(houseId).subscribe()
             }
         );
-        this.getRoom(id);
     }
 
     getRoom(houseId:string){
@@ -111,17 +125,44 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
             },
             error: (err) => {},
             complete:()=>{
-                this.closeDeleteModal();
+
             }
         })
     }
-    openDeleteModal(house:any) {
-        this.openDeleteDialog = true;
+
+    onRoomAdded(){
+        this.modalStates.roomForm = true;
+        console.log("Modal addRoomAdded");
     }
-    closeDeleteModal() {
-        this.openDeleteDialog = !this.openDeleteDialog;
-        console.log("Modal closed");
+
+    // Modal handlers
+    openHouseEdit(): void {
+        this.modalStates.houseEdit = true;
     }
+
+    openRoomForm(): void {
+        this.modalStates.roomForm = true;
+    }
+
+    openRoomEdit(room: any): void {
+        this.selectedRoom = room;
+        this.modalStates.roomEdit = true;
+    }
+    openDeleteDialog(): void {
+        this.modalStates.houseDelete = true;
+    }
+
+    closeAllModals(): void {
+        this.modalStates = {
+            houseEdit: false,
+            houseDelete: false,
+            roomForm: false,
+            roomEdit: false
+        };
+        this.selectedRoom = null;
+    }
+
+
 
 
 }

@@ -1,1 +1,104 @@
-<p>room list work!</p>
+
+    @if (rooms.length!==0){
+        <div class="ui raised padded segment">
+
+            <!-- Header -->
+            <div class="ui grid">
+                <div class="eight wide column">
+                    <h3 class="ui header">
+                        <i class="bed icon"></i>
+                        <div class="content">
+                            ROOMS IN HOUSE "{{houseName}}"
+                            <div class="sub header">
+                                Manage rooms under this house
+                            </div>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="ui divider"></div>
+
+            <!-- Table -->
+            <table class="ui single line  table">
+                <thead>
+                <tr>
+                    <th>Room</th>
+                    <th>Room Type</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th class="right aligned">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    @for (room of rooms; track room.id) {
+                        <tr>
+
+                            <!-- Room Number -->
+                            <td>
+                                <strong>{{ room.roomNumber }}</strong>
+                            </td>
+
+
+                            <!-- Updated -->
+                            <td>
+                                {{ room.roomType}}
+                            </td>
+
+
+                            <!-- Capacity -->
+                            <td>
+                                <div class="ui small label">
+                                    <i class="users icon"></i>
+                                    {{ room.capacity }}
+                                </div>
+                            </td>
+
+                            <!-- Status -->
+                            <td>
+                                <div
+                                        class="ui small label"
+                                        [ngClass]="{
+                'green': room.roomStatus === 'AVAILABLE',
+                'red': room.roomStatus === 'OCCUPIED',}"
+                                >
+                                    {{ room.roomStatus }}
+                                </div>
+                            </td>
+
+                            <!-- Actions -->
+                            <td class="right aligned">
+                                <div class="ui small icon buttons">
+
+                                    <!--                                    <a-->
+                                    <!--                                            class="ui button"-->
+                                    <!--                                            [routerLink]="['/rooms', room.id]"-->
+                                    <!--                                            title="View room"-->
+                                    <!--                                    >-->
+                                    <!--                                        <i class="eye icon"></i>-->
+                                    <!--                                    </a>-->
+
+                                    <button class="ui button"
+                                            title="Edit room">
+                                        <i class="edit icon"></i>
+                                    </button>
+                                    @if (room.roomStatus === 'AVAILABLE'){
+                                        <button
+                                                class="ui button"
+                                                title="Assign tenant"
+                                        >
+                                            <i class="user plus icon"></i>
+                                        </button>
+
+                                    }
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }

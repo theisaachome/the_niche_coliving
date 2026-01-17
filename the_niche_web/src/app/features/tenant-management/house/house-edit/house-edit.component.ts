@@ -30,6 +30,7 @@ export class HouseEditComponent implements  OnInit {
 
        @Input() house?:any;
        @Input({required:true}) isEdit = false;
+
        houseForm:FormGroup;
       constructor(private fb: FormBuilder,private houseService:HouseService) {
         this.houseForm = fb.group({
@@ -40,7 +41,6 @@ export class HouseEditComponent implements  OnInit {
       }
 
       ngOnInit(): void {
-          console.log(this.house)
           if (this.house) {
               this.houseForm.patchValue({
                   name: this.house.name,

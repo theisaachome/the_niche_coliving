@@ -1,6 +1,6 @@
-
+@if (rooms$ | async; as rooms) {
     @if (rooms.length!==0){
-        <div class="ui raised padded segment">
+        <div class="ui segment">
 
             <!-- Header -->
             <div class="ui grid">
@@ -8,7 +8,7 @@
                     <h3 class="ui header">
                         <i class="bed icon"></i>
                         <div class="content">
-                            ROOMS IN HOUSE "{{houseName}}"
+                            Rooms In House "{{houseName}}"
                             <div class="sub header">
                                 Manage rooms under this house
                             </div>
@@ -39,14 +39,10 @@
                             <td>
                                 <strong>{{ room.roomNumber }}</strong>
                             </td>
-
-
                             <!-- Updated -->
                             <td>
                                 {{ room.roomType}}
                             </td>
-
-
                             <!-- Capacity -->
                             <td>
                                 <div class="ui small label">
@@ -101,4 +97,9 @@
             </table>
 
         </div>
+    } @else {
+        <div class="ui message">
+            <p>There are no rooms in this house yet.</p>
+        </div>
     }
+}

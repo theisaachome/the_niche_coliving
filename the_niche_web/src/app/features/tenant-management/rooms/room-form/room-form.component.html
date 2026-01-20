@@ -13,6 +13,10 @@
         <label>Remark</label>
         <textarea rows="2" placeholder="Any additional notes..." formControlName="remark"></textarea>
     </div>
-    <button type="submit" class="ui button" [disabled]="!roomForm.valid">Submit</button>
-
+    @if (isLoading){
+        <button class="ui loading button">Loading</button>
+    } @else {
+        <button type="submit" class="ui button right floated" [disabled]="!roomForm.valid">Submit</button>
+        <button type="button" class="ui button right floated" (click)="onCancel()">Cancel</button>
+    }
 </form>

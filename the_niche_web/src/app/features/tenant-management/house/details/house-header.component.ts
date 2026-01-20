@@ -6,64 +6,35 @@ import {HouseDetailResponse} from "../house.model";
 @Component({
     selector: "app-house-header",
     template: `
-        <div class="ui fluid card">
+        <div class="ui card">
             <!-- Header -->
             <div class="content">
-                <div class="ui grid">
-                    <div class="twelve wide column">
-                        <h2 class="ui header">
-                            <i class="home icon"></i>
-                            <div class="content">
-                                {{ house.name }}
-                                <div class="sub header">
-                                    {{ house.houseCode }} • {{ house.location }}
-                                </div>
-                            </div>
-                        </h2>
-                        <div class="subheader">
-                            <p class="ui small grey text">Status
-                                <i class="ui check circle green icon "></i>
-                                {{ house.status }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="four wide column right aligned">
-                        <div class="ui small buttons">
-                            <button class="ui primary button" (click)="onHouseEdit(house)">
-                                <i class="edit icon"></i>
-                                Edit
-                            </button>
-                            <div class="or"></div>
-                            <button class="ui green button" (click)="onAddRoom(house)">
-                                <i class="plus icon"></i>
-                                Add Room
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <div class="header"><i class="home icon"></i>{{house.name}}</div>
             </div>
-            <!-- Main Details -->
             <div class="content">
-                <div class="ui two column grid">
-                    <div class="column">
-                        <h4 class="ui header">Remark</h4>
-                        <p>{{ house.remark || 'No notes available.' }}</p>
+                <div class="ui small feed">
+                    <div class="event">
+                        <div class="content">
+                            <div class="summary">
+                                <p><i class="ui qrcode icon"></i> {{house.houseCode}}</p>
+                                <div> <i class="ui map marker alternate icon"></i> {{house.location}}</div>
+                                <p>Remark</p>
+                                <p>{{house.remark? house.remark : ""}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Footer / Meta -->
             <div class="extra content">
-                <div class="ui small grey text">
-                    <i class="user icon"></i> <i>Created by {{ house.createdBy }}
-                    on {{ house.createdDate | date:'dd mm yyyy hh:mm' }}</i><br/>
-                    <i class="edit icon"></i> <small>Last updated by {{ house.updatedBy }}
-                    on {{ house.updatedDate | date: 'dd mm yyyy hh:mm' }} </small>
-                </div>
+                <button class="ui tiny primary tertiary button left floated" (click)="onHouseEdit(house)" style="cursor: pointer">
+                  <i class="edit icon"></i>
+                  Edit
+                </button>
+                <button class="ui tiny primary tertiary button right floated" (click)="onAddRoom(house)" style="cursor: pointer">
+                  <i class="plus icon"></i>
+                  Add Room
+                </button>
             </div>
-
         </div>
     `,
     imports: [
@@ -76,6 +47,9 @@ export class HouseHeaderComponent{
 
     @Output() onHouse= new EventEmitter<any>();
     @Output() onRoomAdd= new EventEmitter<any>();
+    @Output() edit = new EventEmitter<void>();
+    @Output() addRoom = new EventEmitter<void>();
+    @Output() delete = new EventEmitter<void>();
 
     onHouseEdit(data: HouseDetailResponse){
         this.onHouse.emit(data);

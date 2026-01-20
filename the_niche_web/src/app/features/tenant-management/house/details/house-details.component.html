@@ -1,17 +1,19 @@
 
 @if (house) {
-    <app-house-header [house]="house"
-                      (onHouse)="onHouseEdit(house)"
-                      (onRoomAdd)="openRoomForm()"
-    ></app-house-header>
-    @if (rooms$ | async; as rooms) {
-        <room-list [houseId]="house.id"
-                   [houseName]="house.name"
-                   [rooms]="rooms"
-        ></room-list>
-    } @else {
-        <div class="ui message">There is no Rooms</div>
-    }
+   <div class="ui grid">
+       <div class="four wide column">
+           <app-house-header [house]="house"
+                             (onHouse)="onHouseEdit(house)"
+                             (onRoomAdd)="openRoomForm()"
+           ></app-house-header>
+       </div>
+       <div class="twelve  wide column">
+           <room-list [houseId]="house.id"
+                      [houseName]="house.name"
+                      [rooms$]="rooms$"
+           ></room-list>
+       </div>
+   </div>
 }
 @if (modalOpen){
     <app-modal (close)="onSubmit()">
@@ -47,13 +49,14 @@
 }
 
 @if (modalStates.roomForm) {
-    <app-modal (close)="closeAllModals()">
+    <app-modal (close)="closeAllModals()" [closeOnBackdrop]="false">
         <div modal-title>
             <h4>Add Room in "{{house.name}}"</h4>
         </div>
         <app-room-form modal-content
                 [isEditMode]="false"
                 [houseId]="house.id"
+                (formSubmitted)="closeAllModals()"
         ></app-room-form>
     </app-modal>
 }

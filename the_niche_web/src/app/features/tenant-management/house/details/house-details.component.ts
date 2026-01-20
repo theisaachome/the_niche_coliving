@@ -79,7 +79,7 @@ export class HouseDetailsComponent implements OnInit,AfterViewInit {
         this.houseService.getById(houseId).subscribe(
             (res)=>{
                 this.house=res;
-                this.roomService.getRoomsByHouse(houseId).subscribe()
+               this.getRoom(houseId);
             }
         );
     }

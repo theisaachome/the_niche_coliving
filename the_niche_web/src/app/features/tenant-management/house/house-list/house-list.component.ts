@@ -1,12 +1,11 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {map, Observable} from 'rxjs';
+import { Observable} from 'rxjs';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 import {HouseService} from "../house.service";
-import {House, HouseOverviewResponse, HouseResponse} from "../house.model";
+import { HouseOverviewResponse, HouseResponse} from "../house.model";
 import { Router, RouterLink} from "@angular/router";
 import {DividerComponent} from "../../../../shared/components/divider.component";
 import {PageResponse} from "../../../../shared/base.model";
-import {BaseModalConfig} from "../../../../shared/components/modal/base-modal-config";
 import {HouseEditComponent} from "../house-edit/house-edit.component";
 import {ModalComponent} from "../../../../shared/components/modal.component";
 
@@ -23,7 +22,6 @@ export class HouseListComponent implements OnInit,AfterViewInit{
 
     modalOpen=false;
     showModal = false;
-    isEditMode=false;
     selectedHouse?:HouseResponse;
     house$: Observable<HouseOverviewResponse[]> | undefined;
   meta?: Omit<PageResponse<any>, 'content'>;

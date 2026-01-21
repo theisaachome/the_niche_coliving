@@ -4,13 +4,9 @@ import {
     HOUSE_STATUS,
     HOUSE_STATUS_META,
     HouseDetailResponse,
-    HouseDetails,
-    HouseResponse,
     HouseStatus
 } from "../house.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {DividerComponent} from "../../../../shared/components/divider.component";
-import {AsyncPipe, DatePipe, JsonPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {RoomResponse} from "../../rooms/room.model";
 import {Observable} from "rxjs";
 import {RoomService} from "../../rooms/room.service";
@@ -18,7 +14,7 @@ import {ModalComponent} from "../../../../shared/components/modal.component";
 import {HouseEditComponent} from "../house-edit/house-edit.component";
 import {FormsModule} from "@angular/forms";
 import {RoomFormComponent} from "../../rooms/room-form/room-form.component";
-import {HouseHeaderComponent} from "./house-header.component";
+import {HouseCardComponent} from "./house-card.component";
 import {RoomListComponent} from "../../rooms/room-list/room-list.component";
 
 
@@ -26,12 +22,11 @@ declare var $: any;
 @Component({
   selector: 'app-house-details',
     imports: [
-        AsyncPipe,
         ModalComponent,
         HouseEditComponent,
         FormsModule,
         RoomFormComponent,
-        HouseHeaderComponent,
+        HouseCardComponent,
         RoomListComponent,
     ],
   templateUrl: './house-details.component.html',

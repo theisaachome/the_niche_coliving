@@ -9,13 +9,13 @@ import {RoomService} from "../room.service";
     imports: [
         ReactiveFormsModule,
         InputComponent,
-        JsonPipe
     ],
   templateUrl: './room-form.component.html',
   styleUrl: './room-form.component.css',
 })
 export class RoomFormComponent implements OnInit {
 
+    @Input() room!:any;
     @Input({required:true}) houseId!: string;
     @Input({required:true})isEditMode = false;
     @Output() formSubmitted = new EventEmitter<void>();
@@ -29,6 +29,7 @@ export class RoomFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.constructForm();
+        this.setRoomFormFields();
     }
 
     private constructForm(){
@@ -43,8 +44,42 @@ export class RoomFormComponent implements OnInit {
     get roomTypeController() { return this.roomForm.get('roomType') as FormControl; }
     get capacityController() { return this.roomForm.get('capacity') as FormControl; }
     get remarkController() { return this.roomForm.get('remark') as FormControl; }
+
+    setRoomFormFields(){
+        if(this.room){
+            this.roomForm.patchValue({
+                'roomNumber': this.room.roomNumber,
+                'roomType': this.room.roomType,
+                'capacity': this.room.capacity,
+                'remark': this.room.remark
+            });
+        }
+    }
     onSubmit(){
-        this.isLoading = true;
+
+        if(this.isEditMode){
+            this.isLoading = true;
+            this.updateRoom()
+        }else {
+            this.isLoading = true;
+            this.createNewRoom()
+        }
+
+    }
+    updateRoom(){
+        this.roomService.updateRoom(this.houseId,this.roomForm.value).subscribe({
+            next:(res)=>{
+                console.log(res);
+                this.formSubmitted.emit();
+            },
+            error:(err)=>{
+                console.log(err);
+            },
+            complete:()=>{this.isLoading = false;}
+        })
+    }
+    createNewRoom(){
+
         let data = this.roomForm.value;
         this.roomService.saveRoom(this.houseId, data).subscribe({
             next:(res)=>{

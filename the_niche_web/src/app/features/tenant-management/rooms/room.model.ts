@@ -33,3 +33,10 @@ export  interface RoomRequest{
     capacity: number;
     remark:string;
 }
+
+export interface RoomUpdateRequest extends BaseModel{
+    roomNumber: string;
+    roomType: RoomType;
+    capacity: number;
+    remark:string;
+}

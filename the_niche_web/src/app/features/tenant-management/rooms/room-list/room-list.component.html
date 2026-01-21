@@ -1,7 +1,6 @@
 @if (rooms$ | async; as rooms) {
     @if (rooms.length!==0){
         <div class="ui segment">
-
             <!-- Header -->
             <div class="ui grid">
                 <div class="eight wide column">
@@ -75,7 +74,7 @@
                                     <!--                                        <i class="eye icon"></i>-->
                                     <!--                                    </a>-->
 
-                                    <button class="ui button"
+                                    <button class="ui button" (click)="onEditRoom(room)"
                                             title="Edit room">
                                         <i class="edit icon"></i>
                                     </button>
@@ -101,5 +100,20 @@
         <div class="ui message">
             <p>There are no rooms in this house yet.</p>
         </div>
+    }
+
+    @if (modalConfig.openEditRoomModal) {
+        <app-modal [closeOnBackdrop]="false" (close)="closeAllModals()">
+            <div modal-title>
+                Editing Room from {{houseName}}
+            </div>
+            <app-room-form modal-content
+                           [isEditMode]="false"
+                           [houseId]="houseId"
+                           [room]="selectedRoom"
+                           (formSubmitted)="closeAllModals()"
+
+            ></app-room-form>
+        </app-modal>
     }
 }

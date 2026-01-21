@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {DatePipe} from "@angular/common";
 import {HouseDetailResponse} from "../house.model";
 
 
 @Component({
-    selector: "app-house-header",
+    selector: "app-house-card",
     template: `
         <div class="ui card">
             <!-- Header -->
@@ -26,23 +25,22 @@ import {HouseDetailResponse} from "../house.model";
                 </div>
             </div>
             <div class="extra content">
-                <button class="ui tiny primary tertiary button left floated" (click)="onHouseEdit(house)" style="cursor: pointer">
+                <button class="ui tiny primary tertiary button left floated" (click)="onHouseEdit(house)" >
                   <i class="edit icon"></i>
                   Edit
                 </button>
-                <button class="ui tiny primary tertiary button right floated" (click)="onAddRoom(house)" style="cursor: pointer">
+                <button class="ui tiny primary tertiary button right floated " (click)="onAddRoom(house)" >
                   <i class="plus icon"></i>
                   Add Room
                 </button>
             </div>
         </div>
     `,
-    imports: [
-        DatePipe
-    ],
-    styles: ``
+    imports: [],
+    styles: `
+    `
 })
-export class HouseHeaderComponent{
+export class HouseCardComponent {
     @Input({required:true}) house!: HouseDetailResponse;
 
     @Output() onHouse= new EventEmitter<any>();

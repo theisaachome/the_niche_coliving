@@ -19,7 +19,6 @@ import {JsonPipe} from "@angular/common";
         InputComponent,
         FormsModule,
         ReactiveFormsModule,
-        JsonPipe,
     ],
   templateUrl: './house-edit.component.html',
   styleUrl: './house-edit.component.css',
@@ -41,6 +40,9 @@ export class HouseEditComponent implements  OnInit {
       }
 
       ngOnInit(): void {
+         this.setHouseForm();
+      }
+      setHouseForm(){
           if (this.house) {
               this.houseForm.patchValue({
                   name: this.house.name,
@@ -61,7 +63,6 @@ export class HouseEditComponent implements  OnInit {
             return item.value.id ?? index;  // or whatever unique identifier you have
       }
       onSubmit(){
-          console.log(this.houseForm.value);
           if(!this.isEdit){
               this.houseService.saveHouse(this.houseForm.value)
                   .subscribe({

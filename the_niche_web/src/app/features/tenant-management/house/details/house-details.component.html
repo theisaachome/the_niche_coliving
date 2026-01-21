@@ -2,10 +2,10 @@
 @if (house) {
    <div class="ui grid">
        <div class="four wide column">
-           <app-house-header [house]="house"
+           <app-house-card [house]="house"
                              (onHouse)="onHouseEdit(house)"
                              (onRoomAdd)="openRoomForm()"
-           ></app-house-header>
+           ></app-house-card>
        </div>
        <div class="twelve  wide column">
            <room-list [houseId]="house.id"

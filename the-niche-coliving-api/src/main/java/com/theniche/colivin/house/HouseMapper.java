@@ -1,15 +1,14 @@
 package com.theniche.colivin.house;
 
 import com.theniche.colivin.house.dto.HouseDetailResponse;
-import com.theniche.colivin.house.dto.HouseOverviewResponse;
-import com.theniche.colivin.house.dto.HouseRequest;
+import com.theniche.colivin.house.dto.HouseCreateRequest;
 import com.theniche.colivin.house.dto.HouseResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HouseMapper {
 
-    House toEntity(HouseRequest request){
+    House toEntity(HouseCreateRequest request){
         return  new House()
                 .setName(request.name())
                 .setLocation(request.location())

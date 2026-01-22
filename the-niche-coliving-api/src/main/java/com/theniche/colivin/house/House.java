@@ -27,9 +27,16 @@ public class House extends BaseEntity {
     private String location;
     @Column(name = "remark")
     private String remark;
+    @Column(nullable = false)
+    private long totalRooms = 0;
+    @Column(nullable = false)
+    private long availableRooms = 0;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "house",orphanRemoval = true)
     private Set<Room> rooms = new HashSet<>();
 
+    public Set<Room> getRooms() {
+        return rooms;
+    }
 
     public House(){}
 
@@ -40,6 +47,33 @@ public class House extends BaseEntity {
     public void removeRoom(Room room){
         rooms.remove(room);
         room.setHouse(null);
+    }
+
+    public void incrementAvailableRooms (){
+        if(this.availableRooms < totalRooms){
+            this.availableRooms ++;
+        }
+    }
+    public void decreaseAvailableRooms (){
+        if (availableRooms > 0) {
+            availableRooms --;
+        }
+    }
+
+    public long getTotalRooms() {
+        return totalRooms;
+    }
+
+    public void setTotalRooms(long totalRooms) {
+        this.totalRooms = totalRooms;
+    }
+
+    public long getAvailableRooms() {
+        return availableRooms;
+    }
+
+    public void setAvailableRooms(long availableRooms) {
+        this.availableRooms = availableRooms;
     }
 
     public void removeRooms(){

@@ -65,7 +65,6 @@ public class TenantServiceImpl extends BaseService implements TenantService {
         // soft-deleted which can mean checkout / move out
         var existingTenant = tenantRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Tenant","ID",id));
-        existingTenant.setStatus(EntityStatus.INACTIVE);
         existingTenant.setTenantStatus(TenantStatus.INACTIVE);
         tenantRepository.save(existingTenant);
     }

@@ -24,7 +24,7 @@ public class TenantMapper {
                  entity.getFullName(),
                  entity.getEmail(),
                  entity.getPhone(),
-                 entity.getStatus().toString()
+                 entity.getTenantStatus().toString()
          );
     }
 

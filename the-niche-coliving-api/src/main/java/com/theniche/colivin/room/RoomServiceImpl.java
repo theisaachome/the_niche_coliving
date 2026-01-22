@@ -2,9 +2,12 @@ package com.theniche.colivin.room;
 import com.theniche.colivin.common.domain.EntityStatus;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.house.HouseRepository;
+import com.theniche.colivin.room.dto.RoomCreatedEvent;
 import com.theniche.colivin.room.dto.RoomRequest;
 import com.theniche.colivin.room.dto.RoomResponse;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,13 +18,16 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final HouseRepository houseRepository;
     private final RoomMapper roomMapper;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public RoomServiceImpl(RoomRepository roomRepository, HouseRepository houseRepository, RoomMapper roomMapper) {
+    public RoomServiceImpl(RoomRepository roomRepository, HouseRepository houseRepository, RoomMapper roomMapper, ApplicationEventPublisher applicationEventPublisher) {
         this.roomRepository = roomRepository;
         this.houseRepository = houseRepository;
         this.roomMapper = roomMapper;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
+    @Transactional
     @Override
     public RoomResponse createRoom(UUID houseId, RoomRequest request) {
         // find house by id
@@ -30,6 +36,7 @@ public class RoomServiceImpl implements RoomService {
         var entityRoom = roomMapper.toEntity(request);
         entityRoom.setHouse(house);
         var savedEntity =  roomRepository.save(entityRoom);
+        applicationEventPublisher.publishEvent(new RoomCreatedEvent(savedEntity.getHouse().getId(), savedEntity.getRoomStatus()));
         return this.roomMapper.toRoomResponse(savedEntity);
     }
 
@@ -63,6 +70,5 @@ public class RoomServiceImpl implements RoomService {
         var room = this.roomRepository.findRoomByIdAndHouseId(houseId,roomId)
                 .orElseThrow(()-> new ResourceNotFoundException("Room","ID",roomId));
         room.setDeleted(true);
-        room.setStatus(EntityStatus.INACTIVE);
     }
 }

@@ -24,14 +24,14 @@ public class HouseServiceImpl extends BaseService implements HouseService {
     }
 
     @Override
-    public HouseResponse createHouse(HouseRequest request) {
+    public HouseResponse createHouse(HouseCreateRequest request) {
         var entityHouse = houseMapper.toEntity(request);
         var savedHouse = houseRepository.save(entityHouse);
         return houseMapper.toResponse(savedHouse);
     }
 
     @Override
-    public HouseResponse updateHouse(UUID id, HouseRequest request) {
+    public HouseResponse updateHouse(UUID id, HouseCreateRequest request) {
         var foundEntity = houseRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("House","ID",id));
         foundEntity.setName(request.name());
@@ -60,7 +60,7 @@ public class HouseServiceImpl extends BaseService implements HouseService {
         var foundEntity = houseRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("House","ID",id));
         foundEntity.setDeleted(true);
-        foundEntity.setHouseStatus(HouseStatus.INACTIVE);
+        foundEntity.setHouseStatus(HouseStatus.ARCHIVE);
         houseRepository.save(foundEntity);
     }
 
@@ -68,7 +68,7 @@ public class HouseServiceImpl extends BaseService implements HouseService {
     public String archiveHouse(UUID id) {
         var existingEntity = houseRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("House","ID",id));
-        existingEntity.setHouseStatus(HouseStatus.INACTIVE);
+        existingEntity.setHouseStatus(HouseStatus.ARCHIVE);
         houseRepository.save(existingEntity);
         return String.format("Successfully archived house with ID: %s", id);
     }

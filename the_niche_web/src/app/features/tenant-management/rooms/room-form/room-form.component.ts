@@ -88,6 +88,7 @@ export class RoomFormComponent implements OnInit {
             },
             error:(err)=>{
                 console.log(err);
+                this.isLoading = false;
             },
             complete:()=>{this.isLoading = false;}
         })

@@ -19,7 +19,7 @@ public class HouseController {
     }
 
     @PostMapping
-    public ResponseEntity createHouse(@RequestBody HouseRequest request) {
+    public ResponseEntity createHouse(@RequestBody HouseCreateRequest request) {
         var newHouse= houseService.createHouse(request);
         return new ResponseEntity<>(newHouse, HttpStatus.CREATED);
     }
@@ -47,7 +47,7 @@ public class HouseController {
     }
 
     @PutMapping("/{houseId}")
-    public ResponseEntity<HouseResponse> updateHouse(@PathVariable("houseId")UUID houseId, @RequestBody HouseRequest request) {
+    public ResponseEntity<HouseResponse> updateHouse(@PathVariable("houseId")UUID houseId, @RequestBody HouseCreateRequest request) {
         var updatedHouse = houseService.updateHouse(houseId,request);
         return new ResponseEntity<>(updatedHouse, HttpStatus.OK);
     }

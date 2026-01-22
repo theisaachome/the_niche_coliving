@@ -36,8 +36,6 @@ public class BaseEntity {
     @Column(name = "version")
     @Version
     private Long version;
-    @Column(name = "status")
-    private EntityStatus status = EntityStatus.ACTIVE;
 
     public UUID getId() {
         return id;
@@ -93,13 +91,5 @@ public class BaseEntity {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public EntityStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EntityStatus status) {
-        this.status = status;
     }
 }

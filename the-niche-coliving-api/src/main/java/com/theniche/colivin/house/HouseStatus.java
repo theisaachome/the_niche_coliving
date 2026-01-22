@@ -2,9 +2,7 @@ package com.theniche.colivin.house;
 
 public enum HouseStatus {
     ACTIVE,
-    INACTIVE,
-    MAINTENANCE,
-    CLOSED
+    ARCHIVE,
 }
 
 // <td><a class="ui teal tag label"

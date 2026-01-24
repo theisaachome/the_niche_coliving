@@ -15,8 +15,6 @@
     <name>The Niche Coliving - Parent</name>
     <modules>
         <module>the-niche-colivin-domain</module>
-        <module>the-niche-colivin-rest</module>
-        <module>the-niche-colivin-application</module>
     </modules>
 
     <properties>

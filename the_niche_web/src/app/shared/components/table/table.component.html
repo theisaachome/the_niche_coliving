@@ -1,17 +1,32 @@
 <table class="ui table" [ngClass]="classNames">
     <thead>
-        <tr>
-            @for (header of headers; track header.key) {
-                <th>{{header.label}}</th>
-            }
-        </tr>
+    <tr>
+        @for (header of headers; track header.key) {
+            <th>{{header.label}}</th>
+        }
+        @if (actionsTemplate) { <th>Actions</th> }
+    </tr>
     </thead>
     <tbody>
         @for (record of data; track record.id) {
-            <tr>
+            <tr (click)="onRowClick(record)" style="cursor: pointer;">
                 @for (header of headers; track header.key) {
                     <td>{{record[header.key]}}</td>
                 }
+
+                @if (actionsTemplate) {
+                    <td>
+                        <ng-container [ngTemplateOutlet]="actionsTemplate"
+                                      [ngTemplateOutletContext]="{ $implicit: record }">
+                        </ng-container>
+                    </td>
+                }
+            </tr>
+        } @empty {
+            <tr>
+                <td [attr.colspan]="headers.length + (actionsTemplate ? 1 : 0)" style="text-align: center;">
+                    No data available.
+                </td>
             </tr>
         }
     </tbody>

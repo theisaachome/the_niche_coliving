@@ -17,13 +17,18 @@ import {HouseDetailResponse} from "../house.model";
                             <div class="summary">
                                 <p><i class="ui qrcode icon"></i> {{house.houseCode}}</p>
                                 <div> <i class="ui map marker alternate icon"></i> {{house.location}}</div>
-                                <p>Remark</p>
-                                <p>{{house.remark? house.remark : ""}}</p>
+                              
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @if (house.remark) {
+                <div class="content">
+                    <p>Remark</p>
+                    <p>{{house.remark? house.remark : ""}}</p>
+                </div>
+            }
             <div class="extra content">
                 <button class="ui tiny primary tertiary button left floated" (click)="onHouseEdit(house)" >
                   <i class="edit icon"></i>

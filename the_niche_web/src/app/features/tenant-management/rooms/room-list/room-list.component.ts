@@ -5,6 +5,7 @@ import {AsyncPipe, NgClass} from "@angular/common";
 import {Observable} from "rxjs";
 import {ModalComponent} from "../../../../shared/components/modal.component";
 import {RoomFormComponent} from "../room-form/room-form.component";
+import {RouterLink, RouterOutlet} from "@angular/router";
 
 @Component({
     selector: 'room-list',
@@ -13,7 +14,9 @@ import {RoomFormComponent} from "../room-form/room-form.component";
         AsyncPipe,
         NgClass,
         ModalComponent,
-        RoomFormComponent
+        RoomFormComponent,
+        RouterLink,
+        RouterOutlet
     ]
 })
 export class RoomListComponent{

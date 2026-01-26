@@ -24,6 +24,7 @@ export class HouseListComponent implements OnInit,AfterViewInit{
     showModal = false;
     selectedHouse?:HouseResponse;
     house$: Observable<HouseOverviewResponse[]> | undefined;
+    totalHouses = 0;
   meta?: Omit<PageResponse<any>, 'content'>;
 
   constructor(private houseService:HouseService,
@@ -36,6 +37,11 @@ export class HouseListComponent implements OnInit,AfterViewInit{
     }
   ngOnInit(): void {
       this.house$ = this.houseService.getAllHouseOverview();
+      this.house$.subscribe({
+          next: data => {
+              this.totalHouses = data.length
+          }
+      })
   }
 
 

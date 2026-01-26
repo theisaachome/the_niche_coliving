@@ -1,31 +1,35 @@
-<button class="ui basic button right floated" (click)="openModal()">Add House</button>
-<app-divider>
-    House Overviews
-</app-divider>
+
+<!--<app-divider>-->
+<!--    House List-->
+<!--    <button class="ui primary button right floated" (click)="openModal()">Add House</button>-->
+<!--</app-divider>-->
+
+<div class="table-header">
+    <h1> House List</h1>
+    <div>
+        <button class="ui primary button " (click)="openModal()">Add House</button>
+    </div>
+</div>
 <div class="ui">
-    <table class="ui single line striped table">
+    <table class="ui single line  table">
       <thead>
         <tr>
             <th>House</th>
             <th>Location</th>
             <th>Rooms</th>
-            <th>Availability</th>
             <th>Capacity</th>
             <th>Status</th>
-<!--            <th>Room (Vacant/Total)</th>-->
-            <th >Action</th>
         </tr>
       </thead>
         <tbody>
             @for (house of house$ | async; track house.id) {
                 <tr>
-
-                    <td> <a class="ui  link" [routerLink]="['/houses/',house.id]">{{house.name}}</a></td>
+                    <td>
+                        <i class="home icon"></i>
+                        <a class="ui  link" [routerLink]="['/houses/',house.id]">{{house.name}}</a>
+                    </td>
                     <td> {{house.location}}</td>
                     <td>{{house.totalRooms}}</td>
-                    <td class="left aligned">
-                        80% / <a href="#">18 studies</a>
-                    </td>
                     <td>{{house.availableRooms}}</td>
                     <td>
                         <div class="ui basic label">
@@ -33,39 +37,21 @@
                             {{house.houseStatus}}
                         </div>
                     </td>
-                    <td class="right aligned">
-                        <div class="ui basic icon dropdown button">
-                            <i class="ellipsis vertical icon"></i>
-                            <div class="menu">
-                                <div class="item">
-                                    <i class="eye icon"></i> View
-                                </div>
-                                <div class="item">
-                                    <i class="edit icon"></i> Edit
-                                </div>
-                                <div class="divider"></div>
-                                <div class="item">
-                                    <i class="trash icon"></i> Delete
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-
                 </tr>
             }
         </tbody>
-        <tfoot>
-        <tr>
-            @if (house$ | async; as houses) {
-                <td><i class="home icon"></i>Total House: {{ houses.length }}</td>
-            }
-            <td ><i class="hotel icon"></i>Total Room: 40</td>
-            <td >2 House fully occupied.</td>
-            <td>
-                <button class="tiny ui button" (click)="onViewDetail('abc')">Total</button>
-            </td>
-        </tr>
-        </tfoot>
+<!--        <tfoot>-->
+<!--        <tr>-->
+<!--            @if (house$ | async; as houses) {-->
+<!--                <td><i class="home icon"></i>Total House: {{ houses.length }}</td>-->
+<!--            }-->
+<!--            <td ><i class="hotel icon"></i>Total Room: 40</td>-->
+<!--            <td >2 House fully occupied.</td>-->
+<!--            <td>-->
+<!--                <button class="tiny ui button" (click)="onViewDetail('abc')">Total</button>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tfoot>-->
     </table>
 </div>
 

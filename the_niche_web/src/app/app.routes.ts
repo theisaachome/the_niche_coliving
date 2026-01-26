@@ -39,30 +39,44 @@ export const routes: Routes = [
             }
         ]
     },
-
-    {path:'houses',
-    loadComponent:async () => {
-        const c = await import("./features/tenant-management/house/houses.component");
-        return c.HousesComponent;
-    },
-      children:[
-          {
-              path: '', // default child when visiting /houses
-              loadComponent: () =>
-                  import('./features/tenant-management/house/house-list/house-list.component')
-                      .then((c) => c.HouseListComponent),
-          },
-          {
-              path:'new',
-              loadComponent:()=>import('./features/tenant-management/house/house-edit/house-edit.component')
-                      .then((c)=>c.HouseEditComponent),
-          },
-          {
-              path:":id",
-              loadComponent:()=>import('./features/tenant-management/house/details/house-details.component')
-                  .then((c)=>c.HouseDetailsComponent),
-          }
-      ]
+    {
+        path: 'houses',
+        loadComponent: async () => {
+            const c = await import("./features/tenant-management/house/houses-layout.component");
+            return c.HousesLayoutComponent;
+        },
+        children: [
+            {
+                path: '',
+                data: { breadcrumb: 'Houses' },
+                loadComponent: () =>
+                    import('./features/tenant-management/house/house-list/house-list.component')
+                        .then((c) => c.HouseListComponent),
+            },
+            {
+                path: ":id", // This is the House ID
+                data: { breadcrumb: 'House Details' },
+                loadComponent: () => import('./features/tenant-management/house/details/house-details.component')
+                    .then((c) => c.HouseDetailsComponent),
+                children: [
+                    {
+                        path: "rooms/:roomId", // Deepening to the specific room
+                        data: { breadcrumb: 'Room Details' },
+                        // If you have a RoomDetailComponent, load it here
+                        // Otherwise, you can use a component that acts as a wrapper
+                        children: [
+                            {
+                                path: "tenants",
+                                data: { breadcrumb: 'Tenants' },
+                                loadComponent: () =>
+                                    import("./features/tenant-management/tenants/tenants.component")
+                                        .then(c => c.TenantsComponent)
+                            }
+                        ]
+                    }
+                ]
+            },
+        ]
     },
     {
         path:'rooms',
@@ -81,33 +95,33 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path:'tenants',
-        loadComponent:async ()=>{
-            const c = await  import("./features/tenant-management/tenants/tenants-layout.component");
-            return c.TenantsLayoutComponent
-        },
-        children:[
-            {
-                 path:"",
-                 loadComponent: () => import("./features/tenant-management/tenants/tenants.component").then(c=>c.TenantsComponent)
-            },
-            {
-                path:"create",
-                loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
-            },
-            {
-                path:"edit/:id",
-                loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
-            },
-            {
-                path:":id",
-                loadComponent: () => import("./features/tenant-management/tenants/tenant-detail/tenant-detail.component").then(c=>c.TenantDetailComponent),
-                resolve: {'tenantData':TenantResolver}
-            }
-
-        ]
-    },
+    // {
+    //     path:'tenants',
+    //     loadComponent:async ()=>{
+    //         const c = await  import("./features/tenant-management/tenants/tenants-layout.component");
+    //         return c.TenantsLayoutComponent
+    //     },
+    //     children:[
+    //         {
+    //              path:"",
+    //              loadComponent: () => import("./features/tenant-management/tenants/tenants.component").then(c=>c.TenantsComponent)
+    //         },
+    //         {
+    //             path:"create",
+    //             loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
+    //         },
+    //         {
+    //             path:"edit/:id",
+    //             loadComponent: () => import("./features/tenant-management/tenants/tenant-form/tenant-form.component").then(c=>c.TenantFormComponent)
+    //         },
+    //         {
+    //             path:":id",
+    //             loadComponent: () => import("./features/tenant-management/tenants/tenant-detail/tenant-detail.component").then(c=>c.TenantDetailComponent),
+    //             resolve: {'tenantData':TenantResolver}
+    //         }
+    //
+    //     ]
+    // },
     {   path:'finances',
         loadComponent:async () => {
             const c = await import("./features/finance/dashboard/finance-dashboard.component");

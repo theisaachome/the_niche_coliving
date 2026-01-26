@@ -1,13 +1,11 @@
 @if (rooms$ | async; as rooms) {
     @if (rooms.length!==0){
-        <div class="ui segment">
-            <!-- Header -->
             <div class="ui grid">
                 <div class="eight wide column">
                     <h3 class="ui header">
                         <i class="bed icon"></i>
                         <div class="content">
-                            Rooms In House "{{houseName}}"
+                            Rooms In House {{houseName}}
                             <div class="sub header">
                                 Manage rooms under this house
                             </div>
@@ -16,9 +14,6 @@
                 </div>
             </div>
 
-            <div class="ui divider"></div>
-
-            <!-- Table -->
             <table class="ui single line  table">
                 <thead>
                 <tr>
@@ -26,54 +21,40 @@
                     <th>Room Type</th>
                     <th>Capacity</th>
                     <th>Status</th>
+                    <th></th>
                     <th class="right aligned">Actions</th>
                 </tr>
                 </thead>
-
                 <tbody>
                     @for (room of rooms; track room.id) {
                         <tr>
-
                             <!-- Room Number -->
                             <td>
                                 <strong>{{ room.roomNumber }}</strong>
                             </td>
-                            <!-- Updated -->
                             <td>
                                 {{ room.roomType}}
                             </td>
-                            <!-- Capacity -->
                             <td>
                                 <div class="ui small label">
                                     <i class="users icon"></i>
                                     {{ room.capacity }}
                                 </div>
                             </td>
-
-                            <!-- Status -->
                             <td>
-                                <div
-                                        class="ui small label"
+                                <div  class="ui small label"
                                         [ngClass]="{
-                'green': room.roomStatus === 'AVAILABLE',
-                'red': room.roomStatus === 'OCCUPIED',}"
-                                >
+                                        'green': room.roomStatus === 'AVAILABLE',
+                                        'red': room.roomStatus === 'OCCUPIED',}">
                                     {{ room.roomStatus }}
                                 </div>
                             </td>
-
+                            <td>
+                                <a class="ui link" [routerLink]="['/houses',houseId,'rooms',room.id,'tenants']">View Tenants</a>
+                            </td>
                             <!-- Actions -->
                             <td class="right aligned">
                                 <div class="ui small icon buttons">
-
-                                    <!--                                    <a-->
-                                    <!--                                            class="ui button"-->
-                                    <!--                                            [routerLink]="['/rooms', room.id]"-->
-                                    <!--                                            title="View room"-->
-                                    <!--                                    >-->
-                                    <!--                                        <i class="eye icon"></i>-->
-                                    <!--                                    </a>-->
-
                                     <button class="ui button" (click)="onEditRoom(room)"
                                             title="Edit room">
                                         <i class="edit icon"></i>
@@ -85,7 +66,6 @@
                                         >
                                             <i class="user plus icon"></i>
                                         </button>
-
                                     }
                                 </div>
                             </td>
@@ -94,8 +74,7 @@
                     }
                 </tbody>
             </table>
-
-        </div>
+        <router-outlet></router-outlet>
     } @else {
         <div class="ui message">
             <p>There are no rooms in this house yet.</p>

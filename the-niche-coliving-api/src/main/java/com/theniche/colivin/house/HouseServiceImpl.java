@@ -6,6 +6,7 @@ import com.theniche.colivin.common.service.BaseService;
 import com.theniche.colivin.house.dto.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -102,7 +103,7 @@ public class HouseServiceImpl extends BaseService implements HouseService {
 
     @Override
     public List<HouseOverviewResponse> getHouseOverview(Integer pageNumber, Integer pageSize) {
-        var pageable = PageRequest.of(pageNumber, pageSize);
+        var pageable = PageRequest.of(pageNumber, pageSize, Sort.by("name"));
         var resultPage= houseRepository.findHouseOverview(pageable);
        var list= resultPage.getContent();
        return  list;

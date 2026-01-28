@@ -47,7 +47,7 @@ export class TenantDetailComponent {
              },
             {
                 id:2,
-                    icon: 'email icon',
+                    icon: 'mail icon',
                 label: 'Email',
                 value: this.tenant.email??'—'
             }

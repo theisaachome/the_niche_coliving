@@ -30,6 +30,7 @@ import {NgOptimizedImage} from "@angular/common";
         }
 
         .text {
+            padding: 8px;
             display: flex;
             flex-direction: column;
         }

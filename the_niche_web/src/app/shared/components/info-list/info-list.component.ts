@@ -7,7 +7,7 @@ import {InfoItem} from "./info-item.model";
     template:`
         <div class="info-list">
             @if (title) {
-                <h4 class="title">{{ title }}</h4>   
+                <h4 class="ui title">{{ title }}</h4>   
             }
             <div class="items">
                 @for (item of infoItems; track item.id) {
@@ -33,6 +33,7 @@ import {InfoItem} from "./info-item.model";
             padding-bottom: 0.75rem;
             border-bottom: 1px solid #e5e7eb; /* light divider */
             margin-bottom: 16px;
+            margin-top:8px
         }
         .items {
             display: flex;

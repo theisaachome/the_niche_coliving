@@ -1,24 +1,17 @@
 
-<!--<div style="display: flex;align-items: center">-->
-<!--    <app-divider>-->
-<!--        Tenant List-->
-<!--    </app-divider>-->
-<!--    <div style="margin-left: auto">-->
-<!--        <button class="ui button">Add New</button>-->
-<!--    </div>-->
-<!--</div>-->
 
-<div class="header">
-    <app-divider>Tenant List</app-divider>
-    <button class="ui button">Add New</button>
+<div class="table-header">
+    <h1> Tenant List</h1>
+    <div>
+        <button class="ui secondary button " (click)="openCreateTenantModal()">Add Tenant</button>
+    </div>
 </div>
 
-
 <div class="ui">
-    <table class="ui celled padded striped table">
+    <table class="ui  striped table">
         <thead>
             <tr>
-                <th>Tenant Code</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Email</th>
@@ -27,13 +20,9 @@
         </thead>
         @if ((tenant$ | async)?.length) {
             <tbody>
-                @for (tenant of tenant$ | async; track trackByTenantId) {
+                @for (tenant of tenant$ | async; track tenant.id; let i = $index) {
                     <tr>
-                        <td>
-                            <a [routerLink]="['/tenants/',tenant.id]">
-                                {{tenant.tenantCode}}
-                            </a>
-                        </td>
+                        <td>{{i+1}}</td>
                         <td>
                             <a [routerLink]="['/tenants/',tenant.id]">{{tenant.fullName}}</a>
                         </td>
@@ -63,3 +52,23 @@
             (pageSizeChange)="onPageSizeChange($event)">
     </app-pagination>
 </div>
+
+
+@if (modalState.openCreateTenant){
+    <app-modal (close)="closeCreatTenantModal()">
+        <div modal-title>
+            Create Tenant
+        </div>
+
+        <div modal-content>
+            <app-tenant-form
+                    (cancel)="closeCreatTenantModal()"
+                    (saved)="closeCreatTenantModal()">
+            </app-tenant-form>
+        </div>
+
+        <div modal-actions>
+            <!-- Optional: actions can live inside tenant form -->
+        </div>
+    </app-modal>
+}

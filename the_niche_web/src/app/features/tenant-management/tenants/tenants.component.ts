@@ -9,6 +9,8 @@ import {AsyncPipe} from "@angular/common";
 import {TenantStatusBadgeComponent} from "../../../shared/components/tenant-status-badge.component";
 import {PaginationComponent} from "../../../shared/components/pagination.component";
 import {DividerComponent} from "../../../shared/components/divider.component";
+import {ModalComponent} from "../../../shared/components/modal.component";
+import {TenantFormComponent} from "./tenant-form/tenant-form.component";
 
 @Component({
   selector: 'app-tenants',
@@ -17,8 +19,9 @@ import {DividerComponent} from "../../../shared/components/divider.component";
         AsyncPipe,
         TenantStatusBadgeComponent,
         PaginationComponent,
-        DividerComponent,
-        RouterLink
+        RouterLink,
+        ModalComponent,
+        TenantFormComponent
     ],
   templateUrl: './tenants.component.html',
   styleUrl: './tenants.component.css',
@@ -29,6 +32,10 @@ export class TenantsComponent implements OnInit{
     meta?: Omit<PageResponse<any>,'content'>;
     pageNo = 0;
     pageSize = 5;
+
+    modalState = {
+        openCreateTenant:false
+    }
 
     constructor(private tenantService: TenantsService,) {}
 
@@ -65,6 +72,13 @@ export class TenantsComponent implements OnInit{
 
     trackByTenantId(index: number, tenant: TenantResponse) {
         return tenant?.id ?? index;
+    }
+    openCreateTenantModal() {
+        this.modalState.openCreateTenant = true;
+        console.log(this.modalState.openCreateTenant)
+    }
+    closeCreatTenantModal(): void {
+       this.modalState.openCreateTenant = false;
     }
 
 }

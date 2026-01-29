@@ -2,8 +2,15 @@ package com.theniche.colivin.room;
 
 import com.theniche.colivin.common.domain.BaseEntity;
 import com.theniche.colivin.house.House;
+import com.theniche.colivin.roomassignment.AssignmentStatus;
+import com.theniche.colivin.roomassignment.RoomAssignment;
+import com.theniche.colivin.tenants.Tenant;
 import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "rooms")
@@ -28,11 +35,29 @@ public class Room extends BaseEntity {
     private House house;
 
 
+    @OneToMany(mappedBy = "room",cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.LAZY)
+    private Set<RoomAssignment> roomAssignments = new HashSet<>();
+
+
     public Room(){}
     public Room(String roomNumber,RoomType roomType,Integer capacity) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.capacity = capacity;
+    }
+
+    // helper method
+    public boolean hasCapacity(){
+        long currentOccupants = roomAssignments.stream()
+                .filter(ra->ra.getAssignmentStatus() == AssignmentStatus.ACTIVE)
+                .count();
+        return currentOccupants > capacity;
+    }
+    public Set<Tenant> getCurrentTenants(){
+        return roomAssignments.stream()
+                .filter((ra)-> ra.getAssignmentStatus() == AssignmentStatus.ACTIVE)
+                .map(RoomAssignment::getTenant)
+                .collect(Collectors.toSet());
     }
     @PrePersist
     public void prePersist(){
@@ -102,4 +127,9 @@ public class Room extends BaseEntity {
     public void setHouse(House house) {
         this.house = house;
     }
+
+    public Set<RoomAssignment> getRoomAssignments() {
+        return roomAssignments;
+    }
+
 }

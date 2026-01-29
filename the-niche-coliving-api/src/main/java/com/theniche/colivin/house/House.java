@@ -1,6 +1,7 @@
 package com.theniche.colivin.house;
 import com.theniche.colivin.common.domain.BaseEntity;
 import com.theniche.colivin.room.Room;
+import com.theniche.colivin.roomassignment.RoomAssignment;
 import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
 import java.util.HashSet;
@@ -33,6 +34,10 @@ public class House extends BaseEntity {
     private long availableRooms = 0;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "house",orphanRemoval = true)
     private Set<Room> rooms = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "house",cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.LAZY)
+    private Set<RoomAssignment> roomAssignments = new HashSet<>();
 
     public Set<Room> getRooms() {
         return rooms;
@@ -145,5 +150,17 @@ public class House extends BaseEntity {
     @Override
     public int hashCode() {
         return 2025;
+    }
+
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Set<RoomAssignment> getRoomAssignments() {
+        return roomAssignments;
+    }
+
+    public void setRoomAssignments(Set<RoomAssignment> roomAssignments) {
+        this.roomAssignments = roomAssignments;
     }
 }

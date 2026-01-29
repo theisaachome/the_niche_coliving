@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name="houses",
         uniqueConstraints = {
                 @UniqueConstraint(name = "UK_HOUSE_NAME", columnNames = "name")
-        }
+        },
 )
 public class House extends BaseEntity {
     @Column(unique = true,nullable = false)

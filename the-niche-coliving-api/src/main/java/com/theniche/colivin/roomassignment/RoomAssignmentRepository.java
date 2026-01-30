@@ -5,6 +5,7 @@ import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,8 +23,10 @@ public interface RoomAssignmentRepository extends BaseRepository<RoomAssignment>
     """)
     Long countActiveByRoomId(UUID roomId);
 
-    boolean existsByTenantIdAndStatus(UUID tenantId, AssignmentStatus status);
+    boolean existsByTenantIdAndAssignmentStatus(UUID tenantId, AssignmentStatus status);
 
 
+    boolean existsActiveByTenantId(UUID uuid);
 
+    List<RoomAssignment> findByRoomIdAndAssignmentStatus(UUID roomId, AssignmentStatus assignmentStatus);
 }

@@ -66,11 +66,11 @@ export const routes: Routes = [
                         // Otherwise, you can use a component that acts as a wrapper
                         children: [
                             {
-                                path: "tenants",
-                                data: { breadcrumb: 'Tenants' },
+                                path: "assignments",
+                                data: { breadcrumb: 'Assignments' },
                                 loadComponent: () =>
-                                    import("./features/tenant-management/tenants/tenants.component")
-                                        .then(c => c.TenantsComponent)
+                                    import("./features/tenant-management/room-assignment/assignments/assignments.component")
+                                        .then(c => c.AssignmentsComponent)
                             }
                         ]
                     }

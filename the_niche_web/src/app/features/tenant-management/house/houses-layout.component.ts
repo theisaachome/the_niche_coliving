@@ -9,7 +9,6 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
     template: `
         <div class="ui breadcrumb" style="margin-bottom: 16px">
             @for (crumb of breadcrumbs; track crumb.url; let last = $last) {
-                {{crumb|json}}
                 @if (!last) {
                     <a [routerLink]="crumb.url" class="section">{{ crumb.label }}</a>
                     <div class="divider"> / </div>

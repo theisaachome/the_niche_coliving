@@ -31,5 +31,11 @@ export class RoomService implements CrudInterface<any>{
         const url = `${HOUSE_API}/${houseId}/rooms/${roomUpdateRequest.id}`;
         return this.http.put<RoomResponse>(url,roomUpdateRequest);
     }
+
+    getRoomTenants (roomId:string) :Observable<any> {
+        const url = `room-assignments/${roomId}/tenants`;
+
+        return this.http.get(url);
+    }
 }
 

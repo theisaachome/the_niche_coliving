@@ -1,9 +1,12 @@
 package com.theniche.colivin.roomassignment;
 import com.theniche.colivin.common.repository.BaseRepository;
 import com.theniche.colivin.room.Room;
+import com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse;
+import com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +30,45 @@ public interface RoomAssignmentRepository extends BaseRepository<RoomAssignment>
 
 
     boolean existsActiveByTenantId(UUID uuid);
+    @Query("""
+            SELECT new com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse(
+                     ra.id,
+                     t.fullName,
+                     ra.assignmentStatus,
+                     ra.leaseStartDate,
+                     ra.leaseEndDate,
+                     ra.depositAmount)
+                     FROM RoomAssignment  ra
+                     JOIN Tenant t ON ra.tenant.id = t.id
+                     WHERE ra.room.id = :roomId
+                     AND ra.assignmentStatus IN (:assignmentStatus)
+        """)
+    List<RoomAssignmentOverviewResponse> findByRoomIdAndAssignmentStatus(@Param("roomId") UUID roomId, @Param("assignmentStatus") AssignmentStatus assignmentStatus);
 
-    List<RoomAssignment> findByRoomIdAndAssignmentStatus(UUID roomId, AssignmentStatus assignmentStatus);
+    @Query("""
+        SELECT new com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse(
+            ra.id,
+            ra.assignmentStatus,
+            ra.leaseStartDate,
+            ra.leaseEndDate,
+            ra.depositAmount,
+            ra.depositStatus,
+            ra.notes,
+            t.id,
+            t.fullName,
+            t.phone,
+            t.email,
+            r.id,
+            r.roomNumber,
+            r.capacity,
+            h.id,
+            h.name
+        )
+        FROM RoomAssignment ra
+        JOIN ra.tenant t
+        JOIN ra.room r
+        JOIN ra.house h
+        WHERE ra.id = :assignmentId
+    """)
+    Optional<RoomAssignmentDetailsResponse> findDetailsById(UUID assignmentId);
 }

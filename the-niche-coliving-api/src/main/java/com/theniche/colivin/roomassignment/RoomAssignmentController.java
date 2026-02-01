@@ -1,6 +1,6 @@
 package com.theniche.colivin.roomassignment;
-
 import com.theniche.colivin.common.BaseController;
+import com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentRequest;
 import org.springframework.http.HttpStatus;
@@ -45,10 +45,17 @@ public class RoomAssignmentController extends BaseController {
         logger.info("Getting room assignment {}", assignmentId);
         return  ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{roomAssignmentId}/details")
+    public ResponseEntity<RoomAssignmentDetailsResponse> getRoomAssignmentsDetails(@PathVariable UUID roomAssignmentId) {
+        return new ResponseEntity<>(roomAssignmentService.findDetails(roomAssignmentId), HttpStatus.OK);
+    }
     @GetMapping("/rooms/{roomId}")
-    public ResponseEntity<List<RoomAssignmentOverviewResponse>> getRoomAssignmentByRoom(@PathVariable UUID roomId) {
+    public ResponseEntity<List<RoomAssignmentOverviewResponse>> getRoomAssignmentByRoom(
+            @PathVariable UUID roomId,
+            @RequestParam(name = "assignmentStatus", required = false,defaultValue = "ACTIVE") AssignmentStatus assignmentStatus) {
         logger.info("Getting room assignments by Room{}", roomId);
-        var results = this.roomAssignmentService.findRoomAssignmentsByRoomId(roomId, AssignmentStatus.ACTIVE);
+        var results = this.roomAssignmentService.findRoomAssignmentsByRoomId(roomId, assignmentStatus);
         return new ResponseEntity<>(results, HttpStatus.OK);
     }
 }

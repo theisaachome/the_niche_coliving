@@ -1,7 +1,5 @@
 package com.theniche.colivin.roomassignment.dto;
-
 import com.theniche.colivin.roomassignment.AssignmentStatus;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,6 +10,4 @@ public record RoomAssignmentOverviewResponse(
         AssignmentStatus assignmentStatus,
         LocalDate startDate,
         LocalDate endDate,
-        BigDecimal depositAmount
-) {
-}
+        BigDecimal depositAmount){}

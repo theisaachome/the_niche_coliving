@@ -4,6 +4,7 @@ import com.theniche.colivin.common.exception.BusinessException;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
 import com.theniche.colivin.room.RoomRepository;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentCreatedResponse;
+import com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentRequest;
 import com.theniche.colivin.tenants.TenantRepository;
@@ -85,6 +86,12 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("RoomAssignment", "id", id));
     }
 
+    @Override
+    public RoomAssignmentDetailsResponse findDetails(UUID id) {
+        return this.roomAssignmentRepository.findDetailsById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("RoomAssignment", "id", id));
+    }
+
     // update the room assignment
     @Override
     public RoomAssignment update(UUID roomAssignmentId, RoomAssignment roomAssignment) {
@@ -93,8 +100,7 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     @Override
     public List<RoomAssignmentOverviewResponse> findRoomAssignmentsByRoomId(UUID roomId, AssignmentStatus status) {
-       var results = this.roomAssignmentRepository.findByRoomIdAndAssignmentStatus(roomId,status);
-       return results.stream().map(roomAssignmentMapper::toOverviewResponse).toList();
+       return this.roomAssignmentRepository.findByRoomIdAndAssignmentStatus(roomId,status);
     }
 
     // move rooms

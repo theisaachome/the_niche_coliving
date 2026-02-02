@@ -41,19 +41,19 @@ public class HouseController {
     }
 
     @GetMapping("/{houseId}")
-    public ResponseEntity<HouseDetailResponse> getHouseDetails(@PathVariable("houseId") UUID houseId) {
+    public ResponseEntity<HouseDetailResponse> getHouseDetails(@PathVariable UUID houseId) {
         var houseDetails = houseService.getHouseDetail(houseId);
         return new ResponseEntity<>(houseDetails, HttpStatus.OK);
     }
 
     @PutMapping("/{houseId}")
-    public ResponseEntity<HouseResponse> updateHouse(@PathVariable("houseId")UUID houseId, @RequestBody HouseCreateRequest request) {
+    public ResponseEntity<HouseResponse> updateHouse(@PathVariable UUID houseId, @RequestBody HouseCreateRequest request) {
         var updatedHouse = houseService.updateHouse(houseId,request);
         return new ResponseEntity<>(updatedHouse, HttpStatus.OK);
     }
 
     @PatchMapping("/{houseId}/archive")
-    public ResponseEntity<String> updateArchiveStatus(@PathVariable("houseId")UUID houseId,
+    public ResponseEntity<String> updateArchiveStatus(@PathVariable UUID houseId,
                                                       @RequestBody ArchiveHouseRequest request) {
         var updatedHouse = houseService.archiveHouse(houseId);
         return new ResponseEntity<>(updatedHouse, HttpStatus.OK);

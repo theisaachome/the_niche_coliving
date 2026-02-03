@@ -1,5 +1,7 @@
 package com.theniche.colivin.house;
+import com.theniche.colivin.common.BaseController;
 import com.theniche.colivin.house.dto.*;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/houses")
-public class HouseController {
+public class HouseController extends BaseController {
 
     private final HouseService houseService;
 
@@ -19,7 +21,8 @@ public class HouseController {
     }
 
     @PostMapping
-    public ResponseEntity createHouse(@RequestBody HouseCreateRequest request) {
+    public ResponseEntity createHouse(@Valid @RequestBody HouseCreateRequest request) {
+        logger.info("CreateHouse request  received {}", request.name());
         var newHouse= houseService.createHouse(request);
         return new ResponseEntity<>(newHouse, HttpStatus.CREATED);
     }
@@ -27,6 +30,7 @@ public class HouseController {
     public ResponseEntity<List<HouseOverviewResponse>> getHouseOverview(
             @RequestParam(value = "page",required = false,defaultValue = "0") int page,
             @RequestParam(value = "size",required = false,defaultValue = "20") int size){
+        logger.info("getHouseOverview");
         var result = this.houseService.getHouseOverview(page, size);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -47,7 +51,8 @@ public class HouseController {
     }
 
     @PutMapping("/{houseId}")
-    public ResponseEntity<HouseResponse> updateHouse(@PathVariable UUID houseId, @RequestBody HouseCreateRequest request) {
+    public ResponseEntity<HouseResponse> updateHouse(@PathVariable UUID houseId,@Valid @RequestBody HouseCreateRequest request) {
+        logger.info("UpdateHouse request  received {}", houseId);
         var updatedHouse = houseService.updateHouse(houseId,request);
         return new ResponseEntity<>(updatedHouse, HttpStatus.OK);
     }
@@ -60,7 +65,7 @@ public class HouseController {
     }
 
     @DeleteMapping("/{houseId}")
-    public ResponseEntity<String> deleteHouse(@PathVariable("houseId")UUID houseId) {
+    public ResponseEntity<String> deleteHouse(@PathVariable UUID houseId) {
         houseService.deleteHouse(houseId);
         return new ResponseEntity<>("Content Updated",HttpStatus.OK);
     }

@@ -8,6 +8,7 @@ import com.theniche.colivin.tenants.Tenant;
 import com.theniche.colivin.util.CodeGenerator;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -131,5 +132,4 @@ public class Room extends BaseEntity {
     public Set<RoomAssignment> getRoomAssignments() {
         return roomAssignments;
     }
-
 }

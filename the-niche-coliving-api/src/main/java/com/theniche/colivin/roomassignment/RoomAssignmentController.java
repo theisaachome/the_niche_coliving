@@ -1,12 +1,18 @@
 package com.theniche.colivin.roomassignment;
 import com.theniche.colivin.common.BaseController;
+import com.theniche.colivin.common.payload.PagedApiResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse;
+import com.theniche.colivin.roomassignment.dto.RoomAssignmentListResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse;
 import com.theniche.colivin.roomassignment.dto.RoomAssignmentRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +45,21 @@ public class RoomAssignmentController extends BaseController {
         logger.info("Deleting room assignment {}", assignmentId);
         return   ResponseEntity.ok().build();
     }
+
+    @GetMapping
+    public PagedApiResponse<RoomAssignmentListResponse> listRoomAssignments(
+            @RequestParam(required = false) Long houseId,
+            @RequestParam(required = false) AssignmentStatus status,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate endingBefore,
+            Pageable pageable
+    ) {
+        return roomAssignmentService.listAssignments(
+                houseId, status, endingBefore, pageable
+        );
+    }
+
     // GET    /api/v1/room-assignments/rooms/{roomId}
     @GetMapping("/{assignmentId}")
     public ResponseEntity<String> getRoomAssignment(@PathVariable UUID assignmentId) {

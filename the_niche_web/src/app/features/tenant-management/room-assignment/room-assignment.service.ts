@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {CrudInterface} from "../../../shared/service/crud.interface";
-import { Observable } from "rxjs";
+import {map, Observable, shareReplay} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ROOM_ASSIGNMENT} from "../../../shared/api-constants";
-import {RoomAssignmentDetailsResponse} from "./room-assignment.model";
+import {RoomAssignmentDetailsResponse, RoomAssignmentListResponse} from "./room-assignment.model";
+import {PageResponse} from "../../../shared/base.model";
 
 
 @Injectable(
@@ -30,9 +31,14 @@ export class RoomAssignmentService implements CrudInterface<any> {
         return this.http.get<RoomAssignmentDetailsResponse>(url);
     }
 
-    loadAllRoomAssignments() {
-        const url = `${ROOM_ASSIGNMENT}`;
-        return this.http.get(url);
+    loadAllRoomAssignments(
+        page = 0,
+        size = 20
+    ): Observable<PageResponse<RoomAssignmentListResponse>> {
+        const url = `${ROOM_ASSIGNMENT}?page=${page}&size=${size}`;
+        return this.http
+            .get<PageResponse<RoomAssignmentListResponse>>(url)
+            .pipe(shareReplay(1));
     }
 
 

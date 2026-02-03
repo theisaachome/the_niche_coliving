@@ -1,6 +1,6 @@
 package com.theniche.colivin.tenants;
-import com.theniche.colivin.common.payload.PageApiResponse;
 import com.theniche.colivin.common.payload.PageRequestDto;
+import com.theniche.colivin.common.payload.PagedApiResponse;
 import com.theniche.colivin.tenants.dto.TenantDetailResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
 import com.theniche.colivin.tenants.dto.TenantResponse;
@@ -21,7 +21,7 @@ public class TenantController {
     }
 
     @GetMapping("/search")
-    public PageApiResponse<TenantResponse> searchTenants(
+    public PagedApiResponse<TenantResponse> searchTenants(
             @ModelAttribute TenantSearchFilters filters,
             @ModelAttribute PageRequestDto pageRequestDto
             ){

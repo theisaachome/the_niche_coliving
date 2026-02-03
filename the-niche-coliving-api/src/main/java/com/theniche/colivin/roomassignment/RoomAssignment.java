@@ -62,6 +62,8 @@ public class RoomAssignment extends BaseEntity {
     @Column(name = "notes")
     private String notes;
 
+    private BigDecimal monthlyRent;
+
 
 
     // business logic methods
@@ -164,6 +166,15 @@ public class RoomAssignment extends BaseEntity {
 
     public RoomAssignment setDepositStatus(DepositStatus depositStatus) {
         this.depositStatus = depositStatus;
+        return this;
+    }
+
+    public BigDecimal getMonthlyRent() {
+        return monthlyRent;
+    }
+
+    public RoomAssignment setMonthlyRent(BigDecimal monthlyRent) {
+        this.monthlyRent = monthlyRent;
         return this;
     }
 }

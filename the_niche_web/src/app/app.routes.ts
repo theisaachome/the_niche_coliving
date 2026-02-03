@@ -5,9 +5,12 @@ import {DashboardComponent} from "./features/dashboard/dashboard.component";
 import {FinanceSummaryComponent} from "./features/finance/summary/finance-summary.component";
 import {HouseEditComponent} from "./features/tenant-management/house/house-edit/house-edit.component";
 import {TenantResolver} from "./features/tenant-management/tenants/tenant.resolver";
+import {
+    AssignmentListComponent
+} from "./features/tenant-management/room-assignment/assignment-list/assignment-list.component";
 
 export const routes: Routes = [
-  {path:'dashboard',component:DashboardComponent},
+    {path:'dashboard',component:AssignmentListComponent},
     {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
     {

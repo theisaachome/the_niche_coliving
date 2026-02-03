@@ -2,7 +2,7 @@ package com.theniche.colivin.common.payload;
 
 import java.util.List;
 
-public record PageApiResponse<T>(
+public record PagedApiResponse<T>(
         List<T> content,
         int pageNo,
         int pageSize,

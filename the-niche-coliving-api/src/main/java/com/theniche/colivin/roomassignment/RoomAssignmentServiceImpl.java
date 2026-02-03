@@ -2,14 +2,15 @@ package com.theniche.colivin.roomassignment;
 
 import com.theniche.colivin.common.exception.BusinessException;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
+import com.theniche.colivin.common.payload.PagedApiResponse;
 import com.theniche.colivin.room.RoomRepository;
-import com.theniche.colivin.roomassignment.dto.RoomAssignmentCreatedResponse;
-import com.theniche.colivin.roomassignment.dto.RoomAssignmentDetailsResponse;
-import com.theniche.colivin.roomassignment.dto.RoomAssignmentOverviewResponse;
-import com.theniche.colivin.roomassignment.dto.RoomAssignmentRequest;
+import com.theniche.colivin.roomassignment.dto.*;
 import com.theniche.colivin.tenants.TenantRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -101,6 +102,19 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     @Override
     public List<RoomAssignmentOverviewResponse> findRoomAssignmentsByRoomId(UUID roomId, AssignmentStatus status) {
        return this.roomAssignmentRepository.findByRoomIdAndAssignmentStatus(roomId,status);
+    }
+
+    @Override
+    public PagedApiResponse<RoomAssignmentListResponse> listAssignments(Long houseId, AssignmentStatus status, LocalDate endingBefore, Pageable pageable) {
+      var pagedResults = roomAssignmentRepository.findRoomAssignments(houseId, status, endingBefore, pageable);
+      return  new PagedApiResponse<>(
+              pagedResults.getContent(),
+              pagedResults.getNumber(),
+              pagedResults.getSize(),
+              pagedResults.getTotalElements(),
+              pagedResults.getTotalPages(),
+              pagedResults.isLast()
+      );
     }
 
     // move rooms

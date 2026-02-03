@@ -6,8 +6,8 @@ import com.theniche.colivin.common.domain.GenericSpecification;
 import com.theniche.colivin.common.domain.SearchCriteria;
 import com.theniche.colivin.common.domain.TenantStatus;
 import com.theniche.colivin.common.exception.ResourceNotFoundException;
-import com.theniche.colivin.common.payload.PageApiResponse;
 import com.theniche.colivin.common.payload.PageRequestDto;
+import com.theniche.colivin.common.payload.PagedApiResponse;
 import com.theniche.colivin.common.service.BaseService;
 import com.theniche.colivin.tenants.dto.TenantDetailResponse;
 import com.theniche.colivin.tenants.dto.TenantRequest;
@@ -84,7 +84,7 @@ public class TenantServiceImpl extends BaseService implements TenantService {
     // search tenant with param
     @Override
     @Audit(action="tenant.search")
-    public PageApiResponse<TenantResponse> searchTenant(TenantSearchFilters filters, PageRequestDto pageRequest) {
+    public PagedApiResponse<TenantResponse> searchTenant(TenantSearchFilters filters, PageRequestDto pageRequest) {
         // build specification
         GenericSpecification<Tenant> specBuilder = new GenericSpecification<>();
         addIfHasText(specBuilder, "tenantCode", filters.getTenantCode(), SearchCriteria.Operation.EQUAL);
@@ -97,7 +97,7 @@ public class TenantServiceImpl extends BaseService implements TenantService {
         var pagedResults = tenantRepository.findAll(specBuilder.build(),pageRequest.toPageable());
         var pageToList = pagedResults.getContent()
                 .stream().map(tenantMapper::toResponse).collect(Collectors.toList());
-        return new PageApiResponse<>(
+        return new PagedApiResponse<>(
                 pageToList,
                 pagedResults.getNumber(),
                 pagedResults.getSize(),

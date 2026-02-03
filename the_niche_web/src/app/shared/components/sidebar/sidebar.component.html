@@ -1,1 +1,40 @@
-<p>sidebar works!</p>
+<aside class="sidebar" [class.collapsed]="collapsed()">
+    <div class="sidebar-header">
+        <div class="logo" [class.collapsed]="collapsed()">
+            <i class="cube icon"></i>
+            @if (!collapsed()) {
+                <span class="logo-text">Admin Panel</span>
+            }
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            @for (item of menuItems; track item.id) {
+                <li class="nav-item">
+                    <button
+                            class="nav-link"
+                            [class.active]="isActive(item.route)"
+                            (click)="navigateTo(item.route)"
+                            [title]="collapsed() ? item.title : ''">
+                        <i class="{{ item.icon }} icon"></i>
+                        @if (!collapsed()){
+                            <span class="nav-text">{{ item.title }}</span>
+                        }
+                        @if ( item.badge && !collapsed()) {
+                            <span class="badge" >{{ item.badge }}</span>
+                        }
+                    </button>
+                </li>
+            }
+        </ul>
+    </nav>
+
+    @if (!collapsed()) {
+        <div class="sidebar-footer">
+            <div class="footer-content">
+                <small>&copy; 2024 Admin Panel</small>
+            </div>
+        </div>
+    }
+</aside>

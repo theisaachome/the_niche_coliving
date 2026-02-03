@@ -1,1 +1,52 @@
-<p>header works!</p>
+
+<header class="app-header">
+    <div class="header-left">
+        <button
+                class="sidebar-toggle ui button basic icon"
+                (click)="onToggleSidebar()"
+                title="Toggle Sidebar">
+            <i class="bars icon"></i>
+        </button>
+
+        <div class="header-title">
+            <h2 class="ui header">Admin Dashboard</h2>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="ui dropdown" id="userDropdown">
+            <div class="text user-info" (click)="onProfileClick()">
+                <img class="ui avatar image" src="https://via.placeholder.com/32" alt="User Avatar">
+                <span class="user-name">{{ userProfile().name }}</span>
+                <i class="dropdown icon"></i>
+            </div>
+            <div class="menu">
+                <div class="header">
+                    <img class="ui avatar image" src="https://via.placeholder.com/32" alt="User Avatar">
+                    <div class="content">
+                        <div class="name">{{ userProfile().name }}</div>
+                        <div class="description">{{ userProfile().role }}</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <a class="item">
+                    <i class="user icon"></i>
+                    Profile
+                </a>
+                <a class="item">
+                    <i class="settings icon"></i>
+                    Settings
+                </a>
+                <a class="item">
+                    <i class="help circle icon"></i>
+                    Help
+                </a>
+                <div class="divider"></div>
+                <a class="item" (click)="onLogout()">
+                    <i class="sign out icon"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

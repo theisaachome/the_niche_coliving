@@ -13,4 +13,5 @@ import {FinanceDashboardComponent} from "./features/finance/dashboard/finance-da
 })
 export class AppComponent {
   title = 'the-niched-coliving';
+
 }

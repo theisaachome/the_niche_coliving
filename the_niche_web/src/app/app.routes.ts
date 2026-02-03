@@ -8,10 +8,38 @@ import {TenantResolver} from "./features/tenant-management/tenants/tenant.resolv
 import {
     AssignmentListComponent
 } from "./features/tenant-management/room-assignment/assignment-list/assignment-list.component";
+import {LayoutComponent} from "./shared/components/layout/layout.component";
 
 export const routes: Routes = [
-    {path:'dashboard',component:AssignmentListComponent},
-    {path:'',redirectTo:'dashboard',pathMatch:'full'},
+    {
+        path: '',
+        component: LayoutComponent,
+        children: [
+            {
+                path: '',
+                redirectTo: '/dashboard',
+                pathMatch: 'full'
+            },
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./features/dashboard/dashboard.component').then(c => c.DashboardComponent)
+            },
+            {
+                path: 'list',
+                loadComponent: () => import('./features/list/list.component').then(c => c.ListComponent)
+            },
+            {
+                path: 'table',
+                loadComponent: () => import('./features/table/table.component').then(c => c.TableComponent)
+            }
+        ]
+    },
+    // {
+    //     path: '**',
+    //     redirectTo: '/dashboard'
+    // },
+    // {path:'dashboard',component:DashboardComponent},
+    // {path:'',redirectTo:'dashboard',pathMatch:'full'},
     {path:'accounts',component:AccountFormComponent},
     {
         path:'mods',

@@ -1,0 +1,143 @@
+
+.app-header {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e1e8ed;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .sidebar-toggle {
+      border: none !important;
+      background: transparent !important;
+      color: #6c757d !important;
+      padding: 8px !important;
+      border-radius: 8px !important;
+      transition: all 0.2s ease !important;
+
+      &:hover {
+        background: #f8f9fa !important;
+        color: #495057 !important;
+      }
+
+      i.icon {
+        margin: 0 !important;
+        font-size: 16px;
+      }
+    }
+
+    .header-title {
+      .ui.header {
+        margin: 0;
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  .header-right {
+    .ui.dropdown {
+      .text.user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #495057;
+
+        &:hover {
+          background: #f8f9fa;
+        }
+
+        .ui.avatar.image {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+
+        .user-name {
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        .dropdown.icon {
+          font-size: 12px;
+          margin-left: 4px;
+        }
+      }
+
+      .menu {
+        min-width: 200px;
+
+        .header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 16px;
+
+          .ui.avatar.image {
+            width: 40px;
+            height: 40px;
+          }
+
+          .content {
+            .name {
+              font-weight: 600;
+              color: #2c3e50;
+              font-size: 14px;
+            }
+
+            .description {
+              color: #6c757d;
+              font-size: 12px;
+              margin-top: 2px;
+            }
+          }
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          color: #495057;
+
+          &:hover {
+            background: #f8f9fa;
+          }
+
+          i.icon {
+            width: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 16px;
+
+    .header-title .ui.header {
+      font-size: 1.2rem;
+    }
+
+    .user-name {
+      display: none;
+    }
+  }
+}

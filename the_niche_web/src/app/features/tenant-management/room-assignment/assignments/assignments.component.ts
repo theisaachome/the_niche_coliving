@@ -7,7 +7,7 @@ import {RoomAssignmentOverviewResponse} from "../room-assignment.model";
 @Component({
     selector: "app-assignments",
     template:`
-        @if (roomAssignments.length ){
+        @if (roomAssignments ){
             <h2>Assignments</h2>
             <table class="ui single line table">
                 <thead>
@@ -56,15 +56,18 @@ export class AssignmentsComponent implements OnInit {
         this.loadRoomAssignment(this.roomId);
     }
 
-    loadRoomAssignment(roomId:string){
+    loadRoomAssignment(roomId:string) {
         this.roomAssignmentService
             .getRoomAssignmentByRoomId(roomId)
-            .subscribe((res)=>{
-                this.roomAssignments = res
-                console.log(res)
-            },error => {
-                console.log(error);
-            },()=>{});
+            .subscribe({
+                next: (res) => {
+                    this.roomAssignments = res
+                    console.log(res)
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
     }
 
 }

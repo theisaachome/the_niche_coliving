@@ -31,6 +31,24 @@ export class NavigationService {
             route: '/dashboard'
         },
         {
+            id: 'assignments',
+            title: 'Assignments View',
+            icon: 'th list',
+            route: '/assignments'
+        },
+        {
+            id: 'tenants',
+            title: 'Tenants View',
+            icon: 'user friends',
+            route: '/tenants'
+        },
+        {
+            id: 'accounts',
+            title: 'Accounts View',
+            icon: 'landmark',
+            route: '/accounts'
+        },
+        {
             id: 'list',
             title: 'List View',
             icon: 'list ul',
@@ -42,7 +60,32 @@ export class NavigationService {
             title: 'Table View',
             icon: 'table',
             route: '/table'
-        }
+        },
+        {
+            id: 'collections',
+            title: 'Collections View',
+            icon: 'table',
+            route: '/collections'
+        },
+        {
+            id: 'houses',
+            title: 'House View',
+            icon: 'building',
+            route: '/houses'
+        },
+        {
+            id: 'rooms',
+            title: 'Room View',
+            icon: 'bed',
+            route: '/rooms'
+        },
+        {
+            id: 'finances',
+            title: 'Finance View',
+            icon: 'credit card',
+            route: '/finances'
+        },
+
     ];
 
     private readonly dashboardStats: DashboardStats[] = [

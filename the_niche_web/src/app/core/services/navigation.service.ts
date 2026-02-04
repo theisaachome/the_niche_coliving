@@ -47,6 +47,7 @@ export class NavigationService {
 
     private readonly dashboardStats: DashboardStats[] = [
         {
+            id:1,
             title: 'Total Users',
             value: 2543,
             icon: 'users',
@@ -54,6 +55,7 @@ export class NavigationService {
             trend: { value: 12, isPositive: true }
         },
         {
+            id:2,
             title: 'Active Sessions',
             value: 847,
             icon: 'wifi',
@@ -61,6 +63,7 @@ export class NavigationService {
             trend: { value: 8, isPositive: true }
         },
         {
+            id:3,
             title: 'Revenue',
             value: '$12,845',
             icon: 'dollar sign',
@@ -68,6 +71,7 @@ export class NavigationService {
             trend: { value: 5, isPositive: false }
         },
         {
+            id:4,
             title: 'New Orders',
             value: 156,
             icon: 'shopping cart',

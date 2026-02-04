@@ -17,6 +17,7 @@ export interface UserProfile {
 }
 
 export interface DashboardStats {
+    id: string|number;
     title: string;
     value: string | number;
     icon: string;

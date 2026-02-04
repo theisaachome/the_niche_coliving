@@ -25,7 +25,7 @@ body, ul {
 /* Main should expand to push footer down */
 .app-content {
     flex: 1;
-    padding: 1rem;
+    /*padding: 1rem;*/
 }
 
 

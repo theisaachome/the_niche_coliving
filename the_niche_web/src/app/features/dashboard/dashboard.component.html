@@ -1,2 +1,102 @@
 
 <app-assignment-list></app-assignment-list>
+
+<div class="dashboard-container">
+    <div class="page-header">
+        <h1 class="ui header">
+            <i class="dashboard icon"></i>
+            <div class="content">
+                Dashboard Overview
+                <div class="sub header">Welcome back! Here's what's happening today.</div>
+            </div>
+        </h1>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        @for (stat of stats; track stat.id) {
+            <div class="stat-card" >
+                <div class="stat-icon" [class]="stat.color">
+                    <i class="{{ stat.icon }} icon"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="stat-value">{{ stat.value }}</h3>
+                    <p class="stat-label">{{ stat.title }}</p>
+                    @if (stat.trend) {
+                        <div class="stat-trend">
+                            <i class="{{ stat.trend.isPositive ? 'arrow up' : 'arrow down' }} icon"
+                               [class.positive]="stat.trend.isPositive"
+                               [class.negative]="!stat.trend.isPositive">
+                            </i>
+                            <span [class.positive]="stat.trend.isPositive"
+                                  [class.negative]="!stat.trend.isPositive">
+                             {{ stat.trend.value }}%
+                        </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Charts Section -->
+    <div class="ui grid">
+        <div class="twelve wide column">
+            <div class="ui segment">
+                <h3 class="ui header">
+                    <i class="chart line icon"></i>
+                    Analytics Overview
+                </h3>
+                <div class="chart-placeholder">
+                    <i class="chart bar massive icon"></i>
+                    <p>Chart visualization placeholder</p>
+                    <small>Integrate with Chart.js, D3, or other charting library</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="four wide column">
+            <div class="ui segment">
+                <h3 class="ui header">
+                    <i class="tasks icon"></i>
+                    Quick Stats
+                </h3>
+                <div class="ui statistics tiny">
+                    <div class="statistic">
+                        <div class="value">89%</div>
+                        <div class="label">Performance</div>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui statistics tiny">
+                    <div class="statistic">
+                        <div class="value">256</div>
+                        <div class="label">Tasks Done</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="ui segment">
+        <h3 class="ui header">
+            <i class="history icon"></i>
+            Recent Activity
+        </h3>
+
+        <div class="ui relaxed divided list">
+            @for (activity of recentActivity; track activity.id) {
+                <div class="item" >
+<!--                    <i class="large {{ getActivityIcon(activity.type) }} middle aligned icon"></i>-->
+                    <div class="content">
+                        <div class="header">{{ activity.user }}</div>
+                        <div class="description">
+                            {{ activity.action }} - {{ getRelativeTime(activity.timestamp) }}
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

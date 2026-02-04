@@ -9,14 +9,15 @@
         </button>
 
         <div class="header-title">
-            <h2 class="ui header">Admin Dashboard</h2>
+<!--            <h2 class="ui header">Admin Dashboard</h2>-->
+            <div class="logo">Tenant Management</div>
         </div>
     </div>
 
     <div class="header-right">
         <div class="ui dropdown" id="userDropdown">
             <div class="text user-info" (click)="onProfileClick()">
-                <img class="ui avatar image" src="https://via.placeholder.com/32" alt="User Avatar">
+                <img class="ui avatar image" src="https://placehold.co/60x40/png" alt="User Avatar">
                 <span class="user-name">{{ userProfile().name }}</span>
                 <i class="dropdown icon"></i>
             </div>
@@ -50,3 +51,23 @@
         </div>
     </div>
 </header>
+
+
+<!--
+<header class="app-header">
+    <nav class="nav-bar">
+        <div class="logo">Tenant Management</div>
+        <ul class="nav-links">
+            <li><a routerLink="views" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Views</a></li>
+            <li><a routerLink="tenants" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Tenants</a></li>
+            <li><a routerLink="mods" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Modules</a></li>
+            <li><a routerLink="collections" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Collections</a></li>
+            <li><a routerLink="accounts" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accounts</a></li>
+            <li><a routerLink="finances" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">Finances</a></li>
+            <li><a routerLink="houses" routerLinkActive="active"  [routerLinkActiveOptions]="{exact:true}">House</a></li>
+        </ul>
+       <div class="menu-toggle" (click)="toggleMenu()">☰</div>
+    </nav>
+</header>
+
+-->

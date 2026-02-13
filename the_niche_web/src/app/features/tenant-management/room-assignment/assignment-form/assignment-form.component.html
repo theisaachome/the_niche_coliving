@@ -1,0 +1,28 @@
+
+
+<h3>Assignment Form</h3>
+<!--
+what do I need when a assignment is made
+// get tenant from auto completion
+// house and room (select house and active room )
+// remark or dropdown with new-move in / transfer between room
+-->
+<div class="ui container">
+    <form class="ui  form" [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+            <app-input [label]="'Security Deposit Amount'" [control]="assignmentForm.controls.depositAmount"/>
+        </div>
+
+        <div class="field">
+            <label>Release Start Date</label>
+            <input type="date">
+        </div>
+
+        <div class="field">
+            <label for="">Release End Date</label>
+            <input type="date">
+        </div>
+        <button class="ui right aligned button" type="submit">Submit</button>
+        <button class="ui right aligned button" type="reset">Cancel</button>
+    </form>
+</div>

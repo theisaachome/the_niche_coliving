@@ -6,13 +6,51 @@ what do I need when a assignment is made
 // get tenant from auto completion
 // house and room (select house and active room )
 // remark or dropdown with new-move in / transfer between room
+    assignmentForm = this.formBuilder.group({
+        tenantId: [null, [Validators.required]],
+        houseId: [null, [Validators.required]],
+        roomId: [null, [Validators.required]],
+        releaseStartDate: [null, [Validators.required]],
+        releaseEndDate: [null, [Validators.required]],
+        depositAmount: [null, [Validators.required]],
+        depositStatus: [null, [Validators.required]],
+        notes: [null, [Validators.required]],
+    });
 -->
 <div class="ui container">
     <form class="ui  form" [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
         <div class="field">
             <app-input [label]="'Security Deposit Amount'" [control]="assignmentForm.controls.depositAmount"/>
         </div>
+        <div class="three fields">
+            <div class="field">
+                <label for="country">Select House</label>
+                <select
+                        id="country"
+                        class="ui search dropdown"
+                        formControlName="country_name"
+                        (change)="onCountryChange($event)"  >
+                    <option *ngFor="let country of counties;" [value]="country.isoCode">
+                        {{country.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="cityName">Select City</label>
+                <select
+                        id="cityName"
+                        class="ui search dropdown"
+                        formControlName="city_name"
+                >
+                    <option [ngValue]="null">-- Select City --</option>
+                    <option *ngFor="let city of cities;" [ngValue]="city.name">
+                        {{city.name}}
+                    </option>
+                </select>
+            </div>
+            </div>
 
+        </div>
         <div class="field">
             <label>Release Start Date</label>
             <input type="date">
